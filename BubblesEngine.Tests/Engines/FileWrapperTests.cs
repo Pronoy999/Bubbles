@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.IO;
 using BubblesEngine.Engines;
 using BubblesEngine.Engines.Implementations;
 using Moq;
@@ -71,6 +73,35 @@ namespace BubblesEngine.Tests.Engines
             _domainFs.Setup(fs => fs.CreateDirectory(It.IsAny<string>())).Returns(true);
             var result = _fileWrapper.CreateFolder("some-path");
             Assert.True(result);
+            _domainFs.Verify(fs => fs.CreateDirectory(It.IsAny<string>()), Times.Never);
+        }
+
+        [Fact]
+        public void ShouldListFoldersInADirectoryWithValidPath()
+        {
+            var subFolders = new List<string>
+            {
+                "some-folder-1/some-sub-folder-1",
+                "some-folder-2/some-sub-folder-2",
+                "some-folder-3/some-sub-folder-2",
+            };
+            var expected = new List<string>
+            {
+                "some-sub-folder-1",
+                "some-sub-folder-2",
+                "some-sub-folder-2",
+            };
+            _domainFs.Setup(fs => fs.ListDirectories(It.IsAny<string>())).Returns(subFolders);
+            var result = _fileWrapper.GetDirectories("some-path");
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void ShouldThrowErrorWhenInvalidPathIsPassed()
+        {
+            _domainFs.Setup(fs => fs.ListDirectories(It.IsAny<string>())).Throws(new DirectoryNotFoundException
+                { Source = "Directory not found" });
+            Assert.Throws<DirectoryNotFoundException>(() => _fileWrapper.GetDirectories("some-invalid-path"));
         }
     }
 }

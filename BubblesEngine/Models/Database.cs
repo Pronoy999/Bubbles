@@ -1,8 +1,10 @@
+using System.Collections.Generic;
+
 namespace BubblesEngine.Models
 {
     public class Database
     {
         public string DatabaseName { get; set; }
-        public Graph[] Graphs { get; set; }
+        public List<Graph> Graphs { get; set; }
     }
 }

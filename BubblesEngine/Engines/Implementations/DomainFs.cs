@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using BubblesEngine.Helpers;
@@ -49,7 +51,21 @@ namespace BubblesEngine.Engines.Implementations
             catch (IOException e){
                 Logger.LogError(nameof(DomainFs), e.ToString());
             }
+
             return false;
+        }
+
+        public List<string> ListDirectories(string path)
+        {
+            try{
+                if (string.IsNullOrEmpty(path)) return null;
+                return new List<string>(Directory.GetDirectories(path));
+            }
+            catch (Exception e){
+                Logger.LogError(nameof(DomainFs), e.ToString());
+            }
+
+            return null;
         }
     }
 }

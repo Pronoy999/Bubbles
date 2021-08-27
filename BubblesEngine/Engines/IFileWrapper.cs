@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BubblesEngine.Engines
@@ -8,5 +9,6 @@ namespace BubblesEngine.Engines
         public Task<string> GetFileContents(string path);
         public bool IsExists(string path);
         public bool CreateFolder(string path);
+        public List<string> GetDirectories(string path);
     }
 }

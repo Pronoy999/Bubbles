@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BubblesEngine.Engines.Implementations
@@ -29,6 +32,18 @@ namespace BubblesEngine.Engines.Implementations
         public bool CreateFolder(string path)
         {
             return _domainFs.IsExists(path) || _domainFs.CreateDirectory(path);
+        }
+
+        public List<string> GetDirectories(string path)
+        {
+            var directoryNames = new List<string>();
+            var directories = _domainFs.ListDirectories(path);
+            foreach (var oneDir in directories){
+                var names = oneDir.Split(Path.DirectorySeparatorChar);
+                directoryNames.Add(names[^1]);
+            }
+
+            return directoryNames;
         }
     }
 }
