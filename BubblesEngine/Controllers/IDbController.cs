@@ -3,7 +3,7 @@ using BubblesEngine.Models;
 
 namespace BubblesEngine.Controllers
 {
-    public interface IController
+    public interface IDbController
     {
         public bool CreateDatabase(string databaseName);
         public bool CreateGraph(string graphName, string databaseName);

@@ -10,11 +10,11 @@ using Newtonsoft.Json;
 
 namespace BubblesEngine.Controllers.Implementation
 {
-    public class Controller : IController
+    public class DbController : IDbController
     {
         private readonly IFileWrapper _fileWrapper;
 
-        public Controller(IFileWrapper fileWrapper)
+        public DbController(IFileWrapper fileWrapper)
         {
             _fileWrapper = fileWrapper;
         }
