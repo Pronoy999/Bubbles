@@ -49,8 +49,6 @@ namespace BubblesEngine.Controllers.Implementation
 
         public bool CreateGraph(string graphName, string databaseName)
         {
-            var databasePath = GetDatabaseLocation(databaseName);
-            if (!_fileWrapper.IsExists(databasePath)) return false;
             var graphPath = GetGraphLocation(databaseName, graphName);
             return _fileWrapper.CreateFolder(graphPath);
         }
