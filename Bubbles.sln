@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{59B8251D-FADA-4993-A407-425F95C42DFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BubblesEngine", "BubblesEngine\BubblesEngine.csproj", "{5EF160DF-0C9E-435E-8B32-158577BD841B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{26D6EE89-1ED0-49CF-B67C-90BDA0E9CE55}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BubblesEngine.Tests", "BubblesEngine.Tests\BubblesEngine.Tests.csproj", "{E30141E5-4DA2-4C15-8621-7E16821120A8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5EF160DF-0C9E-435E-8B32-158577BD841B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EF160DF-0C9E-435E-8B32-158577BD841B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EF160DF-0C9E-435E-8B32-158577BD841B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EF160DF-0C9E-435E-8B32-158577BD841B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E30141E5-4DA2-4C15-8621-7E16821120A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E30141E5-4DA2-4C15-8621-7E16821120A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E30141E5-4DA2-4C15-8621-7E16821120A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E30141E5-4DA2-4C15-8621-7E16821120A8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5EF160DF-0C9E-435E-8B32-158577BD841B} = {59B8251D-FADA-4993-A407-425F95C42DFC}
+		{E30141E5-4DA2-4C15-8621-7E16821120A8} = {26D6EE89-1ED0-49CF-B67C-90BDA0E9CE55}
+	EndGlobalSection
+EndGlobal
