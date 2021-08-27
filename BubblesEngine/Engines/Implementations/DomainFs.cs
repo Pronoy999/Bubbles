@@ -9,6 +9,7 @@ namespace BubblesEngine.Engines.Implementations
         public async Task<bool> WriteFile(string path, string content)
         {
             try{
+                if (string.IsNullOrEmpty(path) && string.IsNullOrEmpty(content)) return false;
                 await File.WriteAllTextAsync(path, content);
                 return true;
             }
@@ -22,6 +23,7 @@ namespace BubblesEngine.Engines.Implementations
         public async Task<string> ReadFile(string path)
         {
             try{
+                if (string.IsNullOrEmpty(path)) return null;
                 var content = await File.ReadAllTextAsync(path);
                 return content;
             }
