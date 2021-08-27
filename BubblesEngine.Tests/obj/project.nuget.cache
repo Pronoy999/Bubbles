@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "CQuZTT5ij1riMBCu5snafbHkXK29CUxKazvh3GFHjNMjAnC1ke7+c1BN/AJg1deBMCbuHV2DP9X8rEGuTugnnA==",
+  "dgSpecHash": "yCWULKOp/Tm7q9eI+MoKBdRTbrHQGHKPb3vE1RJrWbCGMGvTx+5CCEJfmcF+02ImaDDo2Zsamti9MyqGwLFjVQ==",
   "success": true,
   "projectFilePath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/Bubbles/BubblesEngine.Tests/BubblesEngine.Tests.csproj",
   "expectedPackageFiles": [
     "/Users/pronoymukherjee/.nuget/packages/castle.core/4.4.0/castle.core.4.4.0.nupkg.sha512",
     "/Users/pronoymukherjee/.nuget/packages/coverlet.collector/1.0.1/coverlet.collector.1.0.1.nupkg.sha512",
+    "/Users/pronoymukherjee/.nuget/packages/dotenv.net/3.1.0/dotenv.net.3.1.0.nupkg.sha512",
     "/Users/pronoymukherjee/.nuget/packages/microsoft.codecoverage/16.2.0/microsoft.codecoverage.16.2.0.nupkg.sha512",
     "/Users/pronoymukherjee/.nuget/packages/microsoft.csharp/4.0.1/microsoft.csharp.4.0.1.nupkg.sha512",
     "/Users/pronoymukherjee/.nuget/packages/microsoft.net.test.sdk/16.2.0/microsoft.net.test.sdk.16.2.0.nupkg.sha512",
@@ -64,6 +65,7 @@
     "/Users/pronoymukherjee/.nuget/packages/system.io.filesystem.primitives/4.3.0/system.io.filesystem.primitives.4.3.0.nupkg.sha512",
     "/Users/pronoymukherjee/.nuget/packages/system.linq/4.3.0/system.linq.4.3.0.nupkg.sha512",
     "/Users/pronoymukherjee/.nuget/packages/system.linq.expressions/4.3.0/system.linq.expressions.4.3.0.nupkg.sha512",
+    "/Users/pronoymukherjee/.nuget/packages/system.memory/4.5.4/system.memory.4.5.4.nupkg.sha512",
     "/Users/pronoymukherjee/.nuget/packages/system.net.http/4.3.0/system.net.http.4.3.0.nupkg.sha512",
     "/Users/pronoymukherjee/.nuget/packages/system.net.primitives/4.3.0/system.net.primitives.4.3.0.nupkg.sha512",
     "/Users/pronoymukherjee/.nuget/packages/system.net.sockets/4.3.0/system.net.sockets.4.3.0.nupkg.sha512",

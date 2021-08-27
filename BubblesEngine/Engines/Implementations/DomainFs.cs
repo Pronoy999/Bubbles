@@ -38,5 +38,18 @@ namespace BubblesEngine.Engines.Implementations
         {
             return File.Exists(path);
         }
+
+        public bool CreateDirectory(string path)
+        {
+            try{
+                if (string.IsNullOrEmpty(path)) return false;
+                Directory.CreateDirectory(path);
+                return true;
+            }
+            catch (IOException e){
+                Logger.LogError(nameof(DomainFs), e.ToString());
+            }
+            return false;
+        }
     }
 }

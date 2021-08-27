@@ -1,7 +1,7 @@
 namespace BubblesEngine.Helpers
 {
-    public class Constants
+    public static class Constants
     {
-        
+        public static readonly string DbRootFolderKey = "DB_ROOT_FOLDER";
     }
 }

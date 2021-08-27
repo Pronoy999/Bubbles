@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "58WgBDYdgMNWT1ufp1b0FSFPIXpYw2WTVDz+qoxuVEdpj/J4Be1JaQfjF4Z4IHSa1FoDLlpeAxeL/UvzUKOg1A==",
+  "dgSpecHash": "oy1ROoVYQRU/9oE9/NS7lHLnYpbISVtK8nbjKlX2T7DaEvr2anjqWnJooYwxhL92Ji0jc7671svE14aAn2+w3Q==",
   "success": true,
   "projectFilePath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/Bubbles/BubblesEngine/BubblesEngine.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/Users/pronoymukherjee/.nuget/packages/dotenv.net/3.1.0/dotenv.net.3.1.0.nupkg.sha512",
+    "/Users/pronoymukherjee/.nuget/packages/system.memory/4.5.4/system.memory.4.5.4.nupkg.sha512"
+  ],
   "logs": []
 }

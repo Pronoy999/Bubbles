@@ -2,7 +2,7 @@ using System;
 
 namespace BubblesEngine.Helpers
 {
-    public class Logger
+    public static class Logger
     {
         public static void LogInformation(string tag, string content)
         {
