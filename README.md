@@ -1,3 +1,5 @@
+![example workflow](https://github.com/Pronoy999/Bubbles/actions/workflows/dotnet.yml/badge.svg)
+
 # Bubbles
 A light weight graph database.
 The core of a simple graph based database engine. The data is stored in memory in a graph based data structure with Node and Relationship between nodes being the main storage enitites for the data. A node represents a unit of data stoage while a relationship represents the semantic link between two nodes. The detailed core desgin of the database is elaborated below.
