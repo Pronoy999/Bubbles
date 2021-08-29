@@ -114,11 +114,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/Bubbles/BubblesEngine/BubblesEngine.csproj",
+      "projectUniqueName": "/Users/pronoymukherjee/Documents/WorkFolder/DotNetCore_Applications/Bubbles/BubblesEngine/BubblesEngine.csproj",
       "projectName": "BubblesEngine",
-      "projectPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/Bubbles/BubblesEngine/BubblesEngine.csproj",
+      "projectPath": "/Users/pronoymukherjee/Documents/WorkFolder/DotNetCore_Applications/Bubbles/BubblesEngine/BubblesEngine.csproj",
       "packagesPath": "/Users/pronoymukherjee/.nuget/packages/",
-      "outputPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/Bubbles/BubblesEngine/obj/",
+      "outputPath": "/Users/pronoymukherjee/Documents/WorkFolder/DotNetCore_Applications/Bubbles/BubblesEngine/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/pronoymukherjee/.nuget/NuGet/NuGet.Config"
@@ -127,11 +127,11 @@
         "netcoreapp3.1"
       ],
       "sources": {
-        "https://api.nuget.org/v3/index.json": {},
-        "https://proget.rxweb-tools.com/nuget/Default": {}
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "projectReferences": {}
         }
       },
@@ -143,6 +143,7 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
+        "targetAlias": "netcoreapp3.1",
         "dependencies": {
           "Newtonsoft.Json": {
             "target": "Package",
@@ -163,12 +164,18 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[3.1.10, 3.1.10]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.100/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.400/RuntimeIdentifierGraph.json"
       }
     }
   }

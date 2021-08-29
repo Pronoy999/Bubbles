@@ -3,10 +3,10 @@ using Newtonsoft.Json;
 
 namespace BubblesEngine.Models
 {
-    public class Graph
+    public class Type
     {
-        public string GraphName { get; set; }
-        public List<Node> Nodes { get; set; }
+        public List<string> NodeIds { get; set; }
+        public string TypeName { get; set; }
 
         public override string ToString()
         {

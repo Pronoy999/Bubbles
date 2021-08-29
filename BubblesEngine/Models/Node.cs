@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace BubblesEngine.Models
 {
     public class Node
@@ -6,5 +8,10 @@ namespace BubblesEngine.Models
         public dynamic Data { get; set; }
         public string Type { get; set; }
         public Relationship[] Relationships { get; set; }
+
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this);
+        }
     }
 }

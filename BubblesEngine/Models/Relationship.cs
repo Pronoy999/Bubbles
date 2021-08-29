@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace BubblesEngine.Models
 {
     public class Relationship
@@ -7,5 +9,10 @@ namespace BubblesEngine.Models
         public string RightNodeId { get; set; }
         public string Type { get; set; }
         public dynamic Data { get; set; }
+
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this);
+        }
     }
 }
