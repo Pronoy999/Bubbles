@@ -103,5 +103,31 @@ namespace BubblesEngine.Tests.Engines
                 { Source = "Directory not found" });
             Assert.Throws<DirectoryNotFoundException>(() => _fileWrapper.GetDirectories("some-invalid-path"));
         }
+
+        [Fact]
+        public void ShouldListFilesWhenValidPathIsPassed()
+        {
+            var listOfFiles = new List<string>
+            {
+                "/some-path/guid-1.json",
+                "/some-path/guid-2.json"
+            };
+            var expected = new List<string>
+            {
+                "guid-1.json",
+                "guid-2.json"
+            };
+            _domainFs.Setup(fs => fs.ListFiles(It.IsAny<string>())).Returns(listOfFiles);
+            var result = _fileWrapper.GetFiles("some-path");
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void ShouldNotListFilesWhenInvalidPathIsPassed()
+        {
+            _domainFs.Setup(fs => fs.ListFiles(It.IsAny<string>())).Returns((List<string>?)null);
+            var result = _fileWrapper.GetFiles(null);
+            Assert.IsType<List<string>>(result);
+        }
     }
 }

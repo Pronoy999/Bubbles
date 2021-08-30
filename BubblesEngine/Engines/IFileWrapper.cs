@@ -10,5 +10,6 @@ namespace BubblesEngine.Engines
         public bool IsExists(string path);
         public bool CreateFolder(string path);
         public List<string> GetDirectories(string path);
+        public List<string> GetFiles(string path);
     }
 }

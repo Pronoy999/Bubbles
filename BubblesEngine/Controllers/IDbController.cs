@@ -9,7 +9,7 @@ namespace BubblesEngine.Controllers
         public bool CreateGraph(string graphName, string databaseName);
         public Task<bool> CreateNode(string databaseName, string graphName, string type, dynamic data);
         public Database GetDatabase(string databaseName);
-        public Graph GetGraph(string graphName);
+        public Graph GetGraph(string databaseName, string graphName);
         public Node GetNode(string nodeId);
     }
 }

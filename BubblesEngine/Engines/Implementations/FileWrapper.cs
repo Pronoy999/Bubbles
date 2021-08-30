@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace BubblesEngine.Engines.Implementations
@@ -38,12 +37,26 @@ namespace BubblesEngine.Engines.Implementations
         {
             var directoryNames = new List<string>();
             var directories = _domainFs.ListDirectories(path);
-            foreach (var oneDir in directories){
-                var names = oneDir.Split(Path.DirectorySeparatorChar);
-                directoryNames.Add(names[^1]);
-            }
+            if (directories != null)
+                foreach (var oneDir in directories){
+                    var names = oneDir.Split(Path.DirectorySeparatorChar);
+                    directoryNames.Add(names[^1]);
+                }
 
             return directoryNames;
+        }
+
+        public List<string> GetFiles(string path)
+        {
+            var filesNames = new List<string>();
+            var files = _domainFs.ListFiles(path);
+            if (files != null)
+                foreach (var oneFile in files){
+                    var names = oneFile.Split(Path.DirectorySeparatorChar);
+                    filesNames.Add(names[^1]);
+                }
+
+            return filesNames;
         }
     }
 }

@@ -55,13 +55,25 @@ namespace BubblesEngine.Engines.Implementations
             return false;
         }
 
-        public List<string> ListDirectories(string path)
+        public List<string>? ListDirectories(string path)
         {
             try{
                 if (string.IsNullOrEmpty(path)) return null;
                 return new List<string>(Directory.GetDirectories(path));
             }
             catch (Exception e){
+                Logger.LogError(nameof(DomainFs), e.ToString());
+            }
+
+            return null;
+        }
+
+        public List<string>? ListFiles(string path)
+        {
+            try{
+                return string.IsNullOrEmpty(path) ? new List<string>() : new List<string>(Directory.GetFiles(path));
+            }
+            catch (IOException e){
                 Logger.LogError(nameof(DomainFs), e.ToString());
             }
 

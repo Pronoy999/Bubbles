@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using BubblesEngine.Engines;
 using BubblesEngine.Exceptions;
-using BubblesEngine.Exceptions.ErrorMessages;
 using BubblesEngine.Helpers;
 using BubblesEngine.Models;
 using dotenv.net.Utilities;
@@ -29,7 +28,8 @@ namespace BubblesEngine.Controllers.Implementation
 
         private string GetGraphLocation(string databaseName, string graphName)
         {
-            return GetDatabaseLocation(databaseName) + Path.DirectorySeparatorChar + graphName;
+            return GetDatabaseLocation(databaseName) + Path.DirectorySeparatorChar + Constants.GraphFolderName +
+                   Path.DirectorySeparatorChar + graphName;
         }
 
         private string GetTypeLocation(string databaseName, string graphName, string type)
@@ -45,14 +45,12 @@ namespace BubblesEngine.Controllers.Implementation
 
         private async Task CheckAndCreateTypeFile(string location, string typeName, string nodeId)
         {
-            if (!_fileWrapper.IsExists(location))
-            {
+            if (!_fileWrapper.IsExists(location)){
                 _fileWrapper.CreateFolder(location);
             }
 
             var typeFileLocation = location + Path.DirectorySeparatorChar + typeName + "." + Constants.FileExtension;
-            if (!_fileWrapper.IsExists(typeFileLocation))
-            {
+            if (!_fileWrapper.IsExists(typeFileLocation)){
                 var type = new Type
                 {
                     NodeIds = new List<string>
@@ -64,7 +62,7 @@ namespace BubblesEngine.Controllers.Implementation
                 var isCreated = await _fileWrapper.CreateFile(location, type.ToString());
                 if (!isCreated)
                     throw new BubblesException(
-                        new TypesCouldNotBeCreatedException(ErrorMessages.TypeCouldNotBeCreated));
+                        new TypesCouldNotBeCreatedException());
                 return;
             }
 
@@ -75,8 +73,7 @@ namespace BubblesEngine.Controllers.Implementation
         {
             var content = await _fileWrapper.GetFileContents(location);
             var type = JsonConvert.DeserializeObject<Type>(content);
-            if (type == null)
-            {
+            if (type == null){
                 type = new Type
                 {
                     TypeName = typeName,
@@ -105,7 +102,7 @@ namespace BubblesEngine.Controllers.Implementation
         {
             var graphLocation = GetGraphLocation(databaseName, graphName);
             if (!_fileWrapper.IsExists(graphLocation))
-                throw new BubblesException(new GraphNotExistsException(ErrorMessages.GraphNotFound));
+                throw new BubblesException(new GraphNotFoundException());
 
             var typesFolderPath = GetTypeLocation(databaseName, graphName, type);
             var nodeId = Utils.GenerateNodeId(graphName);
@@ -123,11 +120,13 @@ namespace BubblesEngine.Controllers.Implementation
 
         public Database GetDatabase(string databaseName)
         {
+            if (string.IsNullOrEmpty(databaseName))
+                throw new BubblesException(new DatabaseNotFoundException());
             var dbPath = GetDatabaseLocation(databaseName);
-            if (!_fileWrapper.IsExists(dbPath)) return null;
+            if (!_fileWrapper.IsExists(dbPath)) throw new BubblesException(new DatabaseNotFoundException());
             var graphNames = _fileWrapper.GetDirectories(dbPath);
 
-            var graphs = graphNames.Select(oneGraph => new Graph {GraphName = oneGraph}).ToList();
+            var graphs = graphNames.Select(oneGraph => new Graph { GraphName = oneGraph }).ToList();
             return new Database
             {
                 DatabaseName = databaseName,
@@ -135,9 +134,20 @@ namespace BubblesEngine.Controllers.Implementation
             };
         }
 
-        public Graph GetGraph(string graphName)
+        public Graph GetGraph(string databaseName, string graphName)
         {
-            throw new System.NotImplementedException();
+            if (string.IsNullOrEmpty(databaseName) || string.IsNullOrEmpty(graphName))
+                throw new BubblesException(new GraphNotFoundException());
+            var location = GetGraphLocation(databaseName, graphName);
+            if (!_fileWrapper.IsExists(location))
+                throw new BubblesException(new GraphNotFoundException());
+            var nodesIds = _fileWrapper.GetFiles(location);
+            var nodes = nodesIds.Select(oneNodeFile => new Node { Id = oneNodeFile.Split(".")[0] }).ToList();
+            return new Graph
+            {
+                GraphName = graphName,
+                Nodes = nodes
+            };
         }
 
         public Node GetNode(string nodeId)

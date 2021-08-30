@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/pronoymukherjee/Documents/Repositories/Bubbles/Bubbles/BubblesEngine.Tests/BubblesEngine.Tests.csproj": {}
+    "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine.Tests/BubblesEngine.Tests.csproj": {}
   },
   "projects": {
-    "/Users/pronoymukherjee/Documents/Repositories/Bubbles/Bubbles/BubblesEngine.Tests/BubblesEngine.Tests.csproj": {
+    "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine.Tests/BubblesEngine.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/Bubbles/BubblesEngine.Tests/BubblesEngine.Tests.csproj",
+        "projectUniqueName": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine.Tests/BubblesEngine.Tests.csproj",
         "projectName": "BubblesEngine.Tests",
-        "projectPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/Bubbles/BubblesEngine.Tests/BubblesEngine.Tests.csproj",
+        "projectPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine.Tests/BubblesEngine.Tests.csproj",
         "packagesPath": "/Users/pronoymukherjee/.nuget/packages/",
-        "outputPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/Bubbles/BubblesEngine.Tests/obj/",
+        "outputPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine.Tests/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/pronoymukherjee/.nuget/NuGet/NuGet.Config"
@@ -26,8 +26,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "/Users/pronoymukherjee/Documents/Repositories/Bubbles/Bubbles/BubblesEngine/BubblesEngine.csproj": {
-                "projectPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/Bubbles/BubblesEngine/BubblesEngine.csproj"
+              "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine/BubblesEngine.csproj": {
+                "projectPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine/BubblesEngine.csproj"
               }
             }
           }
@@ -81,14 +81,14 @@
         }
       }
     },
-    "/Users/pronoymukherjee/Documents/Repositories/Bubbles/Bubbles/BubblesEngine/BubblesEngine.csproj": {
+    "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine/BubblesEngine.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/Bubbles/BubblesEngine/BubblesEngine.csproj",
+        "projectUniqueName": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine/BubblesEngine.csproj",
         "projectName": "BubblesEngine",
-        "projectPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/Bubbles/BubblesEngine/BubblesEngine.csproj",
+        "projectPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine/BubblesEngine.csproj",
         "packagesPath": "/Users/pronoymukherjee/.nuget/packages/",
-        "outputPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/Bubbles/BubblesEngine/obj/",
+        "outputPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/pronoymukherjee/.nuget/NuGet/NuGet.Config"

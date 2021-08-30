@@ -1,10 +1,13 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using BubblesEngine.Controllers.Implementation;
 using BubblesEngine.Engines;
 using BubblesEngine.Exceptions;
 using BubblesEngine.Helpers;
+using BubblesEngine.Models;
 using Moq;
+using Newtonsoft.Json;
 using Xunit;
 
 namespace BubblesEngine.Tests.Controllers
@@ -69,7 +72,8 @@ namespace BubblesEngine.Tests.Controllers
             const string nodeData = "{data:Hello world}";
 
             var path = Environment.GetEnvironmentVariable(Constants.DbRootFolderKey) + Path.DirectorySeparatorChar +
-                       dbName + Path.DirectorySeparatorChar + graphName;
+                       dbName + Path.DirectorySeparatorChar + Constants.GraphFolderName + Path.DirectorySeparatorChar +
+                       graphName;
             _fileWrapper.Setup(fs => fs.IsExists(It.Is<string>(x => x == path))).Returns(true);
             _fileWrapper.Setup(fs => fs.CreateFile(It.IsAny<string>(), It.IsAny<string>()))
                 .ReturnsAsync(true);
@@ -92,7 +96,8 @@ namespace BubblesEngine.Tests.Controllers
             const string typesData = "{\"NodeIds\":[\"guid-1\",\"guid-2\"],\"TypeName\":\"Person\"}";
 
             var path = Environment.GetEnvironmentVariable(Constants.DbRootFolderKey) + Path.DirectorySeparatorChar +
-                       dbName + Path.DirectorySeparatorChar + graphName;
+                       dbName + Path.DirectorySeparatorChar + Constants.GraphFolderName + Path.DirectorySeparatorChar +
+                       graphName;
             _fileWrapper.Setup(fs => fs.IsExists(path)).Returns(true);
             _fileWrapper.Setup(fs => fs.CreateFile(It.IsAny<string>(), It.IsAny<string>()))
                 .ReturnsAsync(true);
@@ -114,7 +119,8 @@ namespace BubblesEngine.Tests.Controllers
             const string dbName = "some-valid-db";
             const string graphName = "some-valid-graph";
             var path = Environment.GetEnvironmentVariable(Constants.DbRootFolderKey) + Path.DirectorySeparatorChar +
-                       dbName + Path.DirectorySeparatorChar + graphName;
+                       dbName + Path.DirectorySeparatorChar + Constants.GraphFolderName + Path.DirectorySeparatorChar +
+                       graphName;
             _fileWrapper.Setup(fs => fs.IsExists(path)).Returns(false);
 
             await Assert.ThrowsAsync<BubblesException>(() =>
@@ -122,6 +128,47 @@ namespace BubblesEngine.Tests.Controllers
 
             _fileWrapper.Verify(fs => fs.CreateFile(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
             _fileWrapper.Verify(fs => fs.CreateFolder(It.IsAny<string>()), Times.Never);
+        }
+
+        [Fact]
+        public void ShouldReturnGraphWhenValidDatabaseAndGraphNameIsPassed()
+        {
+            const string graphName = "some-graph";
+            const string databaseName = "some-db";
+
+            var listOfNodes = new List<string>
+            {
+                "guid-1.json",
+                "guid-2.json"
+            };
+            var expectedGraph = new Graph
+            {
+                GraphName = graphName,
+                Nodes = new List<Node>
+                {
+                    new Node
+                    {
+                        Id = "guid-1"
+                    },
+                    new Node
+                    {
+                        Id = "guid-2"
+                    }
+                }
+            };
+            _fileWrapper.Setup(fs => fs.IsExists(It.IsAny<string>())).Returns(true);
+            _fileWrapper.Setup(fs => fs.GetFiles(It.IsAny<string>())).Returns(listOfNodes);
+            var actualGraph = _controller.GetGraph(databaseName, graphName);
+            var expected = JsonConvert.SerializeObject(expectedGraph);
+            var actual = JsonConvert.SerializeObject(actualGraph);
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenInvalidGraphNameIsPassed()
+        {
+            _fileWrapper.Setup(fs => fs.IsExists(It.IsAny<string>())).Returns(false);
+            Assert.Throws<BubblesException>(() => _controller.GetGraph(null, null));
         }
     }
 }
