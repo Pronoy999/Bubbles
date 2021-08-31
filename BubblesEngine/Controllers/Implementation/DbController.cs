@@ -150,9 +150,20 @@ namespace BubblesEngine.Controllers.Implementation
             };
         }
 
-        public Node GetNode(string nodeId)
+        public async Task<Node> GetNode(string database, string graphName, string nodeId)
         {
-            throw new System.NotImplementedException();
+            if (string.IsNullOrEmpty(database) || string.IsNullOrEmpty(graphName) || string.IsNullOrEmpty(nodeId)){
+                throw new BubblesException(new NodeNotFoundException());
+            }
+
+            var location = GetNodeLocation(database, graphName, nodeId);
+            if (!_fileWrapper.IsExists(location)) throw new BubblesException(new NodeNotFoundException());
+            var nodeData = await _fileWrapper.GetFileContents(location);
+            if (nodeData == null){
+                throw new BubblesException(new NodeNotFoundException());
+            }
+
+            return JsonConvert.DeserializeObject<Node>(nodeData)!;
         }
     }
 }

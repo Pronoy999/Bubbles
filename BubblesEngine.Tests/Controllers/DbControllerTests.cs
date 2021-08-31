@@ -170,5 +170,33 @@ namespace BubblesEngine.Tests.Controllers
             _fileWrapper.Setup(fs => fs.IsExists(It.IsAny<string>())).Returns(false);
             Assert.Throws<BubblesException>(() => _controller.GetGraph(null, null));
         }
+
+        [Fact]
+        public async void ShouldReturnNodeDataWhenValidParametersArePassed()
+        {
+            var expectedNode = new Node
+            {
+                Id = "guid-1",
+                Data = "{}",
+                Type = "Person"
+            };
+            var expected = JsonConvert.SerializeObject(expectedNode);
+            _fileWrapper.Setup(fs => fs.IsExists(It.IsAny<string>())).Returns(true);
+            _fileWrapper.Setup(fs => fs.GetFileContents(It.IsAny<string>()))
+                .ReturnsAsync(expected);
+
+            var result = await _controller.GetNode("some-db", "some-graph", "guid-1");
+
+            var actual = JsonConvert.SerializeObject(result);
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public async void ShouldThrowExceptionWhenInvalidParametersArePassed()
+        {
+            _fileWrapper.Setup(fs => fs.IsExists(It.IsAny<string>())).Returns(false);
+            await Assert.ThrowsAsync<BubblesException>(
+                () => _controller.GetNode("some-db", "some-graph", "guid-1"));
+        }
     }
 }
