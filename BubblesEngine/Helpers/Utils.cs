@@ -8,5 +8,10 @@ namespace BubblesEngine.Helpers
         {
             return graphName + "-node-" + Guid.NewGuid();
         }
+
+        public static string GenerateRelationshipId()
+        {
+            return "rs-" + Guid.NewGuid();
+        }
     }
 }

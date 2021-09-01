@@ -171,9 +171,52 @@ namespace BubblesEngine.Controllers.Implementation
             return JsonConvert.DeserializeObject<Node>(nodeData)!;
         }
 
-        public Task<Node> ConnectNode(string database,string leftNodeId, string rightNodeId, string relationshipType, dynamic data)
+        public async Task<Relationship> ConnectNode(string database, string leftNodeId, string rightNodeId,
+            string relationshipType,
+            dynamic data)
         {
-            throw new System.NotImplementedException();
+            var dbLocation = GetDatabaseLocation(database);
+            if (!_fileWrapper.IsExists(dbLocation))
+                throw new BubblesException(new DatabaseNotFoundException());
+            var leftNodeLocation = _fileWrapper.SearchFiles(dbLocation, leftNodeId + "." + Constants.FileExtension);
+            var rightNodeLocation = _fileWrapper.SearchFiles(dbLocation, rightNodeId + "." + Constants.FileExtension);
+            if (string.IsNullOrEmpty(leftNodeLocation) || string.IsNullOrEmpty(rightNodeLocation))
+                throw new BubblesException(new NodeNotFoundException());
+            var relationshipId = Utils.GenerateRelationshipId();
+            var relationshipLocation = GetRelationshipLocation(database);
+            Relationship relationship = new Relationship
+            {
+                Data = data,
+                Id = relationshipId,
+                LeftNodeId = leftNodeId,
+                RightNodeId = rightNodeId,
+                Type = relationshipType
+            };
+            await _fileWrapper.CreateFile(
+                relationshipLocation + Path.DirectorySeparatorChar + relationshipId + "." + Constants.FileExtension,
+                relationship.ToString());
+            var relationshipTypeFolderLocation = GetRelationshipLocation(database) + Path.DirectorySeparatorChar +
+                                                 Constants.TypesFolderName;
+            if (!_fileWrapper.IsExists(relationshipTypeFolderLocation))
+                _fileWrapper.CreateFolder(relationshipTypeFolderLocation);
+            var relationshipTypeFileLocation = relationshipTypeFolderLocation + Path.DirectorySeparatorChar +
+                                               relationshipType + "." + Constants.FileExtension;
+            RelationshipType relationshipTypeData;
+            if (!_fileWrapper.IsExists(relationshipTypeFileLocation)){
+                relationshipTypeData = new RelationshipType
+                {
+                    RelationshipIds = new List<string>()
+                };
+            }
+            else{
+                relationshipTypeData =
+                    JsonConvert.DeserializeObject<RelationshipType>(
+                        await _fileWrapper.GetFileContents(relationshipTypeFileLocation))!;
+            }
+
+            relationshipTypeData.RelationshipIds.Add(relationshipId);
+            await _fileWrapper.CreateFile(relationshipTypeFileLocation, relationshipTypeData.ToString());
+            return relationship;
         }
     }
 }

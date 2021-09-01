@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using BubblesEngine.Controllers.Implementation;
 using BubblesEngine.Engines;
 using BubblesEngine.Exceptions;
@@ -197,6 +198,93 @@ namespace BubblesEngine.Tests.Controllers
             _fileWrapper.Setup(fs => fs.IsExists(It.IsAny<string>())).Returns(false);
             await Assert.ThrowsAsync<BubblesException>(
                 () => _controller.GetNode("some-db", "some-graph", "guid-1"));
+        }
+
+        [Fact]
+        public async Task ShouldConnectNodesWhenValidNodeIdsArePassedAndCreateFolderForTypesAndRelationshipFiles()
+        {
+            const string dbPath = "/some-folder/some-db";
+            const string leftNodeId = "guid-1";
+            const string rightNodeId = "guid-2";
+            const string leftNodeIdPath = "/some-folder/some-db/graphs/some-graph/" + leftNodeId + ".json";
+            const string rightNodeIdPath = "/some-folder/some-db/graphs/some-graph-2/" + rightNodeId + ".json";
+            const string relationshipFolderLocation = "/some-folder/some-db/relationships/types";
+            const string relationshipTypeFileLocation = "some-folder/some-db/relationships/types/Is_Brother_of.json";
+
+            var expectedRelationship = new Relationship
+            {
+                LeftNodeId = "guid-1",
+                RightNodeId = "guid-2",
+                Type = "Is_Brother_of"
+            };
+
+            _fileWrapper.Setup(fs => fs.IsExists(It.Is<string>(x => x == dbPath))).Returns(true);
+            _fileWrapper.Setup(fs => fs.SearchFiles(It.IsAny<string>(),
+                    It.Is<string>(x => x == leftNodeId + ".json")))
+                .Returns(leftNodeIdPath);
+            _fileWrapper.Setup(fs => fs.SearchFiles(It.IsAny<string>(),
+                    It.Is<string>(x => x == rightNodeId + ".json")))
+                .Returns(rightNodeIdPath);
+            _fileWrapper.Setup(fs => fs.CreateFile(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(true);
+            _fileWrapper.Setup(fs => fs.IsExists(It.Is<string>(x => x == relationshipFolderLocation))).Returns(false);
+            _fileWrapper.Setup(fs => fs.CreateFolder(It.IsAny<string>())).Returns(true);
+            _fileWrapper.Setup(fs => fs.IsExists(It.Is<string>(x => x == relationshipTypeFileLocation))).Returns(false);
+
+            var result = await _controller.ConnectNode("some-db", "guid-1", "guid-2", "Is_Brother_of", "{}");
+
+            Assert.Equal(expectedRelationship.LeftNodeId, result.LeftNodeId);
+            Assert.Equal(expectedRelationship.RightNodeId, result.RightNodeId);
+            Assert.Equal(expectedRelationship.Type, result.Type);
+
+            _fileWrapper.Verify(fs => fs.CreateFile(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
+            _fileWrapper.Verify(fs => fs.CreateFolder(It.IsAny<string>()), Times.Once);
+        }
+
+        [Fact]
+        public async Task ShouldConnectNodesWhenValidNodeIdsArePassedAndNotCreateFolderForTypesAndRelationshipFiles()
+        {
+            const string dbPath = "/some-folder/some-db";
+            const string leftNodeId = "guid-1";
+            const string rightNodeId = "guid-2";
+            const string leftNodeIdPath = "/some-path/some-db/graphs/some-graph/" + leftNodeId + ".json";
+            const string rightNodeIdPath = "/some-path/some-db/graphs/some-graph-2/" + rightNodeId + ".json";
+            const string relationshipTypesFolderLocation = "/some-folder/some-db/relationships/types";
+            const string relationshipTypeFileLocation = "/some-folder/some-db/relationships/types/Is_Brother_of.json";
+
+            var expectedRelationship = new Relationship
+            {
+                LeftNodeId = "guid-1",
+                RightNodeId = "guid-2",
+                Type = "Is_Brother_of"
+            };
+            var relationshipType = new RelationshipType
+            {
+                RelationshipIds = new List<string> { "guid-3" }
+            };
+
+            _fileWrapper.Setup(fs => fs.IsExists(It.Is<string>(x => x == dbPath))).Returns(true);
+            _fileWrapper.Setup(fs => fs.SearchFiles(It.IsAny<string>(),
+                    It.Is<string>(x => x == leftNodeId + ".json")))
+                .Returns(leftNodeIdPath);
+            _fileWrapper.Setup(fs => fs.SearchFiles(It.IsAny<string>(),
+                    It.Is<string>(x => x == rightNodeId + ".json")))
+                .Returns(rightNodeIdPath);
+            _fileWrapper.Setup(fs => fs.CreateFile(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(true);
+            _fileWrapper.Setup(fs => fs.IsExists(It.Is<string>(x => x == relationshipTypesFolderLocation)))
+                .Returns(true);
+            _fileWrapper.Setup(fs => fs.IsExists(It.Is<string>(x => x == relationshipTypeFileLocation))).Returns(true);
+            _fileWrapper.Setup(fs => fs.GetFileContents(It.IsAny<string>()))
+                .ReturnsAsync(JsonConvert.SerializeObject(relationshipType));
+
+            var result = await _controller.ConnectNode("some-db", "guid-1", "guid-2", "Is_Brother_of", "{}");
+
+            Assert.Equal(expectedRelationship.LeftNodeId, result.LeftNodeId);
+            Assert.Equal(expectedRelationship.RightNodeId, result.RightNodeId);
+            Assert.Equal(expectedRelationship.Type, result.Type);
+
+            _fileWrapper.Verify(fs => fs.CreateFile(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
+            _fileWrapper.Verify(fs => fs.CreateFolder(It.IsAny<string>()), Times.Never);
+            _fileWrapper.Verify(fs => fs.GetFileContents(It.IsAny<string>()), Times.Once);
         }
     }
 }
