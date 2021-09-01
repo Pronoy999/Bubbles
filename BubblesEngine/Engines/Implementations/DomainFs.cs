@@ -79,5 +79,19 @@ namespace BubblesEngine.Engines.Implementations
 
             return null;
         }
+
+        public List<string>? SearchFiles(string path, string pattern)
+        {
+            try{
+                return string.IsNullOrEmpty(path)
+                    ? new List<string>()
+                    : new List<string>(Directory.GetFiles(path, pattern, SearchOption.AllDirectories));
+            }
+            catch (IOException e){
+                Logger.LogError(nameof(DomainFs), e.ToString());
+            }
+
+            return null;
+        }
     }
 }

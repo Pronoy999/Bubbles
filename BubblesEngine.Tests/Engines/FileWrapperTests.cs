@@ -129,5 +129,30 @@ namespace BubblesEngine.Tests.Engines
             var result = _fileWrapper.GetFiles(null);
             Assert.IsType<List<string>>(result);
         }
+
+        [Fact]
+        public void ShouldSearchForFilesWhenExists()
+        {
+            var listOfFiles = new List<string>
+            {
+                "/some-path/guid-1.json",
+                "/some-path/guid-2.json"
+            };
+            const string searchedFile = "guid-1.json";
+            const string expectedResult = "/some-path/guid-1.json";
+            _domainFs.Setup(fs => fs.SearchFiles(It.IsAny<string>(), It.IsAny<string>())).Returns(listOfFiles);
+            var result = _fileWrapper.SearchFiles("some-path", searchedFile);
+            Assert.Equal(expectedResult, result);
+        }
+
+        [Fact]
+        public void ShouldReturnEmptyWhenFileDoesNotExists()
+        {
+            var listOfFiles = new List<string>();
+            const string searchedFile = "guid-3.json";
+            _domainFs.Setup(fs => fs.SearchFiles(It.IsAny<string>(), It.IsAny<string>())).Returns(listOfFiles);
+            var result = _fileWrapper.SearchFiles("some-path", searchedFile);
+            Assert.Equal(string.Empty, result);
+        }
     }
 }

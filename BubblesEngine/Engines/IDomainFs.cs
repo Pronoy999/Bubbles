@@ -11,5 +11,6 @@ namespace BubblesEngine.Engines
         public bool CreateDirectory(string path);
         public List<string>? ListDirectories(string path);
         public List<string>? ListFiles(string path);
+        public List<string>? SearchFiles(string path, string pattern);
     }
 }

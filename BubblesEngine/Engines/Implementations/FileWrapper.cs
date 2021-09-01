@@ -58,5 +58,18 @@ namespace BubblesEngine.Engines.Implementations
 
             return filesNames;
         }
+
+        public string SearchFiles(string path, string fileName)
+        {
+            var files = _domainFs.SearchFiles(path, "*.json");
+            if (files == null) return string.Empty;
+            foreach (var oneFile in files){
+                var name = oneFile.Split(Path.DirectorySeparatorChar)[^1];
+                if (name.Equals(fileName))
+                    return oneFile;
+            }
+
+            return string.Empty;
+        }
     }
 }

@@ -43,6 +43,11 @@ namespace BubblesEngine.Controllers.Implementation
             return GetGraphLocation(database, graphName) + Path.DirectorySeparatorChar + nodeId;
         }
 
+        private string GetRelationshipLocation(string databaseName)
+        {
+            return GetDatabaseLocation(databaseName) + Path.DirectorySeparatorChar + Constants.RelationshipFolderName;
+        }
+
         private async Task CheckAndCreateTypeFile(string location, string typeName, string nodeId)
         {
             if (!_fileWrapper.IsExists(location)){
@@ -164,6 +169,11 @@ namespace BubblesEngine.Controllers.Implementation
             }
 
             return JsonConvert.DeserializeObject<Node>(nodeData)!;
+        }
+
+        public Task<Node> ConnectNode(string database,string leftNodeId, string rightNodeId, string relationshipType, dynamic data)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

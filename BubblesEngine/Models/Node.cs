@@ -6,8 +6,8 @@ namespace BubblesEngine.Models
     {
         public string Id { get; set; }
         public dynamic Data { get; set; }
-        public string Type { get; set; }
-        public Relationship[] Relationships { get; set; }
+        public string Type { get; set; }    
+        public string[] RelationshipIds { get; set; }
 
         public override string ToString()
         {
