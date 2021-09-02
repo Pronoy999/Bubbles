@@ -2,7 +2,7 @@
 
 # Bubbles
 A light weight graph database.
-The core of a simple graph based database engine. The data is stored in memory in a graph based data structure with Node and Relationship between nodes being the main storage enitites for the data. A node represents a unit of data stoage while a relationship represents the semantic link between two nodes. The detailed core desgin of the database is elaborated below.
+The core of a simple graph based database engine. The data is stored in memory in a graph based data structure with Node and Relationship between nodes being the main storage entites for the data. A node represents a unit of data storage while a relationship represents the semantic link between two nodes. The detailed core desgin of the database is elaborated below.
 
 ## Core design
 <br>
