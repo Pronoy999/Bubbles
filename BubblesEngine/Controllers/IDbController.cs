@@ -11,6 +11,10 @@ namespace BubblesEngine.Controllers
         public Database GetDatabase(string databaseName);
         public Graph GetGraph(string databaseName, string graphName);
         public Task<Node> GetNode(string database, string graphName, string nodeId);
-        public Task<Relationship> ConnectNode(string databaseName,string leftNodeId, string rightNodeId, string relationshipType, dynamic data);
+
+        public Task<Relationship> ConnectNode(string databaseName, string leftNodeId, string rightNodeId,
+            string relationshipType, dynamic data);
+
+        public Task<Relationship> GetRelationship(string database, string relationshipId);
     }
 }

@@ -218,5 +218,18 @@ namespace BubblesEngine.Controllers.Implementation
             await _fileWrapper.CreateFile(relationshipTypeFileLocation, relationshipTypeData.ToString());
             return relationship;
         }
+
+        public async Task<Relationship> GetRelationship(string database, string relationshipId)
+        {
+            var dbLocation = GetDatabaseLocation(database);
+            if (!_fileWrapper.IsExists(dbLocation))
+                throw new BubblesException(new DatabaseNotFoundException());
+            var relationshipFileLocation = GetRelationshipLocation(database) + Path.DirectorySeparatorChar +
+                                           relationshipId + "." + Constants.FileExtension;
+            if (!_fileWrapper.IsExists(relationshipFileLocation))
+                throw new BubblesException(new RelationshipNotFoundException());
+            return JsonConvert.DeserializeObject<Relationship>(
+                await _fileWrapper.GetFileContents(relationshipFileLocation))!;
+        }
     }
 }

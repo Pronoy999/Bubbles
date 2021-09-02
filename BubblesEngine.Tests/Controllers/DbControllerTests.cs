@@ -286,5 +286,39 @@ namespace BubblesEngine.Tests.Controllers
             _fileWrapper.Verify(fs => fs.CreateFolder(It.IsAny<string>()), Times.Never);
             _fileWrapper.Verify(fs => fs.GetFileContents(It.IsAny<string>()), Times.Once);
         }
+
+        [Fact]
+        public async void ShouldReturnRelationshipDataWhenValidIdIsPassed()
+        {
+            const string relationshipId = "guid-1";
+            var relationship = new Relationship
+            {
+                Id = relationshipId,
+                Data = "{}",
+                LeftNodeId = "guid-node-1",
+                RightNodeId = "guid-right-1",
+                Type = "Is_Brother_of"
+            };
+            _fileWrapper.Setup(fs => fs.IsExists(It.IsAny<string>())).Returns(true);
+            _fileWrapper.Setup(fs => fs.GetFileContents(It.IsAny<string>()))
+                .ReturnsAsync(JsonConvert.SerializeObject(relationship));
+            var result = await _controller.GetRelationship("some-db", relationshipId);
+            var expected = JsonConvert.SerializeObject(relationship);
+
+            var actual = JsonConvert.SerializeObject(result);
+
+            Assert.Equal(expected, actual);
+            _fileWrapper.Verify(fs => fs.IsExists(It.IsAny<string>()), Times.Exactly(2));
+            _fileWrapper.Verify(fs => fs.GetFileContents(It.IsAny<string>()), Times.Once);
+        }
+
+        [Fact]
+        public async Task ShouldThrowErrorWhenRelationshipDoesNotExists()
+        {
+            const string dbLocation = "/some-folder/some-db";
+            _fileWrapper.Setup(fs => fs.IsExists(It.Is<string>(x => x == dbLocation))).Returns(true);
+            _fileWrapper.Setup(fs => fs.IsExists(It.IsAny<string>())).Returns(false);
+            await Assert.ThrowsAsync<BubblesException>(() => _controller.GetRelationship("some-db", "guid-1"));
+        }
     }
 }
