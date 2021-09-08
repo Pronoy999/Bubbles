@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,7 +7,6 @@ using BubblesEngine.Exceptions;
 using BubblesEngine.Helpers;
 using BubblesEngine.Models;
 using Newtonsoft.Json;
-using Type = BubblesEngine.Models.Type;
 
 namespace BubblesEngine.Controllers.Implementation
 {
