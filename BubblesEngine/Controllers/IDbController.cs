@@ -17,5 +17,6 @@ namespace BubblesEngine.Controllers
 
         public Task<Relationship> GetRelationship(string database, string relationshipId);
         public Task<Node> SearchNodeById(string databaseName, string nodeId);
+        public Task<Node> SearchNodeByData(string databaseName, string data);
     }
 }

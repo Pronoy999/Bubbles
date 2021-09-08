@@ -118,7 +118,7 @@ namespace BubblesEngine.Tests.Engines
                 "guid-2.json"
             };
             _domainFs.Setup(fs => fs.ListFiles(It.IsAny<string>())).Returns(listOfFiles);
-            var result = _fileWrapper.GetAllFiles("some-path");
+            var result = _fileWrapper.GetAllFilesNames("some-path");
             Assert.Equal(expected, result);
         }
 
@@ -126,7 +126,7 @@ namespace BubblesEngine.Tests.Engines
         public void ShouldNotListFilesWhenInvalidPathIsPassed()
         {
             _domainFs.Setup(fs => fs.ListFiles(It.IsAny<string>())).Returns((List<string>?)null);
-            var result = _fileWrapper.GetAllFiles(null);
+            var result = _fileWrapper.GetAllFilesNames(null);
             Assert.IsType<List<string>>(result);
         }
 
@@ -153,6 +153,18 @@ namespace BubblesEngine.Tests.Engines
             _domainFs.Setup(fs => fs.SearchFiles(It.IsAny<string>(), It.IsAny<string>())).Returns(listOfFiles);
             var result = _fileWrapper.SearchFiles("some-path", searchedFile);
             Assert.Equal(string.Empty, result);
+        }
+        [Fact]
+        public void ShouldListFilesWithFullNameWhenValidPathIsPassed()
+        {
+            var listOfFiles = new List<string>
+            {
+                "/some-path/guid-1.json",
+                "/some-path/guid-2.json"
+            };
+            _domainFs.Setup(fs => fs.ListFiles(It.IsAny<string>())).Returns(listOfFiles);
+            var result = _fileWrapper.GetAllFiles("some-path");
+            Assert.Equal(listOfFiles, result);
         }
     }
 }

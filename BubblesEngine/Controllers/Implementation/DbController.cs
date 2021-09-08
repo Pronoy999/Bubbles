@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,6 +8,7 @@ using BubblesEngine.Exceptions;
 using BubblesEngine.Helpers;
 using BubblesEngine.Models;
 using Newtonsoft.Json;
+using Type = BubblesEngine.Models.Type;
 
 namespace BubblesEngine.Controllers.Implementation
 {
@@ -119,7 +121,7 @@ namespace BubblesEngine.Controllers.Implementation
             var location = Utils.GetGraphLocation(databaseName, graphName);
             if (!_fileWrapper.IsExists(location))
                 throw new BubblesException(new GraphNotFoundException());
-            var nodesIds = _fileWrapper.GetAllFiles(location);
+            var nodesIds = _fileWrapper.GetAllFilesNames(location);
             var nodes = nodesIds.Select(oneNodeFile => new Node { Id = oneNodeFile.Split(".")[0] }).ToList();
             return new Graph
             {
@@ -216,6 +218,20 @@ namespace BubblesEngine.Controllers.Implementation
 
             var nodeData = await _fileWrapper.GetFileContents(result);
             return JsonConvert.DeserializeObject<Node>(nodeData)!;
+        }
+
+        public async Task<Node> SearchNodeByData(string databaseName, string data)
+        {
+            var searchLocation = Utils.GetDatabaseLocation(databaseName) + Path.DirectorySeparatorChar +
+                                 Constants.GraphFolderName;
+            var files = _fileWrapper.GetAllFiles(searchLocation);
+            foreach (var oneFilePath in files){
+                var oneFileData = await _fileWrapper.GetFileContents(oneFilePath);
+                if (oneFileData.Contains(data))
+                    return JsonConvert.DeserializeObject<Node>(oneFileData)!;
+            }
+
+            return null;
         }
     }
 }

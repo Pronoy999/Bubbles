@@ -172,7 +172,7 @@ namespace BubblesEngine.Tests.Controllers
                 }
             };
             _fileWrapper.Setup(fs => fs.IsExists(It.IsAny<string>())).Returns(true);
-            _fileWrapper.Setup(fs => fs.GetAllFiles(It.IsAny<string>())).Returns(listOfNodes);
+            _fileWrapper.Setup(fs => fs.GetAllFilesNames(It.IsAny<string>())).Returns(listOfNodes);
             var actualGraph = _controller.GetGraph(databaseName, graphName);
             var expected = JsonConvert.SerializeObject(expectedGraph);
             var actual = JsonConvert.SerializeObject(actualGraph);
@@ -345,7 +345,7 @@ namespace BubblesEngine.Tests.Controllers
 
         #endregion
 
-        #region SearchNode
+        #region SearchNodeById
 
         [Fact]
         public async void ShouldSearchForNodeWithValidId()
@@ -376,6 +376,58 @@ namespace BubblesEngine.Tests.Controllers
         {
             _fileWrapper.Setup(fs => fs.SearchFiles(It.IsAny<string>(), It.IsAny<string>())).Returns(string.Empty);
             await Assert.ThrowsAsync<BubblesException>(() => _controller.SearchNodeById("some-db", "some-node-id"));
+        }
+
+        #endregion
+
+        #region SearchNodeByData
+
+        [Fact]
+        public async void ShouldReturnDataWhenFoundInAnyNode()
+        {
+            var files = new List<string>
+            {
+                "/some-folder/guid-1.json",
+                "some-folder/guid-2.json"
+            };
+            var node = new Node
+            {
+                Data = "{'key':'value'}",
+                Id = "guid-2",
+                Type = "Node-Type"
+            };
+            _fileWrapper.Setup(fs => fs.GetAllFiles(It.IsAny<string>())).Returns(files);
+            _fileWrapper.Setup(fs => fs.GetFileContents(It.IsAny<string>()))
+                .ReturnsAsync(JsonConvert.SerializeObject(node));
+
+            var result = await _controller.SearchNodeByData("some-db", "value");
+
+            var actual = JsonConvert.SerializeObject(result);
+            var expected = JsonConvert.SerializeObject(node);
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public async void ShouldReturnNullWhenSearchIsNotMatched()
+        {
+            var files = new List<string>
+            {
+                "/some-folder/guid-1.json",
+                "some-folder/guid-2.json"
+            };
+            var node = new Node
+            {
+                Data = "{'key':'value'}",
+                Id = "guid-2",
+                Type = "Node-Type"
+            };
+            _fileWrapper.Setup(fs => fs.GetAllFiles(It.IsAny<string>())).Returns(files);
+            _fileWrapper.Setup(fs => fs.GetFileContents(It.IsAny<string>()))
+                .ReturnsAsync(JsonConvert.SerializeObject(node));
+
+            var result = await _controller.SearchNodeByData("some-db", "Hello");
+
+            Assert.Null(result);
         }
 
         #endregion
