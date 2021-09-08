@@ -75,7 +75,7 @@ namespace BubblesEngine.Controllers.Implementation
             return _fileWrapper.CreateFolder(graphPath);
         }
 
-        public async Task<bool> CreateNode(string databaseName, string graphName, string type, dynamic data)
+        public async Task<string> CreateNode(string databaseName, string graphName, string type, dynamic data)
         {
             var graphLocation = Utils.GetGraphLocation(databaseName, graphName);
             if (!_fileWrapper.IsExists(graphLocation))
@@ -92,7 +92,8 @@ namespace BubblesEngine.Controllers.Implementation
                 Id = nodeId,
                 Type = type
             };
-            return await _fileWrapper.CreateFile(nodesFilePath, node.ToString());
+            await _fileWrapper.CreateFile(nodesFilePath, node.ToString());
+            return nodeId;
         }
 
         public Database GetDatabase(string databaseName)

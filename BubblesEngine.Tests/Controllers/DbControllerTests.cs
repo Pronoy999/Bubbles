@@ -83,7 +83,7 @@ namespace BubblesEngine.Tests.Controllers
 
             var result = await _controller.CreateNode(dbName, graphName, "Person", nodeData);
 
-            Assert.True(result);
+            Assert.NotNull(result);
             _fileWrapper.Verify(fs => fs.CreateFile(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
             _fileWrapper.Verify(fs => fs.CreateFolder(It.IsAny<string>()), Times.Once);
         }
@@ -108,7 +108,7 @@ namespace BubblesEngine.Tests.Controllers
 
             var result = await _controller.CreateNode(dbName, graphName, "Person", nodeData);
 
-            Assert.True(result);
+            Assert.NotNull(result);
             _fileWrapper.Verify(fs => fs.CreateFile(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
             _fileWrapper.Verify(fs => fs.CreateFolder(It.IsAny<string>()), Times.Never);
             _fileWrapper.Verify(fs => fs.GetFileContents(It.IsAny<string>()), Times.Once);
