@@ -118,7 +118,7 @@ namespace BubblesEngine.Tests.Engines
                 "guid-2.json"
             };
             _domainFs.Setup(fs => fs.ListFiles(It.IsAny<string>())).Returns(listOfFiles);
-            var result = _fileWrapper.GetFiles("some-path");
+            var result = _fileWrapper.GetAllFiles("some-path");
             Assert.Equal(expected, result);
         }
 
@@ -126,7 +126,7 @@ namespace BubblesEngine.Tests.Engines
         public void ShouldNotListFilesWhenInvalidPathIsPassed()
         {
             _domainFs.Setup(fs => fs.ListFiles(It.IsAny<string>())).Returns((List<string>?)null);
-            var result = _fileWrapper.GetFiles(null);
+            var result = _fileWrapper.GetAllFiles(null);
             Assert.IsType<List<string>>(result);
         }
 

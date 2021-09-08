@@ -119,7 +119,7 @@ namespace BubblesEngine.Controllers.Implementation
             var location = Utils.GetGraphLocation(databaseName, graphName);
             if (!_fileWrapper.IsExists(location))
                 throw new BubblesException(new GraphNotFoundException());
-            var nodesIds = _fileWrapper.GetFiles(location);
+            var nodesIds = _fileWrapper.GetAllFiles(location);
             var nodes = nodesIds.Select(oneNodeFile => new Node { Id = oneNodeFile.Split(".")[0] }).ToList();
             return new Graph
             {
@@ -203,6 +203,19 @@ namespace BubblesEngine.Controllers.Implementation
                 throw new BubblesException(new RelationshipNotFoundException());
             return JsonConvert.DeserializeObject<Relationship>(
                 await _fileWrapper.GetFileContents(relationshipFileLocation))!;
+        }
+
+        public async Task<Node> SearchNodeById(string databaseName, string nodeId)
+        {
+            var databaseLocation = Utils.GetDatabaseLocation(databaseName);
+            var nodeFileName = nodeId + "." + Constants.FileExtension;
+            var result = _fileWrapper.SearchFiles(databaseLocation, nodeFileName);
+            if (string.IsNullOrEmpty(result)){
+                throw new BubblesException(new NodeNotFoundException());
+            }
+
+            var nodeData = await _fileWrapper.GetFileContents(result);
+            return JsonConvert.DeserializeObject<Node>(nodeData)!;
         }
     }
 }

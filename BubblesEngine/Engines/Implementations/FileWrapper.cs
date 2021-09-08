@@ -46,7 +46,7 @@ namespace BubblesEngine.Engines.Implementations
             return directoryNames;
         }
 
-        public List<string> GetFiles(string path)
+        public List<string> GetAllFiles(string path)
         {
             var filesNames = new List<string>();
             var files = _domainFs.ListFiles(path);

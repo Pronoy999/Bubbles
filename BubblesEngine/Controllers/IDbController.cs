@@ -16,5 +16,6 @@ namespace BubblesEngine.Controllers
             string relationshipType, dynamic data);
 
         public Task<Relationship> GetRelationship(string database, string relationshipId);
+        public Task<Node> SearchNodeById(string databaseName, string nodeId);
     }
 }

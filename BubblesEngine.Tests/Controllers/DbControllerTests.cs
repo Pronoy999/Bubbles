@@ -28,6 +28,8 @@ namespace BubblesEngine.Tests.Controllers
             Environment.SetEnvironmentVariable(Constants.TypesFolderName, "types");
         }
 
+        #region CreateDatabase
+
         [Fact]
         public void ShouldCreateDatabaseWhenValidNameIsPassed()
         {
@@ -43,6 +45,10 @@ namespace BubblesEngine.Tests.Controllers
             var result = _controller.CreateDatabase(null);
             Assert.False(result);
         }
+
+        #endregion
+
+        #region CreateGraph
 
         [Fact]
         public void ShouldCreateGraphWhenValidDatabaseIsPassed()
@@ -64,6 +70,10 @@ namespace BubblesEngine.Tests.Controllers
             _fileWrapper.Verify(fs => fs.CreateFolder(It.IsAny<string>()), Times.Once);
             _domainFs.Verify(fs => fs.CreateDirectory(It.IsAny<string>()), Times.Never);
         }
+
+        #endregion
+
+        #region CreateNode
 
         [Fact]
         public async void ShouldCreateANodeAndTypesFileAndFolderWhenValidGraphAndDatabaseIsPassed()
@@ -131,6 +141,10 @@ namespace BubblesEngine.Tests.Controllers
             _fileWrapper.Verify(fs => fs.CreateFolder(It.IsAny<string>()), Times.Never);
         }
 
+        #endregion
+
+        #region GetGraph
+
         [Fact]
         public void ShouldReturnGraphWhenValidDatabaseAndGraphNameIsPassed()
         {
@@ -158,7 +172,7 @@ namespace BubblesEngine.Tests.Controllers
                 }
             };
             _fileWrapper.Setup(fs => fs.IsExists(It.IsAny<string>())).Returns(true);
-            _fileWrapper.Setup(fs => fs.GetFiles(It.IsAny<string>())).Returns(listOfNodes);
+            _fileWrapper.Setup(fs => fs.GetAllFiles(It.IsAny<string>())).Returns(listOfNodes);
             var actualGraph = _controller.GetGraph(databaseName, graphName);
             var expected = JsonConvert.SerializeObject(expectedGraph);
             var actual = JsonConvert.SerializeObject(actualGraph);
@@ -171,6 +185,10 @@ namespace BubblesEngine.Tests.Controllers
             _fileWrapper.Setup(fs => fs.IsExists(It.IsAny<string>())).Returns(false);
             Assert.Throws<BubblesException>(() => _controller.GetGraph(null, null));
         }
+
+        #endregion
+
+        #region GetNode
 
         [Fact]
         public async void ShouldReturnNodeDataWhenValidParametersArePassed()
@@ -199,6 +217,10 @@ namespace BubblesEngine.Tests.Controllers
             await Assert.ThrowsAsync<BubblesException>(
                 () => _controller.GetNode("some-db", "some-graph", "guid-1"));
         }
+
+        #endregion
+
+        #region ConnectNodes
 
         [Fact]
         public async Task ShouldConnectNodesWhenValidNodeIdsArePassedAndCreateFolderForTypesAndRelationshipFiles()
@@ -320,5 +342,42 @@ namespace BubblesEngine.Tests.Controllers
             _fileWrapper.Setup(fs => fs.IsExists(It.IsAny<string>())).Returns(false);
             await Assert.ThrowsAsync<BubblesException>(() => _controller.GetRelationship("some-db", "guid-1"));
         }
+
+        #endregion
+
+        #region SearchNode
+
+        [Fact]
+        public async void ShouldSearchForNodeWithValidId()
+        {
+            const string dbName = "some-db";
+            const string nodeId = "some-node-id";
+            const string nodeFileLocation = "/some-folder/" + dbName + "/graphs/some-graph/" + nodeId + ".json";
+            var node = new Node
+            {
+                Id = nodeId,
+                Type = "Node-Type",
+                Data = "{}"
+            };
+            _fileWrapper.Setup(fs => fs.SearchFiles(It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(nodeFileLocation);
+            _fileWrapper.Setup(fs => fs.GetFileContents(It.Is<string>(x => x == nodeFileLocation)))
+                .ReturnsAsync(JsonConvert.SerializeObject(node));
+
+            var result = await _controller.SearchNodeById(dbName, nodeId);
+
+            var expected = JsonConvert.SerializeObject(node);
+            var actual = JsonConvert.SerializeObject(result);
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public async Task ShouldThrowErrorWhenNodeNotFound()
+        {
+            _fileWrapper.Setup(fs => fs.SearchFiles(It.IsAny<string>(), It.IsAny<string>())).Returns(string.Empty);
+            await Assert.ThrowsAsync<BubblesException>(() => _controller.SearchNodeById("some-db", "some-node-id"));
+        }
+
+        #endregion
     }
 }
