@@ -13,6 +13,9 @@
         "packagesPath": "/Users/pronoymukherjee/.nuget/packages/",
         "outputPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine.Tests/obj/",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
         "configFilePaths": [
           "/Users/pronoymukherjee/.nuget/NuGet/NuGet.Config"
         ],
@@ -90,6 +93,9 @@
         "packagesPath": "/Users/pronoymukherjee/.nuget/packages/",
         "outputPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine/obj/",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
         "configFilePaths": [
           "/Users/pronoymukherjee/.nuget/NuGet/NuGet.Config"
         ],

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine/BubblesEngine.csproj": {}
+    "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesAPI/BubblesAPI.csproj": {}
   },
   "projects": {
-    "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine/BubblesEngine.csproj": {
+    "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesAPI/BubblesAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine/BubblesEngine.csproj",
-        "projectName": "BubblesEngine",
-        "projectPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine/BubblesEngine.csproj",
+        "projectUniqueName": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesAPI/BubblesAPI.csproj",
+        "projectName": "BubblesAPI",
+        "projectPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesAPI/BubblesAPI.csproj",
         "packagesPath": "/Users/pronoymukherjee/.nuget/packages/",
-        "outputPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine/obj/",
+        "outputPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesAPI/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
@@ -40,13 +40,15 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
-            "Newtonsoft.Json": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
-              "version": "[13.0.1, )"
+              "version": "[3.0.0, )"
             },
-            "dotenv.net": {
+            "MySql.Data.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[3.1.0, )"
+              "version": "[8.0.22, )"
             }
           },
           "imports": [
@@ -60,6 +62,9 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }

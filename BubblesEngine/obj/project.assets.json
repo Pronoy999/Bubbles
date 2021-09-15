@@ -109,7 +109,8 @@
     ]
   },
   "packageFolders": {
-    "/Users/pronoymukherjee/.nuget/packages/": {}
+    "/Users/pronoymukherjee/.nuget/packages/": {},
+    "/usr/local/share/dotnet/sdk/NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
@@ -120,6 +121,9 @@
       "packagesPath": "/Users/pronoymukherjee/.nuget/packages/",
       "outputPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine/obj/",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+      ],
       "configFilePaths": [
         "/Users/pronoymukherjee/.nuget/NuGet/NuGet.Config"
       ],
