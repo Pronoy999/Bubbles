@@ -1,4 +1,4 @@
-namespace BubblesAPI.DatabaseModels
+namespace BubblesAPI.Database.Models
 {
     public class Status
     {

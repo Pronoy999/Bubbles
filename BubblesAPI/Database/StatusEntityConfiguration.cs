@@ -1,8 +1,8 @@
-using BubblesAPI.DatabaseModels;
+using BubblesAPI.Database.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace BubblesAPI.Database.Models
+namespace BubblesAPI.Database
 {
     public class StatusEntityConfiguration : IEntityTypeConfiguration<Status>
     {

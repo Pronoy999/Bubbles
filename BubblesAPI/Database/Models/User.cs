@@ -1,6 +1,6 @@
 using System;
 
-namespace BubblesAPI.DatabaseModels
+namespace BubblesAPI.Database.Models
 {
     public class User
     {
@@ -12,5 +12,7 @@ namespace BubblesAPI.DatabaseModels
         public Status UserStatus { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreatedAt { get; set; }
+        
+        public Credentials Credentials { get; set; }
     }
 }

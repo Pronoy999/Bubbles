@@ -1,10 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "H07Oyrna0uQhCg4fiIOJqJKEu+tBvX0l3+gCx+k7mjwiGqRc/VRZWrf57wGZp6Mi/JBhwhmdMrMG5vN46Z7rAA==",
+  "dgSpecHash": "tOOTIBpCIJw+XEojW1zH/cuUYhd9FqWaV9uluamU30a24ZwtX1OtA7DvE3hPNHu0528azVtPXdQtHotnW6dxiQ==",
   "success": true,
   "projectFilePath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesAPI/BubblesAPI.csproj",
   "expectedPackageFiles": [
     "/Users/pronoymukherjee/.nuget/packages/bouncycastle.netcore/1.8.3/bouncycastle.netcore.1.8.3.nupkg.sha512",
+    "/Users/pronoymukherjee/.nuget/packages/fluentvalidation/10.3.3/fluentvalidation.10.3.3.nupkg.sha512",
+    "/Users/pronoymukherjee/.nuget/packages/fluentvalidation.aspnetcore/10.3.3/fluentvalidation.aspnetcore.10.3.3.nupkg.sha512",
+    "/Users/pronoymukherjee/.nuget/packages/fluentvalidation.dependencyinjectionextensions/10.3.3/fluentvalidation.dependencyinjectionextensions.10.3.3.nupkg.sha512",
     "/Users/pronoymukherjee/.nuget/packages/google.protobuf/3.11.4/google.protobuf.3.11.4.nupkg.sha512",
     "/Users/pronoymukherjee/.nuget/packages/k4os.compression.lz4/1.1.11/k4os.compression.lz4.1.1.11.nupkg.sha512",
     "/Users/pronoymukherjee/.nuget/packages/k4os.compression.lz4.streams/1.1.11/k4os.compression.lz4.streams.1.1.11.nupkg.sha512",

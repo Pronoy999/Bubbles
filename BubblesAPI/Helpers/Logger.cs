@@ -1,0 +1,17 @@
+using System;
+
+namespace BubblesAPI.Helpers
+{
+    public static class Logger
+    {
+        public static void LogInformation(string tag, string content)
+        {
+            Console.WriteLine($"{tag}: {content}");
+        }
+
+        public static void LogError(string tag, string content)
+        {
+            Console.WriteLine($"ERROR: {tag} -: {content}");
+        }
+    }
+}
