@@ -16,6 +16,18 @@
           "lib/netstandard2.0/BouncyCastle.Crypto.dll": {}
         }
       },
+      "dotenv.net/3.1.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Memory": "4.5.4"
+        },
+        "compile": {
+          "lib/netstandard2.1/dotenv.net.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/dotenv.net.dll": {}
+        }
+      },
       "FluentValidation/10.3.3": {
         "type": "package",
         "compile": {
@@ -459,6 +471,15 @@
           "System.Threading.Timer": "4.0.1",
           "System.Xml.ReaderWriter": "4.0.11",
           "System.Xml.XDocument": "4.0.11"
+        }
+      },
+      "Newtonsoft.Json/13.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
         }
       },
       "runtime.native.System/4.0.0": {
@@ -931,7 +952,7 @@
           "lib/netstandard1.6/System.Linq.Expressions.dll": {}
         }
       },
-      "System.Memory/4.5.3": {
+      "System.Memory/4.5.4": {
         "type": "package",
         "compile": {
           "ref/netcoreapp2.1/_._": {}
@@ -1789,6 +1810,20 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
+      },
+      "BubblesEngine/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.1",
+          "dotenv.net": "3.1.0"
+        },
+        "compile": {
+          "bin/placeholder/BubblesEngine.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BubblesEngine.dll": {}
+        }
       }
     }
   },
@@ -1818,6 +1853,22 @@
         "lib/netstandard2.0/BouncyCastle.Crypto.xml",
         "lib/xamarinios/BouncyCastle.Crypto.dll",
         "lib/xamarinios/BouncyCastle.Crypto.xml"
+      ]
+    },
+    "dotenv.net/3.1.0": {
+      "sha512": "GP3VMrIhd/2h47TJNDjjyGlMV78ENGp+9rmWQSfD+wKdPfS0lRuuO3/80nFQ13bXB3z5TXK/w6Ihng6TKBaOWA==",
+      "type": "package",
+      "path": "dotenv.net/3.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "dotenv.net.3.1.0.nupkg.sha512",
+        "dotenv.net.nuspec",
+        "lib/net5.0-windows7.0/dotenv.net.dll",
+        "lib/net5.0/dotenv.net.dll",
+        "lib/netstandard1.6/dotenv.net.dll",
+        "lib/netstandard2.0/dotenv.net.dll",
+        "lib/netstandard2.1/dotenv.net.dll"
       ]
     },
     "FluentValidation/10.3.3": {
@@ -2470,6 +2521,33 @@
         "dotnet_library_license.txt",
         "netstandard.library.1.6.0.nupkg.sha512",
         "netstandard.library.nuspec"
+      ]
+    },
+    "Newtonsoft.Json/13.0.1": {
+      "sha512": "ppPFpBcvxdsfUonNcvITKqLl3bqxWbDCZIzDWHzjpdAHRFfZe0Dw9HmA0+za13IdyrgJwpkDTDA9fHaxOrt20A==",
+      "type": "package",
+      "path": "newtonsoft.json/13.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "lib/net20/Newtonsoft.Json.dll",
+        "lib/net20/Newtonsoft.Json.xml",
+        "lib/net35/Newtonsoft.Json.dll",
+        "lib/net35/Newtonsoft.Json.xml",
+        "lib/net40/Newtonsoft.Json.dll",
+        "lib/net40/Newtonsoft.Json.xml",
+        "lib/net45/Newtonsoft.Json.dll",
+        "lib/net45/Newtonsoft.Json.xml",
+        "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.xml",
+        "lib/netstandard1.3/Newtonsoft.Json.dll",
+        "lib/netstandard1.3/Newtonsoft.Json.xml",
+        "lib/netstandard2.0/Newtonsoft.Json.dll",
+        "lib/netstandard2.0/Newtonsoft.Json.xml",
+        "newtonsoft.json.13.0.1.nupkg.sha512",
+        "newtonsoft.json.nuspec",
+        "packageIcon.png"
       ]
     },
     "runtime.native.System/4.0.0": {
@@ -3872,22 +3950,24 @@
         "system.linq.expressions.nuspec"
       ]
     },
-    "System.Memory/4.5.3": {
-      "sha512": "3oDzvc/zzetpTKWMShs1AADwZjQ/36HnsufHRPcOjyRAAMLDlu2iD33MBI2opxnezcVUtXyqDXXjoFMOU9c7SA==",
+    "System.Memory/4.5.4": {
+      "sha512": "1MbJTHS1lZ4bS4FmsJjnuGJOu88ZzTT2rLvrhW7Ygic+pC0NWA+3hgAen0HRdsocuQXCkUTdFn9yHJJhsijDXw==",
       "type": "package",
-      "path": "system.memory/4.5.3",
+      "path": "system.memory/4.5.4",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
+        "lib/net461/System.Memory.dll",
+        "lib/net461/System.Memory.xml",
         "lib/netcoreapp2.1/_._",
         "lib/netstandard1.1/System.Memory.dll",
         "lib/netstandard1.1/System.Memory.xml",
         "lib/netstandard2.0/System.Memory.dll",
         "lib/netstandard2.0/System.Memory.xml",
         "ref/netcoreapp2.1/_._",
-        "system.memory.4.5.3.nupkg.sha512",
+        "system.memory.4.5.4.nupkg.sha512",
         "system.memory.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
@@ -6243,10 +6323,16 @@
         "system.xml.xpath.xmldocument.4.0.1.nupkg.sha512",
         "system.xml.xpath.xmldocument.nuspec"
       ]
+    },
+    "BubblesEngine/1.0.0": {
+      "type": "project",
+      "path": "../BubblesEngine/BubblesEngine.csproj",
+      "msbuildProject": "../BubblesEngine/BubblesEngine.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
+      "BubblesEngine >= 1.0.0",
       "FluentValidation >= 10.3.3",
       "FluentValidation.AspNetCore >= 10.3.3",
       "Microsoft.EntityFrameworkCore.Design >= 3.0.0",
@@ -6254,34 +6340,34 @@
     ]
   },
   "packageFolders": {
-    "/Users/pronoymukherjee/.nuget/packages/": {},
-    "/usr/local/share/dotnet/sdk/NuGetFallbackFolder": {}
+    "C:\\Users\\mukhe\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesAPI/BubblesAPI.csproj",
+      "projectUniqueName": "E:\\OneDrive\\DotNetApplications\\Bubbles\\BubblesAPI\\BubblesAPI.csproj",
       "projectName": "BubblesAPI",
-      "projectPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesAPI/BubblesAPI.csproj",
-      "packagesPath": "/Users/pronoymukherjee/.nuget/packages/",
-      "outputPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesAPI/obj/",
+      "projectPath": "E:\\OneDrive\\DotNetApplications\\Bubbles\\BubblesAPI\\BubblesAPI.csproj",
+      "packagesPath": "C:\\Users\\mukhe\\.nuget\\packages\\",
+      "outputPath": "E:\\OneDrive\\DotNetApplications\\Bubbles\\BubblesAPI\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "/Users/pronoymukherjee/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\mukhe\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
       ],
       "sources": {
-        "https://api.nuget.org/v3/index.json": {},
-        "https://proget.rxweb-tools.com/nuget/Default": {}
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "projectReferences": {}
+          "targetAlias": "netcoreapp3.1",
+          "projectReferences": {
+            "E:\\OneDrive\\DotNetApplications\\Bubbles\\BubblesEngine\\BubblesEngine.csproj": {
+              "projectPath": "E:\\OneDrive\\DotNetApplications\\Bubbles\\BubblesEngine\\BubblesEngine.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -6292,6 +6378,7 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
+        "targetAlias": "netcoreapp3.1",
         "dependencies": {
           "FluentValidation": {
             "target": "Package",
@@ -6330,7 +6417,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.100/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.206\\RuntimeIdentifierGraph.json"
       }
     }
   }

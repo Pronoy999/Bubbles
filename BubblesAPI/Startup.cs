@@ -1,4 +1,8 @@
 using BubblesAPI.Database;
+using BubblesEngine.Controllers;
+using BubblesEngine.Controllers.Implementation;
+using BubblesEngine.Engines;
+using BubblesEngine.Engines.Implementations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +27,10 @@ namespace BubblesAPI
             services.AddControllers(options => options.EnableEndpointRouting = false);
             services.AddDbContext<BubblesContext>(options =>
                 options.UseMySQL(Configuration.GetConnectionString("db")));
+            
+            services.AddTransient<IDbController, DbController>();
+            services.AddTransient<IDomainFs, DomainFs>();
+            services.AddTransient<IFileWrapper, FileWrapper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

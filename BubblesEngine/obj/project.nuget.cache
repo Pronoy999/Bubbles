@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "Q1jamn36md2GiccYvLaQZydj+2qqCXpYoTr/8jo0gLBNmz37ASzuYI/CCVt2YScl4/ZEcG9vbVu2jUZ4/qtWOw==",
+  "dgSpecHash": "1Lj0+N+Zq5+s3t/7Ejth1+5L1HLKhaTnnoua1sGGkjkkDu+2hFN6Vv9YG05hTk6U+u29ftkkyg1zK8tiHah6bA==",
   "success": true,
-  "projectFilePath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine/BubblesEngine.csproj",
+  "projectFilePath": "E:\\OneDrive\\DotNetApplications\\Bubbles\\BubblesEngine\\BubblesEngine.csproj",
   "expectedPackageFiles": [
-    "/Users/pronoymukherjee/.nuget/packages/dotenv.net/3.1.0/dotenv.net.3.1.0.nupkg.sha512",
-    "/Users/pronoymukherjee/.nuget/packages/newtonsoft.json/13.0.1/newtonsoft.json.13.0.1.nupkg.sha512",
-    "/Users/pronoymukherjee/.nuget/packages/system.memory/4.5.4/system.memory.4.5.4.nupkg.sha512"
+    "C:\\Users\\mukhe\\.nuget\\packages\\dotenv.net\\3.1.0\\dotenv.net.3.1.0.nupkg.sha512",
+    "C:\\Users\\mukhe\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\mukhe\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512"
   ],
   "logs": []
 }

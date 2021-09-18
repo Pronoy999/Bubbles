@@ -6969,36 +6969,32 @@
     ]
   },
   "packageFolders": {
-    "/Users/pronoymukherjee/.nuget/packages/": {},
-    "/usr/local/share/dotnet/sdk/NuGetFallbackFolder": {}
+    "C:\\Users\\mukhe\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine.Tests/BubblesEngine.Tests.csproj",
+      "projectUniqueName": "E:\\OneDrive\\DotNetApplications\\Bubbles\\BubblesEngine.Tests\\BubblesEngine.Tests.csproj",
       "projectName": "BubblesEngine.Tests",
-      "projectPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine.Tests/BubblesEngine.Tests.csproj",
-      "packagesPath": "/Users/pronoymukherjee/.nuget/packages/",
-      "outputPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine.Tests/obj/",
+      "projectPath": "E:\\OneDrive\\DotNetApplications\\Bubbles\\BubblesEngine.Tests\\BubblesEngine.Tests.csproj",
+      "packagesPath": "C:\\Users\\mukhe\\.nuget\\packages\\",
+      "outputPath": "E:\\OneDrive\\DotNetApplications\\Bubbles\\BubblesEngine.Tests\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "/Users/pronoymukherjee/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\mukhe\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
       ],
       "sources": {
-        "https://api.nuget.org/v3/index.json": {},
-        "https://proget.rxweb-tools.com/nuget/Default": {}
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine/BubblesEngine.csproj": {
-              "projectPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine/BubblesEngine.csproj"
+            "E:\\OneDrive\\DotNetApplications\\Bubbles\\BubblesEngine\\BubblesEngine.csproj": {
+              "projectPath": "E:\\OneDrive\\DotNetApplications\\Bubbles\\BubblesEngine\\BubblesEngine.csproj"
             }
           }
         }
@@ -7011,6 +7007,7 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
+        "targetAlias": "netcoreapp3.1",
         "dependencies": {
           "Microsoft.NET.Test.Sdk": {
             "target": "Package",
@@ -7048,7 +7045,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.100/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.206\\RuntimeIdentifierGraph.json"
       }
     }
   }
