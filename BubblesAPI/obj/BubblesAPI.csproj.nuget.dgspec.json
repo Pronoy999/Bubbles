@@ -1,33 +1,37 @@
 {
   "format": 1,
   "restore": {
-    "E:\\OneDrive\\DotNetApplications\\Bubbles\\BubblesAPI\\BubblesAPI.csproj": {}
+    "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesAPI/BubblesAPI.csproj": {}
   },
   "projects": {
-    "E:\\OneDrive\\DotNetApplications\\Bubbles\\BubblesAPI\\BubblesAPI.csproj": {
+    "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesAPI/BubblesAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\OneDrive\\DotNetApplications\\Bubbles\\BubblesAPI\\BubblesAPI.csproj",
+        "projectUniqueName": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesAPI/BubblesAPI.csproj",
         "projectName": "BubblesAPI",
-        "projectPath": "E:\\OneDrive\\DotNetApplications\\Bubbles\\BubblesAPI\\BubblesAPI.csproj",
-        "packagesPath": "C:\\Users\\mukhe\\.nuget\\packages\\",
-        "outputPath": "E:\\OneDrive\\DotNetApplications\\Bubbles\\BubblesAPI\\obj\\",
+        "projectPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesAPI/BubblesAPI.csproj",
+        "packagesPath": "/Users/pronoymukherjee/.nuget/packages/",
+        "outputPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesAPI/obj/",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\mukhe\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/pronoymukherjee/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://proget.rxweb-tools.com/nuget/Default": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "E:\\OneDrive\\DotNetApplications\\Bubbles\\BubblesEngine\\BubblesEngine.csproj": {
-                "projectPath": "E:\\OneDrive\\DotNetApplications\\Bubbles\\BubblesEngine\\BubblesEngine.csproj"
+              "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine/BubblesEngine.csproj": {
+                "projectPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine/BubblesEngine.csproj"
               }
             }
           }
@@ -71,6 +75,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[3.1.10, 3.1.10]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -79,27 +89,31 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.206\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.401/RuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\OneDrive\\DotNetApplications\\Bubbles\\BubblesEngine\\BubblesEngine.csproj": {
+    "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine/BubblesEngine.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\OneDrive\\DotNetApplications\\Bubbles\\BubblesEngine\\BubblesEngine.csproj",
+        "projectUniqueName": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine/BubblesEngine.csproj",
         "projectName": "BubblesEngine",
-        "projectPath": "E:\\OneDrive\\DotNetApplications\\Bubbles\\BubblesEngine\\BubblesEngine.csproj",
-        "packagesPath": "C:\\Users\\mukhe\\.nuget\\packages\\",
-        "outputPath": "E:\\OneDrive\\DotNetApplications\\Bubbles\\BubblesEngine\\obj\\",
+        "projectPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine/BubblesEngine.csproj",
+        "packagesPath": "/Users/pronoymukherjee/.nuget/packages/",
+        "outputPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine/obj/",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\mukhe\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/pronoymukherjee/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://proget.rxweb-tools.com/nuget/Default": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
@@ -136,12 +150,18 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[3.1.10, 3.1.10]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.206\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.401/RuntimeIdentifierGraph.json"
         }
       }
     }

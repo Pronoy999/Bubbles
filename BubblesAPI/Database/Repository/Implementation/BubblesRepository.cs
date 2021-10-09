@@ -1,13 +1,16 @@
+using System;
+using System.Linq;
 using System.Threading.Tasks;
 using BubblesAPI.Database.Models;
 using BubblesAPI.DTOs;
+using BubblesAPI.Exceptions;
 using BubblesAPI.Helpers;
 
 namespace BubblesAPI.Database.Repository.Implementation
 {
     public class BubblesRepository : IBubblesRepository
     {
-        private BubblesContext _bubblesContext;
+        private readonly BubblesContext _bubblesContext;
 
         public BubblesRepository(BubblesContext bubblesContext)
         {
@@ -16,30 +19,48 @@ namespace BubblesAPI.Database.Repository.Implementation
 
         public async Task<string> SaveUser(RegisterUserRequest request)
         {
-            /*var user = await GetUserById(request.UserId);
-            if (user == null)
-            {
+            var user = GetUserById(request.UserId);
+            if (user == null){
                 user = new User
                 {
                     UserId = Utils.GenerateUserId(),
                     FirstName = request.FirstName,
-                    LastName = request.LastName, 
+                    LastName = request.LastName,
                     Email = request.Email,
-                    UserStatus = new Status{Id = Constants.StatusInitialises}
+                    UserStatus = new Status { Id = Constants.StatusInitialises }
                 };
-            }else{
-                
-            }*/throw new System.NotImplementedException();
+            }
+            else{
+                throw new BubblesApiException(new UserAlreadyRegisterException());
+            }
+
+            var credentials = new Credentials
+            {
+                UserId = user.UserId,
+                Password = request.Password,
+                IsActive = true
+            };
+            _bubblesContext.Add(user);
+            _bubblesContext.Add(credentials);
+            await _bubblesContext.SaveChangesAsync();
+            return user.UserId;
         }
 
-        public Task<User> GetUserById(string userId)
+        public User GetUserById(string userId)
         {
-            throw new System.NotImplementedException();
+            try{
+                return _bubblesContext.Users
+                    .Single(x => x.UserId.Equals(userId));
+            }
+            catch (InvalidOperationException){
+                throw new UserNotFoundException();
+            }
         }
 
-        public Task<User> GetUserByEmail(string emailId)
+        public User GetUserByEmail(string emailId)
         {
-            throw new System.NotImplementedException();
+            return _bubblesContext.Users
+                .Single(x => x.Email.Equals(emailId));
         }
     }
 }

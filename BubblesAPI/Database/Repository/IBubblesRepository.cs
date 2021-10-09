@@ -7,7 +7,7 @@ namespace BubblesAPI.Database.Repository
     public interface IBubblesRepository
     {
         Task<string> SaveUser(RegisterUserRequest request);
-        Task<User> GetUserById(string userId);
-        Task<User> GetUserByEmail(string emailId);
+        User GetUserById(string userId);
+        User GetUserByEmail(string emailId);
     }
 }
