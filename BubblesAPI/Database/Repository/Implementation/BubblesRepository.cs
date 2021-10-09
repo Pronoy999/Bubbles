@@ -19,7 +19,14 @@ namespace BubblesAPI.Database.Repository.Implementation
 
         public async Task<string> SaveUser(RegisterUserRequest request)
         {
-            var user = GetUserById(request.UserId);
+            User user;
+            try{
+                user = GetUserByEmail(request.Email);
+            }
+            catch (UserNotFoundException){
+                user = null;
+            }
+
             if (user == null){
                 user = new User
                 {
@@ -59,8 +66,13 @@ namespace BubblesAPI.Database.Repository.Implementation
 
         public User GetUserByEmail(string emailId)
         {
-            return _bubblesContext.Users
-                .Single(x => x.Email.Equals(emailId));
+            try{
+                return _bubblesContext.Users
+                    .Single(x => x.Email.Equals(emailId));
+            }
+            catch (InvalidOperationException){
+                throw new UserNotFoundException();
+            }
         }
     }
 }

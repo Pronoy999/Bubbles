@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using BubblesAPI.Database;
 using BubblesAPI.Database.Models;
 using BubblesAPI.Database.Repository.Implementation;
+using BubblesAPI.DTOs;
 using BubblesAPI.Exceptions;
 using FizzWare.NBuilder;
 using Microsoft.EntityFrameworkCore;
@@ -62,6 +63,41 @@ namespace BubblesAPITests.Repository
 
             var result = repository.GetUserByEmail(someEmailId);
             Assert.Equal(someEmailId, result.Email);
+        }
+
+        [Fact]
+        public async Task ShouldThrowExceptionWhenUserAlreadyRegistered()
+        {
+            const string someEmailId = "some-email@example.com";
+            var options = GetDbOptions("ExceptionForExistingUserDb");
+            var context = new BubblesContext(options);
+            var repository = new BubblesRepository(context);
+            var user = Builder<User>
+                .CreateNew()
+                .With(x => x.Email = someEmailId).Build();
+            context.Add(user);
+            await context.SaveChangesAsync();
+            var request = Builder<RegisterUserRequest>
+                .CreateNew()
+                .With(x => x.Email = someEmailId).Build();
+
+            await Assert.ThrowsAsync<BubblesApiException>(() => repository.SaveUser(request));
+        }
+
+        [Fact]
+        public async Task ShouldRegisterUserWithValidData()
+        {
+            const string someEmailId = "some-email@example.com";
+            var options = GetDbOptions("someValidUserRegisterDb");
+            var context = new BubblesContext(options);
+            var repository = new BubblesRepository(context);
+            var request = Builder<RegisterUserRequest>
+                .CreateNew()
+                .With(x => x.Email = someEmailId).Build();
+            
+            var response = await repository.SaveUser(request);
+            var userData = repository.GetUserById(response);
+            Assert.Equal(someEmailId, userData.Email);
         }
     }
 }
