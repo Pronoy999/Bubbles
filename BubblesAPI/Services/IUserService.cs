@@ -5,6 +5,6 @@ namespace BubblesAPI.Services
 {
     public interface IUserService
     {
-        public Task<int> RegisterUser(RegisterUserRequest request);
+        public Task<RegisterUserResponse> RegisterUser(RegisterUserRequest request);
     }
 }
