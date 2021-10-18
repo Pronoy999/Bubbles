@@ -1,3 +1,4 @@
+using BubblesAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BubblesAPI.Controllers
@@ -6,8 +7,11 @@ namespace BubblesAPI.Controllers
     [Route("/user")]
     public class UserController : ControllerBase
     {
-        public UserController()
+        private IUserService _userService;
+
+        public UserController(IUserService userService)
         {
+            _userService = userService;
         }
     }
 }

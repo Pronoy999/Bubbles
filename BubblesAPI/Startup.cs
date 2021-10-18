@@ -1,4 +1,5 @@
 using System.Text;
+using BubblesAPI.Authentication;
 using BubblesAPI.Database;
 using BubblesEngine.Controllers;
 using BubblesEngine.Controllers.Implementation;
@@ -34,19 +35,20 @@ namespace BubblesAPI
             {
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidateIssuer = true,    
-                    ValidateAudience = true,    
-                    ValidateLifetime = true,    
-                    ValidateIssuerSigningKey = true,    
-                    ValidIssuer = Configuration["Jwt:Issuer"],    
-                    ValidAudience = Configuration["Jwt:Issuer"],    
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = Configuration["Jwt:Issuer"],
+                    ValidAudience = Configuration["Jwt:Issuer"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
                 };
             });
-            
+
             services.AddTransient<IDbController, DbController>();
             services.AddTransient<IDomainFs, DomainFs>();
             services.AddTransient<IFileWrapper, FileWrapper>();
+            services.AddTransient<IAuthentication, Authentication.Authentication>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,7 +65,7 @@ namespace BubblesAPI
             app.UseRouting();
 
             app.UseAuthorization();
-            
+
             app.UseAuthentication();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
