@@ -8,12 +8,12 @@ using Xunit;
 
 namespace BubblesAPITests.Controllers
 {
-    public class UserController
+    public class UserControllerTests
     {
         private readonly BubblesAPI.Controllers.UserController _userController;
         private readonly Mock<IUserService> _userService;
 
-        public UserController()
+        public UserControllerTests()
         {
             _userService = new Mock<IUserService>();
             _userController = new BubblesAPI.Controllers.UserController(_userService.Object);

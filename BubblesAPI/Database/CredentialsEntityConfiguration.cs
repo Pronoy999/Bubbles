@@ -9,10 +9,12 @@ namespace BubblesAPI.Database
         public void Configure(EntityTypeBuilder<Credentials> builder)
         {
             builder.Property(b => b.Id).ValueGeneratedOnAdd().IsRequired();
-            
+
             builder.HasOne(c => c.User)
                 .WithOne(u => u.Credentials)
-                .HasForeignKey<Credentials>(c => c.Email);
+                .HasForeignKey<Credentials>(c => c.Email)
+                .HasPrincipalKey<User>(u => u.Email)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Property(b => b.Password)
                 .IsRequired();

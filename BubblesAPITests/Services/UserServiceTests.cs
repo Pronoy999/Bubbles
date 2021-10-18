@@ -11,14 +11,14 @@ using Xunit;
 
 namespace BubblesAPITests.Services
 {
-    public class UserService
+    public class UserServiceTests
     {
         private readonly Mock<IAuthentication> _authentication;
         private readonly Mock<IBubblesRepository> _bubblesRepository;
         private readonly IConfiguration _configuration;
         private readonly IUserService _userService;
 
-        public UserService()
+        public UserServiceTests()
         {
             _authentication = new Mock<IAuthentication>();
             _bubblesRepository = new Mock<IBubblesRepository>();

@@ -74,5 +74,16 @@ namespace BubblesAPI.Database.Repository.Implementation
                 throw new UserNotFoundException();
             }
         }
+
+        public User ValidateCredentials(LoginRequest request)
+        {
+            var credentials = _bubblesContext.Credentials.Single(x =>
+                x.Email.Equals(request.Email) && x.Password.Equals(request.Password));
+            if (credentials != null){
+                return _bubblesContext.Users.Single(x => x.Email.Equals(request.Email));
+            }
+
+            throw new UserNotFoundException();
+        }
     }
 }

@@ -26,7 +26,7 @@ namespace BubblesAPI.Migrations
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
-                        .HasDefaultValue(new DateTime(2021, 10, 18, 17, 35, 51, 509, DateTimeKind.Local).AddTicks(7920));
+                        .HasDefaultValue(new DateTime(2021, 10, 18, 19, 17, 26, 795, DateTimeKind.Local).AddTicks(1200));
 
                     b.Property<string>("Email")
                         .HasColumnType("varchar(767)");
@@ -56,11 +56,11 @@ namespace BubblesAPI.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
-                        .HasDefaultValue(new DateTime(2021, 10, 18, 17, 35, 51, 398, DateTimeKind.Local).AddTicks(9770));
+                        .HasDefaultValue(new DateTime(2021, 10, 18, 19, 17, 26, 678, DateTimeKind.Local).AddTicks(6760));
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(767)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -87,7 +87,9 @@ namespace BubblesAPI.Migrations
                 {
                     b.HasOne("BubblesAPI.Database.Models.User", "User")
                         .WithOne("Credentials")
-                        .HasForeignKey("BubblesAPI.Database.Models.Credentials", "Email");
+                        .HasForeignKey("BubblesAPI.Database.Models.Credentials", "Email")
+                        .HasPrincipalKey("BubblesAPI.Database.Models.User", "Email")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

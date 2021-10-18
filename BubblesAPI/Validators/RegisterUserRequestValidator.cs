@@ -19,6 +19,7 @@ namespace BubblesAPI.Validators
 
             RuleFor(x => x.Email)
                 .NotEmpty()
+                .EmailAddress()
                 .WithState(_ => ErrorCodes.EmailMissing);
 
             RuleFor(x => x.Password)

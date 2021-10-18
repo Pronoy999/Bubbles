@@ -9,5 +9,6 @@ namespace BubblesAPI.Database.Repository
         Task<string> SaveUser(RegisterUserRequest request);
         User GetUserById(string userId);
         User GetUserByEmail(string emailId);
+        User ValidateCredentials(LoginRequest request);
     }
 }
