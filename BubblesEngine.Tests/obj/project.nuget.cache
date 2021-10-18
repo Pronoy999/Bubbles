@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "XHqAYO/ChimlpZGobuykk34cMvJHuLaTjSO85l29fNgMXFQCQ1ppLOJXv2DAZmR8ZDZAcdQL7Ep4M06qGx+wyg==",
+  "dgSpecHash": "8exUaG5q8voMQ4E8/k45bbv+Dhq9RJaIhxXD3S0r5w3eHMLygZEP4giO/M3wssQJaXx5WtxjdnqNoQaFmWhuHA==",
   "success": true,
   "projectFilePath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine.Tests/BubblesEngine.Tests.csproj",
   "expectedPackageFiles": [
@@ -117,8 +117,7 @@
     "/Users/pronoymukherjee/.nuget/packages/xunit.core/2.4.0/xunit.core.2.4.0.nupkg.sha512",
     "/Users/pronoymukherjee/.nuget/packages/xunit.extensibility.core/2.4.0/xunit.extensibility.core.2.4.0.nupkg.sha512",
     "/Users/pronoymukherjee/.nuget/packages/xunit.extensibility.execution/2.4.0/xunit.extensibility.execution.2.4.0.nupkg.sha512",
-    "/Users/pronoymukherjee/.nuget/packages/xunit.runner.visualstudio/2.4.0/xunit.runner.visualstudio.2.4.0.nupkg.sha512",
-    "/Users/pronoymukherjee/.nuget/packages/microsoft.aspnetcore.app.ref/3.1.10/microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512"
+    "/Users/pronoymukherjee/.nuget/packages/xunit.runner.visualstudio/2.4.0/xunit.runner.visualstudio.2.4.0.nupkg.sha512"
   ],
   "logs": []
 }

@@ -1,14 +1,17 @@
+using System.Text;
 using BubblesAPI.Database;
 using BubblesEngine.Controllers;
 using BubblesEngine.Controllers.Implementation;
 using BubblesEngine.Engines;
 using BubblesEngine.Engines.Implementations;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 
 namespace BubblesAPI
 {
@@ -27,6 +30,19 @@ namespace BubblesAPI
             services.AddControllers(options => options.EnableEndpointRouting = false);
             services.AddDbContext<BubblesContext>(options =>
                 options.UseMySQL(Configuration.GetConnectionString("db")));
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,    
+                    ValidateAudience = true,    
+                    ValidateLifetime = true,    
+                    ValidateIssuerSigningKey = true,    
+                    ValidIssuer = Configuration["Jwt:Issuer"],    
+                    ValidAudience = Configuration["Jwt:Issuer"],    
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                };
+            });
             
             services.AddTransient<IDbController, DbController>();
             services.AddTransient<IDomainFs, DomainFs>();
@@ -47,6 +63,8 @@ namespace BubblesAPI
             app.UseRouting();
 
             app.UseAuthorization();
+            
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }

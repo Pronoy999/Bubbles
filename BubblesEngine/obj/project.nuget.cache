@@ -1,13 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "a5Xy9KjZ/z+hrDFWSZZm9NBYiz1l5R/CdgXaJQTvFMyBQCCuLaY4gOilxv2t69qjJ99Ew/6+qRyfZXs1kxFu4Q==",
+  "dgSpecHash": "+2gWXw6M+yJ+39dUkt+hVluFhnI9Om8EWgmiXTc5ZsiiBV6UA71gZyX4eatMp5zZSWL9NoemLZNsi8AKgZ/tUw==",
   "success": true,
   "projectFilePath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine/BubblesEngine.csproj",
   "expectedPackageFiles": [
     "/Users/pronoymukherjee/.nuget/packages/dotenv.net/3.1.0/dotenv.net.3.1.0.nupkg.sha512",
     "/Users/pronoymukherjee/.nuget/packages/newtonsoft.json/13.0.1/newtonsoft.json.13.0.1.nupkg.sha512",
-    "/Users/pronoymukherjee/.nuget/packages/system.memory/4.5.4/system.memory.4.5.4.nupkg.sha512",
-    "/Users/pronoymukherjee/.nuget/packages/microsoft.aspnetcore.app.ref/3.1.10/microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512"
+    "/Users/pronoymukherjee/.nuget/packages/system.memory/4.5.4/system.memory.4.5.4.nupkg.sha512"
   ],
   "logs": []
 }

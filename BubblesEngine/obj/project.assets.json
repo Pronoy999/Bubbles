@@ -1,17 +1,17 @@
 {
   "version": 3,
   "targets": {
-    ".NETCoreApp,Version=v3.1": {
+    "net5.0": {
       "dotenv.net/3.1.0": {
         "type": "package",
         "dependencies": {
           "System.Memory": "4.5.4"
         },
         "compile": {
-          "lib/netstandard2.1/dotenv.net.dll": {}
+          "lib/net5.0/dotenv.net.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.1/dotenv.net.dll": {}
+          "lib/net5.0/dotenv.net.dll": {}
         }
       },
       "Newtonsoft.Json/13.0.1": {
@@ -103,7 +103,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    ".NETCoreApp,Version=v3.1": [
+    "net5.0": [
       "Newtonsoft.Json >= 13.0.1",
       "dotenv.net >= 3.1.0"
     ]
@@ -128,15 +128,15 @@
         "/Users/pronoymukherjee/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
-        "netcoreapp3.1"
+        "net5.0"
       ],
       "sources": {
         "https://api.nuget.org/v3/index.json": {},
         "https://proget.rxweb-tools.com/nuget/Default": {}
       },
       "frameworks": {
-        "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
+        "net5.0": {
+          "targetAlias": "net5.0",
           "projectReferences": {}
         }
       },
@@ -147,8 +147,8 @@
       }
     },
     "frameworks": {
-      "netcoreapp3.1": {
-        "targetAlias": "netcoreapp3.1",
+      "net5.0": {
+        "targetAlias": "net5.0",
         "dependencies": {
           "Newtonsoft.Json": {
             "target": "Package",
@@ -169,12 +169,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[3.1.10, 3.1.10]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"

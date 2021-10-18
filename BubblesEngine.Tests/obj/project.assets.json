@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    ".NETCoreApp,Version=v3.1": {
+    "net5.0": {
       "Castle.Core/4.4.0": {
         "type": "package",
         "dependencies": {
@@ -35,10 +35,10 @@
           "System.Memory": "4.5.4"
         },
         "compile": {
-          "lib/netstandard2.1/dotenv.net.dll": {}
+          "lib/net5.0/dotenv.net.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.1/dotenv.net.dll": {}
+          "lib/net5.0/dotenv.net.dll": {}
         }
       },
       "Microsoft.CodeCoverage/16.2.0": {
@@ -2086,7 +2086,7 @@
       },
       "BubblesEngine/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v3.1",
+        "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
           "Newtonsoft.Json": "13.0.1",
           "dotenv.net": "3.1.0"
@@ -6959,7 +6959,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    ".NETCoreApp,Version=v3.1": [
+    "net5.0": [
       "BubblesEngine >= 1.0.0",
       "Microsoft.NET.Test.Sdk >= 16.2.0",
       "Moq >= 4.16.1",
@@ -6988,15 +6988,15 @@
         "/Users/pronoymukherjee/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
-        "netcoreapp3.1"
+        "net5.0"
       ],
       "sources": {
         "https://api.nuget.org/v3/index.json": {},
         "https://proget.rxweb-tools.com/nuget/Default": {}
       },
       "frameworks": {
-        "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
+        "net5.0": {
+          "targetAlias": "net5.0",
           "projectReferences": {
             "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine/BubblesEngine.csproj": {
               "projectPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine/BubblesEngine.csproj"
@@ -7011,8 +7011,8 @@
       }
     },
     "frameworks": {
-      "netcoreapp3.1": {
-        "targetAlias": "netcoreapp3.1",
+      "net5.0": {
+        "targetAlias": "net5.0",
         "dependencies": {
           "Microsoft.NET.Test.Sdk": {
             "target": "Package",
@@ -7045,12 +7045,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[3.1.10, 3.1.10]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
