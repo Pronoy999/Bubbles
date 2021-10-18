@@ -54,5 +54,13 @@ namespace BubblesAPITests.Services
             _authentication.Verify(a => a.GetToken(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()),
                 Times.Once);
         }
+
+        [Fact]
+        public async Task ShouldNotRegisterARegisteredUser()
+        {
+            _bubblesRepository.Setup(r => r.SaveUser(It.IsAny<RegisterUserRequest>()))
+                .Throws<UserAlreadyRegisterException>();
+            await Assert.ThrowsAsync<UserAlreadyRegisterException>(() => _userService.RegisterUser(It.IsAny<RegisterUserRequest>()));
+        }
     }
 }

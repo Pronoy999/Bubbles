@@ -81,7 +81,7 @@ namespace BubblesAPITests.Repository
                 .CreateNew()
                 .With(x => x.Email = someEmailId).Build();
 
-            await Assert.ThrowsAsync<BubblesApiException>(() => repository.SaveUser(request));
+            await Assert.ThrowsAsync<UserAlreadyRegisterException>(() => repository.SaveUser(request));
         }
 
         [Fact]

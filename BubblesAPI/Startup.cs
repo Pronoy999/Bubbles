@@ -1,6 +1,10 @@
 using System.Text;
 using BubblesAPI.Authentication;
 using BubblesAPI.Database;
+using BubblesAPI.Database.Repository;
+using BubblesAPI.Database.Repository.Implementation;
+using BubblesAPI.Services;
+using BubblesAPI.Services.Implementation;
 using BubblesEngine.Controllers;
 using BubblesEngine.Controllers.Implementation;
 using BubblesEngine.Engines;
@@ -48,7 +52,11 @@ namespace BubblesAPI
             services.AddTransient<IDbController, DbController>();
             services.AddTransient<IDomainFs, DomainFs>();
             services.AddTransient<IFileWrapper, FileWrapper>();
+
             services.AddTransient<IAuthentication, Authentication.Authentication>();
+            services.AddTransient<IBubblesRepository, BubblesRepository>();
+
+            services.AddTransient<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

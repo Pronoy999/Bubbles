@@ -38,7 +38,7 @@ namespace BubblesAPI.Database.Repository.Implementation
                 };
             }
             else{
-                throw new BubblesApiException(new UserAlreadyRegisterException());
+                throw new UserAlreadyRegisterException();
             }
 
             var credentials = new Credentials
