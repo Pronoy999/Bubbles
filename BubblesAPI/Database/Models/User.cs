@@ -9,7 +9,6 @@ namespace BubblesAPI.Database.Models
         public string LastName { get; set; }
         public string Email { get; set; }
         public string OrganisationName { get; set; }
-        public Status UserStatus { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreatedAt { get; set; }
         

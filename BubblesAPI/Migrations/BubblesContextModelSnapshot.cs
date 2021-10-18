@@ -26,7 +26,10 @@ namespace BubblesAPI.Migrations
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
-                        .HasDefaultValue(new DateTime(2021, 9, 15, 16, 17, 4, 617, DateTimeKind.Local).AddTicks(7380));
+                        .HasDefaultValue(new DateTime(2021, 10, 18, 17, 35, 51, 509, DateTimeKind.Local).AddTicks(7920));
+
+                    b.Property<string>("Email")
+                        .HasColumnType("varchar(767)");
 
                     b.Property<bool>("IsActive")
                         .ValueGeneratedOnAdd()
@@ -37,30 +40,12 @@ namespace BubblesAPI.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("varchar(767)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
+                    b.HasIndex("Email")
                         .IsUnique();
 
                     b.ToTable("Credentials");
-                });
-
-            modelBuilder.Entity("BubblesAPI.Database.Models.Status", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("StatusName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Status");
                 });
 
             modelBuilder.Entity("BubblesAPI.Database.Models.User", b =>
@@ -71,7 +56,7 @@ namespace BubblesAPI.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
-                        .HasDefaultValue(new DateTime(2021, 9, 15, 16, 17, 4, 510, DateTimeKind.Local).AddTicks(2090));
+                        .HasDefaultValue(new DateTime(2021, 10, 18, 17, 35, 51, 398, DateTimeKind.Local).AddTicks(9770));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -93,12 +78,7 @@ namespace BubblesAPI.Migrations
                     b.Property<string>("OrganisationName")
                         .HasColumnType("text");
 
-                    b.Property<int?>("UserStatusId")
-                        .HasColumnType("int");
-
                     b.HasKey("UserId");
-
-                    b.HasIndex("UserStatusId");
 
                     b.ToTable("Users");
                 });
@@ -107,14 +87,7 @@ namespace BubblesAPI.Migrations
                 {
                     b.HasOne("BubblesAPI.Database.Models.User", "User")
                         .WithOne("Credentials")
-                        .HasForeignKey("BubblesAPI.Database.Models.Credentials", "UserId");
-                });
-
-            modelBuilder.Entity("BubblesAPI.Database.Models.User", b =>
-                {
-                    b.HasOne("BubblesAPI.Database.Models.Status", "UserStatus")
-                        .WithMany()
-                        .HasForeignKey("UserStatusId");
+                        .HasForeignKey("BubblesAPI.Database.Models.Credentials", "Email");
                 });
 #pragma warning restore 612, 618
         }

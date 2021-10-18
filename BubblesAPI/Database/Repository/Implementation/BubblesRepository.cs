@@ -34,7 +34,7 @@ namespace BubblesAPI.Database.Repository.Implementation
                     FirstName = request.FirstName,
                     LastName = request.LastName,
                     Email = request.Email,
-                    UserStatus = new Status { Id = Constants.StatusInitialises }
+                    CreatedAt = DateTime.Now
                 };
             }
             else{
@@ -43,7 +43,7 @@ namespace BubblesAPI.Database.Repository.Implementation
 
             var credentials = new Credentials
             {
-                UserId = user.UserId,
+                Email = user.Email,
                 Password = request.Password,
                 IsActive = true
             };

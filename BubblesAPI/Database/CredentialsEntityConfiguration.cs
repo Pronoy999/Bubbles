@@ -12,7 +12,7 @@ namespace BubblesAPI.Database
             
             builder.HasOne(c => c.User)
                 .WithOne(u => u.Credentials)
-                .HasForeignKey<Credentials>(c => c.UserId);
+                .HasForeignKey<Credentials>(c => c.Email);
 
             builder.Property(b => b.Password)
                 .IsRequired();
