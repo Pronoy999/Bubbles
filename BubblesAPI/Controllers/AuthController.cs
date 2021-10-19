@@ -23,8 +23,8 @@ namespace BubblesAPI.Controllers
                 var result = _authService.Login(request);
                 return Ok(result);
             }
-            catch (UserNotFoundException e){
-                return BadRequest(new BubblesApiException(e));
+            catch (UserNotFoundException){
+                return BadRequest(new BubblesApiException(new UserNotFoundException()));
             }
         }
     }

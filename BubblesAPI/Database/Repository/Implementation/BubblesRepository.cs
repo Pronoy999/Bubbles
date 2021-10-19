@@ -77,13 +77,18 @@ namespace BubblesAPI.Database.Repository.Implementation
 
         public User ValidateCredentials(LoginRequest request)
         {
-            var credentials = _bubblesContext.Credentials.Single(x =>
-                x.Email.Equals(request.Email) && x.Password.Equals(request.Password));
-            if (credentials != null){
-                return _bubblesContext.Users.Single(x => x.Email.Equals(request.Email));
+            try{
+                var credentials = _bubblesContext.Credentials.Single(x =>
+                    x.Email.Equals(request.Email) && x.Password.Equals(request.Password));
+                if (credentials != null){
+                    return _bubblesContext.Users.Single(x => x.Email.Equals(request.Email));
+                }
+            }
+            catch (InvalidOperationException){
+                throw new UserNotFoundException();
             }
 
-            throw new UserNotFoundException();
+            return null;
         }
     }
 }

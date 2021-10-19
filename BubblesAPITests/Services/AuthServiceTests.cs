@@ -46,7 +46,16 @@ namespace BubblesAPITests.Services
                 LastName = "Test Last Name"
             };
             const string someToken = "some-token";
+            var expectedResponse = new LoginResponse
+            {
+                Email = expectedUser.Email,
+                FirstName = expectedUser.FirstName,
+                LastName = expectedUser.LastName,
+                UserId = expectedUser.UserId,
+                Token = someToken
+            };
 
+            _mapper.Setup(m => m.Map<LoginResponse>(It.IsAny<object>())).Returns(expectedResponse);
             _authentication.Setup(a => a.GetToken(It.IsAny<string>(), It.IsAny<string>(),
                     It.IsAny<string>()))
                 .Returns(someToken);
