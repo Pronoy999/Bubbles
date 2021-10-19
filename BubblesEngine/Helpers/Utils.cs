@@ -15,32 +15,34 @@ namespace BubblesEngine.Helpers
         {
             return "rs-" + Guid.NewGuid();
         }
-        public static string GetDatabaseLocation(string databaseName)
+
+        public static string GetDatabaseLocation(string databaseName, string userId)
         {
-            return EnvReader.GetStringValue(Constants.DbRootFolderKey) + Path.DirectorySeparatorChar +
-                   databaseName;
+            return EnvReader.GetStringValue(Constants.DbRootFolderKey) + Path.DirectorySeparatorChar + userId +
+                   Path.DirectorySeparatorChar + databaseName;
         }
 
-        public static string GetGraphLocation(string databaseName, string graphName)
+        public static string GetGraphLocation(string databaseName, string graphName, string userId)
         {
-            return GetDatabaseLocation(databaseName) + Path.DirectorySeparatorChar + Constants.GraphFolderName +
+            return GetDatabaseLocation(databaseName, userId) + Path.DirectorySeparatorChar + Constants.GraphFolderName +
                    Path.DirectorySeparatorChar + graphName;
         }
 
-        public static string GetTypeLocation(string databaseName, string graphName, string type)
+        public static string GetTypeLocation(string databaseName, string graphName, string type, string userId)
         {
-            return GetGraphLocation(databaseName, graphName) + Path.DirectorySeparatorChar +
+            return GetGraphLocation(databaseName, graphName, userId) + Path.DirectorySeparatorChar +
                    EnvReader.GetStringValue(Constants.TypesFolderName) + Path.DirectorySeparatorChar + type;
         }
 
-        public static string GetNodeLocation(string database, string graphName, string nodeId)
+        public static string GetNodeLocation(string database, string graphName, string nodeId, string userId)
         {
-            return GetGraphLocation(database, graphName) + Path.DirectorySeparatorChar + nodeId;
+            return GetGraphLocation(database, graphName, userId) + Path.DirectorySeparatorChar + nodeId;
         }
 
-        public static string GetRelationshipLocation(string databaseName)
+        public static string GetRelationshipLocation(string databaseName, string userId)
         {
-            return GetDatabaseLocation(databaseName) + Path.DirectorySeparatorChar + Constants.RelationshipFolderName;
+            return GetDatabaseLocation(databaseName, userId) + Path.DirectorySeparatorChar +
+                   Constants.RelationshipFolderName;
         }
     }
 }

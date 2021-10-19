@@ -1,6 +1,7 @@
 using System.Net;
 using BubblesAPI.Controllers;
 using BubblesAPI.DTOs;
+using BubblesAPI.Exceptions;
 using BubblesAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -34,6 +35,18 @@ namespace BubblesAPITests.Controllers
 
             Assert.NotNull(result);
             Assert.Equal((int)HttpStatusCode.OK, actualResult.StatusCode);
+        }
+
+        [Fact]
+        public void ShouldReturn404WhenInvalidCredentialsPassed()
+        {
+            _authService.Setup(s => s.Login(It.IsAny<LoginRequest>())).Throws<UserNotFoundException>();
+            var result = _authController.Login(It.IsAny<LoginRequest>());
+
+            var actualResult = result as NotFoundObjectResult;
+
+            Assert.NotNull(result);
+            Assert.Equal((int)HttpStatusCode.NotFound, actualResult.StatusCode);
         }
     }
 }

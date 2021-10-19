@@ -18,6 +18,7 @@ namespace BubblesEngine.Tests.Controllers
         private readonly Mock<IFileWrapper> _fileWrapper;
         private readonly Mock<IDomainFs> _domainFs;
         private readonly DbController _controller;
+        private readonly string someUserId = "some-user-id";
 
         public DbControllerTests()
         {
@@ -34,7 +35,7 @@ namespace BubblesEngine.Tests.Controllers
         public void ShouldCreateDatabaseWhenValidNameIsPassed()
         {
             _fileWrapper.Setup(fs => fs.CreateFolder(It.IsAny<string>())).Returns(true);
-            var result = _controller.CreateDatabase("some-database");
+            var result = _controller.CreateDatabase("some-database", someUserId);
             Assert.True(result);
         }
 
@@ -42,7 +43,7 @@ namespace BubblesEngine.Tests.Controllers
         public void ShouldNotCreateDatabaseWhenInvalidNameIsPassed()
         {
             _fileWrapper.Setup(fs => fs.CreateFolder(null)).Returns(false);
-            var result = _controller.CreateDatabase(null);
+            var result = _controller.CreateDatabase(null, someUserId);
             Assert.False(result);
         }
 
@@ -55,7 +56,7 @@ namespace BubblesEngine.Tests.Controllers
         {
             _fileWrapper.Setup(fs => fs.CreateFolder(It.IsAny<string>())).Returns(true);
             _fileWrapper.Setup(fs => fs.IsExists(It.IsAny<string>())).Returns(false);
-            var result = _controller.CreateGraph("some-graph", "some-database");
+            var result = _controller.CreateGraph("some-graph", "some-database", someUserId);
             Assert.True(result);
             _fileWrapper.Verify(fs => fs.CreateFolder(It.IsAny<string>()), Times.Once);
         }
@@ -65,7 +66,7 @@ namespace BubblesEngine.Tests.Controllers
         {
             _fileWrapper.Setup(fs => fs.IsExists(It.IsAny<string>())).Returns(true);
             _fileWrapper.Setup(fs => fs.CreateFolder(It.IsAny<string>())).Returns(true);
-            var result = _controller.CreateGraph("some-graph", "some-database");
+            var result = _controller.CreateGraph("some-graph", "some-database", someUserId);
             Assert.True(result);
             _fileWrapper.Verify(fs => fs.CreateFolder(It.IsAny<string>()), Times.Once);
             _domainFs.Verify(fs => fs.CreateDirectory(It.IsAny<string>()), Times.Never);
@@ -83,7 +84,8 @@ namespace BubblesEngine.Tests.Controllers
             const string nodeData = "{data:Hello world}";
 
             var path = Environment.GetEnvironmentVariable(Constants.DbRootFolderKey) + Path.DirectorySeparatorChar +
-                       dbName + Path.DirectorySeparatorChar + Constants.GraphFolderName + Path.DirectorySeparatorChar +
+                       someUserId + Path.DirectorySeparatorChar + dbName + Path.DirectorySeparatorChar +
+                       Constants.GraphFolderName + Path.DirectorySeparatorChar +
                        graphName;
             _fileWrapper.Setup(fs => fs.IsExists(It.Is<string>(x => x == path))).Returns(true);
             _fileWrapper.Setup(fs => fs.CreateFile(It.IsAny<string>(), It.IsAny<string>()))
@@ -91,7 +93,7 @@ namespace BubblesEngine.Tests.Controllers
             _fileWrapper.Setup(fs => fs.IsExists(It.Is<string>(x => x != path))).Returns(false);
             _fileWrapper.Setup(fs => fs.CreateFolder(It.IsAny<string>())).Returns(true);
 
-            var result = await _controller.CreateNode(dbName, graphName, "Person", nodeData);
+            var result = await _controller.CreateNode(dbName, graphName, "Person", nodeData, someUserId);
 
             Assert.NotNull(result);
             _fileWrapper.Verify(fs => fs.CreateFile(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
@@ -107,7 +109,8 @@ namespace BubblesEngine.Tests.Controllers
             const string typesData = "{\"NodeIds\":[\"guid-1\",\"guid-2\"],\"TypeName\":\"Person\"}";
 
             var path = Environment.GetEnvironmentVariable(Constants.DbRootFolderKey) + Path.DirectorySeparatorChar +
-                       dbName + Path.DirectorySeparatorChar + Constants.GraphFolderName + Path.DirectorySeparatorChar +
+                       dbName + Path.DirectorySeparatorChar + someUserId + Path.DirectorySeparatorChar +
+                       Constants.GraphFolderName + Path.DirectorySeparatorChar +
                        graphName;
             _fileWrapper.Setup(fs => fs.IsExists(path)).Returns(true);
             _fileWrapper.Setup(fs => fs.CreateFile(It.IsAny<string>(), It.IsAny<string>()))
@@ -116,7 +119,7 @@ namespace BubblesEngine.Tests.Controllers
             _fileWrapper.Setup(fs => fs.CreateFolder(It.IsAny<string>())).Returns(true);
             _fileWrapper.Setup(fs => fs.GetFileContents(It.IsAny<string>())).ReturnsAsync(typesData);
 
-            var result = await _controller.CreateNode(dbName, graphName, "Person", nodeData);
+            var result = await _controller.CreateNode(dbName, graphName, "Person", nodeData, someUserId);
 
             Assert.NotNull(result);
             _fileWrapper.Verify(fs => fs.CreateFile(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
@@ -130,12 +133,13 @@ namespace BubblesEngine.Tests.Controllers
             const string dbName = "some-valid-db";
             const string graphName = "some-valid-graph";
             var path = Environment.GetEnvironmentVariable(Constants.DbRootFolderKey) + Path.DirectorySeparatorChar +
-                       dbName + Path.DirectorySeparatorChar + Constants.GraphFolderName + Path.DirectorySeparatorChar +
+                       dbName + Path.DirectorySeparatorChar + someUserId + Path.DirectorySeparatorChar +
+                       Constants.GraphFolderName + Path.DirectorySeparatorChar +
                        graphName;
             _fileWrapper.Setup(fs => fs.IsExists(path)).Returns(false);
 
             await Assert.ThrowsAsync<BubblesException>(() =>
-                _controller.CreateNode(dbName, graphName, "Person", "{}"));
+                _controller.CreateNode(dbName, graphName, "Person", "{}", someUserId));
 
             _fileWrapper.Verify(fs => fs.CreateFile(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
             _fileWrapper.Verify(fs => fs.CreateFolder(It.IsAny<string>()), Times.Never);
@@ -173,7 +177,7 @@ namespace BubblesEngine.Tests.Controllers
             };
             _fileWrapper.Setup(fs => fs.IsExists(It.IsAny<string>())).Returns(true);
             _fileWrapper.Setup(fs => fs.GetAllFilesNames(It.IsAny<string>())).Returns(listOfNodes);
-            var actualGraph = _controller.GetGraph(databaseName, graphName);
+            var actualGraph = _controller.GetGraph(databaseName, graphName, someUserId);
             var expected = JsonConvert.SerializeObject(expectedGraph);
             var actual = JsonConvert.SerializeObject(actualGraph);
             Assert.Equal(expected, actual);
@@ -183,7 +187,7 @@ namespace BubblesEngine.Tests.Controllers
         public void ShouldThrowExceptionWhenInvalidGraphNameIsPassed()
         {
             _fileWrapper.Setup(fs => fs.IsExists(It.IsAny<string>())).Returns(false);
-            Assert.Throws<BubblesException>(() => _controller.GetGraph(null, null));
+            Assert.Throws<BubblesException>(() => _controller.GetGraph(null, null, null));
         }
 
         #endregion
@@ -204,7 +208,7 @@ namespace BubblesEngine.Tests.Controllers
             _fileWrapper.Setup(fs => fs.GetFileContents(It.IsAny<string>()))
                 .ReturnsAsync(expected);
 
-            var result = await _controller.GetNode("some-db", "some-graph", "guid-1");
+            var result = await _controller.GetNode("some-db", "some-graph", "guid-1", someUserId);
 
             var actual = JsonConvert.SerializeObject(result);
             Assert.Equal(expected, actual);
@@ -215,7 +219,7 @@ namespace BubblesEngine.Tests.Controllers
         {
             _fileWrapper.Setup(fs => fs.IsExists(It.IsAny<string>())).Returns(false);
             await Assert.ThrowsAsync<BubblesException>(
-                () => _controller.GetNode("some-db", "some-graph", "guid-1"));
+                () => _controller.GetNode("some-db", "some-graph", "guid-1", someUserId));
         }
 
         #endregion
@@ -225,7 +229,7 @@ namespace BubblesEngine.Tests.Controllers
         [Fact]
         public async Task ShouldConnectNodesWhenValidNodeIdsArePassedAndCreateFolderForTypesAndRelationshipFiles()
         {
-            const string dbPath = "/some-folder/some-db";
+            var dbPath = "/some-folder/" + someUserId + "/some-db";
             const string leftNodeId = "guid-1";
             const string rightNodeId = "guid-2";
             const string leftNodeIdPath = "/some-folder/some-db/graphs/some-graph/" + leftNodeId + ".json";
@@ -252,7 +256,8 @@ namespace BubblesEngine.Tests.Controllers
             _fileWrapper.Setup(fs => fs.CreateFolder(It.IsAny<string>())).Returns(true);
             _fileWrapper.Setup(fs => fs.IsExists(It.Is<string>(x => x == relationshipTypeFileLocation))).Returns(false);
 
-            var result = await _controller.ConnectNode("some-db", "guid-1", "guid-2", "Is_Brother_of", "{}");
+            var result =
+                await _controller.ConnectNode("some-db", "guid-1", "guid-2", "Is_Brother_of", "{}", someUserId);
 
             Assert.Equal(expectedRelationship.LeftNodeId, result.LeftNodeId);
             Assert.Equal(expectedRelationship.RightNodeId, result.RightNodeId);
@@ -265,13 +270,14 @@ namespace BubblesEngine.Tests.Controllers
         [Fact]
         public async Task ShouldConnectNodesWhenValidNodeIdsArePassedAndNotCreateFolderForTypesAndRelationshipFiles()
         {
-            const string dbPath = "/some-folder/some-db";
+            var dbPath = "/some-folder/" + someUserId + "/some-db";
             const string leftNodeId = "guid-1";
             const string rightNodeId = "guid-2";
-            const string leftNodeIdPath = "/some-path/some-db/graphs/some-graph/" + leftNodeId + ".json";
-            const string rightNodeIdPath = "/some-path/some-db/graphs/some-graph-2/" + rightNodeId + ".json";
-            const string relationshipTypesFolderLocation = "/some-folder/some-db/relationships/types";
-            const string relationshipTypeFileLocation = "/some-folder/some-db/relationships/types/Is_Brother_of.json";
+            var leftNodeIdPath = "/some-path/some-db/" + someUserId + "/graphs/some-graph/" + leftNodeId + ".json";
+            var rightNodeIdPath = "/some-path/some-db/" + someUserId + "/graphs/some-graph-2/" + rightNodeId + ".json";
+            var relationshipTypesFolderLocation = "/some-folder/"+ someUserId +"/some-db/relationships/types";
+            var relationshipTypeFileLocation =
+                "/some-folder/"+ someUserId +"/some-db/relationships/types/Is_Brother_of.json";
 
             var expectedRelationship = new Relationship
             {
@@ -298,7 +304,8 @@ namespace BubblesEngine.Tests.Controllers
             _fileWrapper.Setup(fs => fs.GetFileContents(It.IsAny<string>()))
                 .ReturnsAsync(JsonConvert.SerializeObject(relationshipType));
 
-            var result = await _controller.ConnectNode("some-db", "guid-1", "guid-2", "Is_Brother_of", "{}");
+            var result = await _controller.ConnectNode("some-db", "guid-1", "guid-2",
+                "Is_Brother_of", "{}", someUserId);
 
             Assert.Equal(expectedRelationship.LeftNodeId, result.LeftNodeId);
             Assert.Equal(expectedRelationship.RightNodeId, result.RightNodeId);
@@ -324,7 +331,7 @@ namespace BubblesEngine.Tests.Controllers
             _fileWrapper.Setup(fs => fs.IsExists(It.IsAny<string>())).Returns(true);
             _fileWrapper.Setup(fs => fs.GetFileContents(It.IsAny<string>()))
                 .ReturnsAsync(JsonConvert.SerializeObject(relationship));
-            var result = await _controller.GetRelationship("some-db", relationshipId);
+            var result = await _controller.GetRelationship("some-db", relationshipId, someUserId);
             var expected = JsonConvert.SerializeObject(relationship);
 
             var actual = JsonConvert.SerializeObject(result);
@@ -340,7 +347,8 @@ namespace BubblesEngine.Tests.Controllers
             const string dbLocation = "/some-folder/some-db";
             _fileWrapper.Setup(fs => fs.IsExists(It.Is<string>(x => x == dbLocation))).Returns(true);
             _fileWrapper.Setup(fs => fs.IsExists(It.IsAny<string>())).Returns(false);
-            await Assert.ThrowsAsync<BubblesException>(() => _controller.GetRelationship("some-db", "guid-1"));
+            await Assert.ThrowsAsync<BubblesException>(() => _controller.GetRelationship("some-db",
+                "guid-1", someUserId));
         }
 
         #endregion
@@ -352,7 +360,8 @@ namespace BubblesEngine.Tests.Controllers
         {
             const string dbName = "some-db";
             const string nodeId = "some-node-id";
-            const string nodeFileLocation = "/some-folder/" + dbName + "/graphs/some-graph/" + nodeId + ".json";
+            var nodeFileLocation =
+                "/some-folder/" + dbName + "/" + someUserId + "/graphs/some-graph/" + nodeId + ".json";
             var node = new Node
             {
                 Id = nodeId,
@@ -364,7 +373,7 @@ namespace BubblesEngine.Tests.Controllers
             _fileWrapper.Setup(fs => fs.GetFileContents(It.Is<string>(x => x == nodeFileLocation)))
                 .ReturnsAsync(JsonConvert.SerializeObject(node));
 
-            var result = await _controller.SearchNodeById(dbName, nodeId);
+            var result = await _controller.SearchNodeById(dbName, nodeId, someUserId);
 
             var expected = JsonConvert.SerializeObject(node);
             var actual = JsonConvert.SerializeObject(result);
@@ -375,7 +384,8 @@ namespace BubblesEngine.Tests.Controllers
         public async Task ShouldThrowErrorWhenNodeNotFound()
         {
             _fileWrapper.Setup(fs => fs.SearchFiles(It.IsAny<string>(), It.IsAny<string>())).Returns(string.Empty);
-            await Assert.ThrowsAsync<BubblesException>(() => _controller.SearchNodeById("some-db", "some-node-id"));
+            await Assert.ThrowsAsync<BubblesException>(() =>
+                _controller.SearchNodeById("some-db", "some-node-id", someUserId));
         }
 
         #endregion
@@ -400,7 +410,7 @@ namespace BubblesEngine.Tests.Controllers
             _fileWrapper.Setup(fs => fs.GetFileContents(It.IsAny<string>()))
                 .ReturnsAsync(JsonConvert.SerializeObject(node));
 
-            var result = await _controller.SearchNodeByData("some-db", "value");
+            var result = await _controller.SearchNodeByData("some-db", "value", someUserId);
 
             var actual = JsonConvert.SerializeObject(result);
             var expected = JsonConvert.SerializeObject(node);
@@ -425,7 +435,7 @@ namespace BubblesEngine.Tests.Controllers
             _fileWrapper.Setup(fs => fs.GetFileContents(It.IsAny<string>()))
                 .ReturnsAsync(JsonConvert.SerializeObject(node));
 
-            var result = await _controller.SearchNodeByData("some-db", "Hello");
+            var result = await _controller.SearchNodeByData("some-db", "Hello", someUserId);
 
             Assert.Null(result);
         }

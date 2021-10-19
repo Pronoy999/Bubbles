@@ -24,7 +24,7 @@ namespace BubblesAPI.Controllers
                 return Ok(result);
             }
             catch (UserNotFoundException){
-                return BadRequest(new BubblesApiException(new UserNotFoundException()));
+                return NotFound(new BubblesApiException(new UserNotFoundException()));
             }
         }
     }

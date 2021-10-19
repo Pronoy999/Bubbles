@@ -1,5 +1,4 @@
-﻿using System;
-using dotenv.net;
+﻿using dotenv.net;
 
 namespace BubblesEngine
 {
@@ -8,7 +7,6 @@ namespace BubblesEngine
         static void Main(string[] args)
         {
             DotEnv.Load();
-            Console.WriteLine("Hello World!");
         }
     }
 }
