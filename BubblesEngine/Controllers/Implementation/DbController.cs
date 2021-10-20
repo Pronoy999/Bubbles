@@ -6,6 +6,7 @@ using BubblesEngine.Engines;
 using BubblesEngine.Exceptions;
 using BubblesEngine.Helpers;
 using BubblesEngine.Models;
+using dotenv.net;
 using Newtonsoft.Json;
 
 namespace BubblesEngine.Controllers.Implementation
@@ -16,6 +17,7 @@ namespace BubblesEngine.Controllers.Implementation
 
         public DbController(IFileWrapper fileWrapper)
         {
+            DotEnv.Load();
             _fileWrapper = fileWrapper;
         }
 
@@ -63,28 +65,30 @@ namespace BubblesEngine.Controllers.Implementation
         }
 
 
-        public bool CreateDatabase(string databaseName,string userId)
+        public bool CreateDatabase(string databaseName, string userId)
         {
-            var databasePath = Utils.GetDatabaseLocation(databaseName,userId);
+            var databasePath = Utils.GetDatabaseLocation(databaseName, userId);
             return _fileWrapper.CreateFolder(databasePath);
         }
 
-        public bool CreateGraph(string graphName, string databaseName,string userId)
+        public bool CreateGraph(string graphName, string databaseName, string userId)
         {
-            var graphPath = Utils.GetGraphLocation(databaseName, graphName,userId);
+            var graphPath = Utils.GetGraphLocation(databaseName, graphName, userId);
             return _fileWrapper.CreateFolder(graphPath);
         }
 
-        public async Task<string> CreateNode(string databaseName, string graphName, string type, dynamic data,string userId)
+        public async Task<string> CreateNode(string databaseName, string graphName, string type, dynamic data,
+            string userId)
         {
-            var graphLocation = Utils.GetGraphLocation(databaseName, graphName,userId);
+            var graphLocation = Utils.GetGraphLocation(databaseName, graphName, userId);
             if (!_fileWrapper.IsExists(graphLocation))
                 throw new BubblesException(new GraphNotFoundException());
 
-            var typesFolderPath = Utils.GetTypeLocation(databaseName, graphName, type,userId);
+            var typesFolderPath = Utils.GetTypeLocation(databaseName, graphName, type, userId);
             var nodeId = Utils.GenerateNodeId(graphName);
             await CheckAndCreateTypeFile(typesFolderPath, type, nodeId);
-            var nodesFilePath = Utils.GetNodeLocation(databaseName, graphName, nodeId,userId) + "." + Constants.FileExtension;
+            var nodesFilePath = Utils.GetNodeLocation(databaseName, graphName, nodeId, userId) + "." +
+                                Constants.FileExtension;
 
             var node = new Node
             {
@@ -96,11 +100,11 @@ namespace BubblesEngine.Controllers.Implementation
             return nodeId;
         }
 
-        public Database GetDatabase(string databaseName,string userId)
+        public Database GetDatabase(string databaseName, string userId)
         {
             if (string.IsNullOrEmpty(databaseName))
                 throw new BubblesException(new DatabaseNotFoundException());
-            var dbPath = Utils.GetDatabaseLocation(databaseName,userId);
+            var dbPath = Utils.GetDatabaseLocation(databaseName, userId);
             if (!_fileWrapper.IsExists(dbPath)) throw new BubblesException(new DatabaseNotFoundException());
             var graphNames = _fileWrapper.GetDirectories(dbPath);
 
@@ -112,11 +116,11 @@ namespace BubblesEngine.Controllers.Implementation
             };
         }
 
-        public Graph GetGraph(string databaseName, string graphName,string userId)
+        public Graph GetGraph(string databaseName, string graphName, string userId)
         {
             if (string.IsNullOrEmpty(databaseName) || string.IsNullOrEmpty(graphName))
                 throw new BubblesException(new GraphNotFoundException());
-            var location = Utils.GetGraphLocation(databaseName, graphName,userId);
+            var location = Utils.GetGraphLocation(databaseName, graphName, userId);
             if (!_fileWrapper.IsExists(location))
                 throw new BubblesException(new GraphNotFoundException());
             var nodesIds = _fileWrapper.GetAllFilesNames(location);
@@ -128,13 +132,13 @@ namespace BubblesEngine.Controllers.Implementation
             };
         }
 
-        public async Task<Node> GetNode(string database, string graphName, string nodeId,string userId)
+        public async Task<Node> GetNode(string database, string graphName, string nodeId, string userId)
         {
             if (string.IsNullOrEmpty(database) || string.IsNullOrEmpty(graphName) || string.IsNullOrEmpty(nodeId)){
                 throw new BubblesException(new NodeNotFoundException());
             }
 
-            var location = Utils.GetNodeLocation(database, graphName, nodeId,userId);
+            var location = Utils.GetNodeLocation(database, graphName, nodeId, userId);
             if (!_fileWrapper.IsExists(location)) throw new BubblesException(new NodeNotFoundException());
             var nodeData = await _fileWrapper.GetFileContents(location);
             if (nodeData == null){
@@ -146,9 +150,9 @@ namespace BubblesEngine.Controllers.Implementation
 
         public async Task<Relationship> ConnectNode(string database, string leftNodeId, string rightNodeId,
             string relationshipType,
-            dynamic data,string userId)
+            dynamic data, string userId)
         {
-            var dbLocation = Utils.GetDatabaseLocation(database,userId);
+            var dbLocation = Utils.GetDatabaseLocation(database, userId);
             if (!_fileWrapper.IsExists(dbLocation))
                 throw new BubblesException(new DatabaseNotFoundException());
             var leftNodeLocation = _fileWrapper.SearchFiles(dbLocation, leftNodeId + "." + Constants.FileExtension);
@@ -156,7 +160,7 @@ namespace BubblesEngine.Controllers.Implementation
             if (string.IsNullOrEmpty(leftNodeLocation) || string.IsNullOrEmpty(rightNodeLocation))
                 throw new BubblesException(new NodeNotFoundException());
             var relationshipId = Utils.GenerateRelationshipId();
-            var relationshipLocation = Utils.GetRelationshipLocation(database,userId);
+            var relationshipLocation = Utils.GetRelationshipLocation(database, userId);
             Relationship relationship = new Relationship
             {
                 Data = data,
@@ -168,8 +172,9 @@ namespace BubblesEngine.Controllers.Implementation
             await _fileWrapper.CreateFile(
                 relationshipLocation + Path.DirectorySeparatorChar + relationshipId + "." + Constants.FileExtension,
                 relationship.ToString());
-            var relationshipTypeFolderLocation = Utils.GetRelationshipLocation(database,userId) + Path.DirectorySeparatorChar +
-                                                 Constants.TypesFolderName;
+            var relationshipTypeFolderLocation =
+                Utils.GetRelationshipLocation(database, userId) + Path.DirectorySeparatorChar +
+                Constants.TypesFolderName;
             if (!_fileWrapper.IsExists(relationshipTypeFolderLocation))
                 _fileWrapper.CreateFolder(relationshipTypeFolderLocation);
             var relationshipTypeFileLocation = relationshipTypeFolderLocation + Path.DirectorySeparatorChar +
@@ -192,12 +197,13 @@ namespace BubblesEngine.Controllers.Implementation
             return relationship;
         }
 
-        public async Task<Relationship> GetRelationship(string database, string relationshipId,string userId)
+        public async Task<Relationship> GetRelationship(string database, string relationshipId, string userId)
         {
-            var dbLocation = Utils.GetDatabaseLocation(database,userId);
+            var dbLocation = Utils.GetDatabaseLocation(database, userId);
             if (!_fileWrapper.IsExists(dbLocation))
                 throw new BubblesException(new DatabaseNotFoundException());
-            var relationshipFileLocation = Utils.GetRelationshipLocation(database,userId) + Path.DirectorySeparatorChar +
+            var relationshipFileLocation = Utils.GetRelationshipLocation(database, userId) +
+                                           Path.DirectorySeparatorChar +
                                            relationshipId + "." + Constants.FileExtension;
             if (!_fileWrapper.IsExists(relationshipFileLocation))
                 throw new BubblesException(new RelationshipNotFoundException());
@@ -205,9 +211,9 @@ namespace BubblesEngine.Controllers.Implementation
                 await _fileWrapper.GetFileContents(relationshipFileLocation))!;
         }
 
-        public async Task<Node> SearchNodeById(string databaseName, string nodeId,string userId)
+        public async Task<Node> SearchNodeById(string databaseName, string nodeId, string userId)
         {
-            var databaseLocation = Utils.GetDatabaseLocation(databaseName,userId);
+            var databaseLocation = Utils.GetDatabaseLocation(databaseName, userId);
             var nodeFileName = nodeId + "." + Constants.FileExtension;
             var result = _fileWrapper.SearchFiles(databaseLocation, nodeFileName);
             if (string.IsNullOrEmpty(result)){
@@ -218,9 +224,9 @@ namespace BubblesEngine.Controllers.Implementation
             return JsonConvert.DeserializeObject<Node>(nodeData)!;
         }
 
-        public async Task<Node> SearchNodeByData(string databaseName, string data,string userId)
+        public async Task<Node> SearchNodeByData(string databaseName, string data, string userId)
         {
-            var searchLocation = Utils.GetDatabaseLocation(databaseName,userId) + Path.DirectorySeparatorChar +
+            var searchLocation = Utils.GetDatabaseLocation(databaseName, userId) + Path.DirectorySeparatorChar +
                                  Constants.GraphFolderName;
             var files = _fileWrapper.GetAllFiles(searchLocation);
             foreach (var oneFilePath in files){

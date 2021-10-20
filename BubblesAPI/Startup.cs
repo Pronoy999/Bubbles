@@ -36,6 +36,8 @@ namespace BubblesAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvcCore()
+                .AddAuthorization();
             services.AddControllers(options => options.EnableEndpointRouting = false)
                 .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
             services.AddDbContext<BubblesContext>(options =>
@@ -54,7 +56,7 @@ namespace BubblesAPI
                 };
             });
             services.AddAutoMapper(typeof(Startup));
-            
+
             services.AddTransient<IDbController, DbController>();
             services.AddTransient<IDomainFs, DomainFs>();
             services.AddTransient<IFileWrapper, FileWrapper>();
@@ -67,6 +69,7 @@ namespace BubblesAPI
 
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IAuthService, AuthService>();
+            services.AddTransient<IDbService, DbService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
