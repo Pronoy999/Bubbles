@@ -154,6 +154,7 @@ namespace BubblesEngine.Tests.Engines
             var result = _fileWrapper.SearchFiles("some-path", searchedFile);
             Assert.Equal(string.Empty, result);
         }
+
         [Fact]
         public void ShouldListFilesWithFullNameWhenValidPathIsPassed()
         {
@@ -165,6 +166,23 @@ namespace BubblesEngine.Tests.Engines
             _domainFs.Setup(fs => fs.ListFiles(It.IsAny<string>())).Returns(listOfFiles);
             var result = _fileWrapper.GetAllFiles("some-path");
             Assert.Equal(listOfFiles, result);
+        }
+
+        [Fact]
+        public void ShouldReturnTrueWhenDirectoryExists()
+        {
+            const string somePath = "/some-folder";
+            _domainFs.Setup(fs => fs.IsDirectoryExists(It.IsAny<string>())).Returns(true);
+            var result = _fileWrapper.IsDirectoryExists(somePath);
+            Assert.True(result);
+        }
+        [Fact]
+        public void ShouldReturnFalseWhenDirectoryNotExists()
+        {
+            const string somePath = "/some-folder";
+            _domainFs.Setup(fs => fs.IsDirectoryExists(It.IsAny<string>())).Returns(false);
+            var result = _fileWrapper.IsDirectoryExists(somePath);
+            Assert.False(result);
         }
     }
 }

@@ -28,6 +28,11 @@ namespace BubblesEngine.Engines.Implementations
             return _domainFs.IsExists(path);
         }
 
+        public bool IsDirectoryExists(string path)
+        {
+            return _domainFs.IsDirectoryExists(path);
+        }
+
         public bool CreateFolder(string path)
         {
             return _domainFs.IsExists(path) || _domainFs.CreateDirectory(path);

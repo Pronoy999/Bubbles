@@ -105,7 +105,7 @@ namespace BubblesEngine.Controllers.Implementation
             if (string.IsNullOrEmpty(databaseName))
                 throw new BubblesException(new DatabaseNotFoundException());
             var dbPath = Utils.GetDatabaseLocation(databaseName, userId);
-            if (!_fileWrapper.IsExists(dbPath)) throw new BubblesException(new DatabaseNotFoundException());
+            if (!_fileWrapper.IsDirectoryExists(dbPath)) throw new BubblesException(new DatabaseNotFoundException());
             var graphNames = _fileWrapper.GetDirectories(dbPath);
 
             var graphs = graphNames.Select(oneGraph => new Graph { GraphName = oneGraph }).ToList();
@@ -121,7 +121,7 @@ namespace BubblesEngine.Controllers.Implementation
             if (string.IsNullOrEmpty(databaseName) || string.IsNullOrEmpty(graphName))
                 throw new BubblesException(new GraphNotFoundException());
             var location = Utils.GetGraphLocation(databaseName, graphName, userId);
-            if (!_fileWrapper.IsExists(location))
+            if (!_fileWrapper.IsDirectoryExists(location))
                 throw new BubblesException(new GraphNotFoundException());
             var nodesIds = _fileWrapper.GetAllFilesNames(location);
             var nodes = nodesIds.Select(oneNodeFile => new Node { Id = oneNodeFile.Split(".")[0] }).ToList();

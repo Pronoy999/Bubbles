@@ -9,6 +9,7 @@ namespace BubblesAPI.Mapping
         public ResponseMappingProfile()
         {
             this.CreateMap<User, LoginResponse>();
+            this.CreateMap<BubblesEngine.Models.Database, DatabaseResponse>();
         }
     }
 }

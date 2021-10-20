@@ -175,7 +175,7 @@ namespace BubblesEngine.Tests.Controllers
                     }
                 }
             };
-            _fileWrapper.Setup(fs => fs.IsExists(It.IsAny<string>())).Returns(true);
+            _fileWrapper.Setup(fs => fs.IsDirectoryExists(It.IsAny<string>())).Returns(true);
             _fileWrapper.Setup(fs => fs.GetAllFilesNames(It.IsAny<string>())).Returns(listOfNodes);
             var actualGraph = _controller.GetGraph(databaseName, graphName, someUserId);
             var expected = JsonConvert.SerializeObject(expectedGraph);

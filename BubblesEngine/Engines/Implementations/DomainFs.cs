@@ -41,6 +41,11 @@ namespace BubblesEngine.Engines.Implementations
             return File.Exists(path);
         }
 
+        public bool IsDirectoryExists(string path)
+        {
+            return Directory.Exists(path);
+        }
+
         public bool CreateDirectory(string path)
         {
             try{

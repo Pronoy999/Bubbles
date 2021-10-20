@@ -1,3 +1,4 @@
+using AutoMapper;
 using BubblesAPI.DTOs;
 using BubblesEngine.Controllers;
 
@@ -6,10 +7,12 @@ namespace BubblesAPI.Services.Implementation
     public class DbService : IDbService
     {
         private readonly IDbController _dbController;
+        private readonly IMapper _mapper;
 
-        public DbService(IDbController dbController)
+        public DbService(IDbController dbController, IMapper mapper)
         {
             _dbController = dbController;
+            _mapper = mapper;
         }
 
         public bool CreateDb(string dbName, string userId)
@@ -19,7 +22,8 @@ namespace BubblesAPI.Services.Implementation
 
         public DatabaseResponse GetDb(string dbName, string userId)
         {
-            throw new System.NotImplementedException();
+            var response = _dbController.GetDatabase(dbName, userId);
+            return _mapper.Map<DatabaseResponse>(response);
         }
 
         public bool RemoveDb(string dbName, string userId)

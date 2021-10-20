@@ -8,6 +8,7 @@ namespace BubblesEngine.Engines
         public Task<bool> CreateFile(string path, string contents);
         public Task<string> GetFileContents(string path);
         public bool IsExists(string path);
+        public bool IsDirectoryExists(string path);
         public bool CreateFolder(string path);
         public List<string> GetDirectories(string path);
         public List<string> GetAllFilesNames(string path);
