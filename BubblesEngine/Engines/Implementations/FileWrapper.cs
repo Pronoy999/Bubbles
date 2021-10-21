@@ -35,7 +35,7 @@ namespace BubblesEngine.Engines.Implementations
 
         public bool CreateFolder(string path)
         {
-            return _domainFs.IsExists(path) || _domainFs.CreateDirectory(path);
+            return _domainFs.IsDirectoryExists(path) || _domainFs.CreateDirectory(path);
         }
 
         public List<string> GetDirectories(string path)
