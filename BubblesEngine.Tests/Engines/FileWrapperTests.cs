@@ -69,7 +69,7 @@ namespace BubblesEngine.Tests.Engines
         [Fact]
         public void ShouldNotCreateADuplicateFolder()
         {
-            _domainFs.Setup(fs => fs.IsExists(It.IsAny<string>())).Returns(true);
+            _domainFs.Setup(fs => fs.IsDirectoryExists(It.IsAny<string>())).Returns(true);
             _domainFs.Setup(fs => fs.CreateDirectory(It.IsAny<string>())).Returns(true);
             var result = _fileWrapper.CreateFolder("some-path");
             Assert.True(result);
@@ -176,6 +176,7 @@ namespace BubblesEngine.Tests.Engines
             var result = _fileWrapper.IsDirectoryExists(somePath);
             Assert.True(result);
         }
+
         [Fact]
         public void ShouldReturnFalseWhenDirectoryNotExists()
         {
