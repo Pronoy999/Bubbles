@@ -22,7 +22,7 @@ namespace BubblesAPI.Controllers
         [Authorize(AuthenticationSchemes = "Bearer")]
         public IActionResult CreateDb([FromBody] CreateDbRequest request)
         {
-            var userId = Utils.GetUserId(HttpContext.User);
+            var userId = Utils.GetUserId(HttpContext?.User);
             if (string.IsNullOrEmpty(userId)) return Unauthorized();
             _dbService.CreateDb(request.DbName, userId);
             return Ok(new CreateDbResponse
@@ -35,14 +35,16 @@ namespace BubblesAPI.Controllers
         [Authorize(AuthenticationSchemes = "Bearer")]
         public IActionResult GetDb([FromRoute] string dbName)
         {
-            var userId = Utils.GetUserId(HttpContext.User);
+            var userId = Utils.GetUserId(HttpContext?.User);
             if (string.IsNullOrEmpty(userId)) return Unauthorized();
             try{
                 var response = _dbService.GetDb(dbName, userId);
                 return Ok(response);
             }
             catch (BubblesException e){
-                return e.InnerException is DatabaseNotFoundException ? BadRequest(new DatabaseNotFoundException()) : Problem();
+                return e.InnerException is DatabaseNotFoundException
+                    ? BadRequest(new DatabaseNotFoundException())
+                    : Problem();
             }
         }
     }

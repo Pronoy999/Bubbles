@@ -13,7 +13,7 @@ namespace BubblesAPI.Helpers
 
         public static string GetUserId(ClaimsPrincipal user)
         {
-            return user.Claims.First(c => c.Type == "id").Value;
+            return user?.Claims.First(c => c.Type == "id").Value;
         }
     }
 }
