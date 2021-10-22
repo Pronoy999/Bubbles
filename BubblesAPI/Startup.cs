@@ -70,6 +70,7 @@ namespace BubblesAPI
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IAuthService, AuthService>();
             services.AddTransient<IDbService, DbService>();
+            services.AddTransient<IGraphService, GraphService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
