@@ -1,6 +1,8 @@
 using BubblesAPI.DTOs;
 using BubblesAPI.Services;
 using BubblesEngine.Controllers;
+using BubblesEngine.Exceptions;
+using BubblesEngine.Models;
 using Moq;
 using Xunit;
 
@@ -31,6 +33,30 @@ namespace BubblesAPITests.Services
 
             var result = _graphService.CreateGraph(request, someUserId);
             Assert.True(result);
+        }
+
+        [Fact]
+        public void ShouldGetAGraphWhenValidParamsPassed()
+        {
+            var expectedGraph = new Graph()
+            {
+                GraphName = "some-graph"
+            };
+            _dbController.Setup(db => db.GetGraph(It.IsAny<string>(), It.IsAny<string>(),
+                    It.IsAny<string>()))
+                .Returns(expectedGraph);
+            var result = _graphService.GetGraph("some-db", "some-graph", "some-user-id");
+            Assert.NotNull(result);
+            Assert.Equal(expectedGraph.GraphName, result.GraphName);
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenGraphNotFound()
+        {
+            var exception = new BubblesException(new GraphNotFoundException());
+            _dbController.Setup(db => db.GetGraph(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Throws(exception);
+            Assert.Throws<BubblesException>(() => _graphService.GetGraph("some-db", "some-graph", "some-user"));
         }
     }
 }

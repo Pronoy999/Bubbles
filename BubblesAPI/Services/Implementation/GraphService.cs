@@ -18,9 +18,9 @@ namespace BubblesAPI.Services.Implementation
             return _dbController.CreateGraph(request.GraphName, request.DbName, userId);
         }
 
-        public Graph GetGraph(GetGraphRequest request, string userId)
+        public Graph GetGraph(string dbName, string graphName, string userId)
         {
-            throw new System.NotImplementedException();
+            return _dbController.GetGraph(dbName, graphName, userId);
         }
     }
 }
