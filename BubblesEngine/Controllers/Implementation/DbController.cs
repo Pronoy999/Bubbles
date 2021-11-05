@@ -24,7 +24,7 @@ namespace BubblesEngine.Controllers.Implementation
 
         private async Task CheckAndCreateTypeFile(string location, string typeName, string nodeId)
         {
-            if (!_fileWrapper.IsExists(location)){
+            if (!_fileWrapper.IsDirectoryExists(location)){
                 _fileWrapper.CreateFolder(location);
             }
 
@@ -38,7 +38,7 @@ namespace BubblesEngine.Controllers.Implementation
                     },
                     TypeName = typeName
                 };
-                var isCreated = await _fileWrapper.CreateFile(location, type.ToString());
+                var isCreated = await _fileWrapper.CreateFile(typeFileLocation, type.ToString());
                 if (!isCreated)
                     throw new BubblesException(
                         new TypesCouldNotBeCreatedException());
@@ -81,7 +81,7 @@ namespace BubblesEngine.Controllers.Implementation
             string userId)
         {
             var graphLocation = Utils.GetGraphLocation(databaseName, graphName, userId);
-            if (!_fileWrapper.IsExists(graphLocation))
+            if (!_fileWrapper.IsDirectoryExists(graphLocation))
                 throw new BubblesException(new GraphNotFoundException());
 
             var typesFolderPath = Utils.GetTypeLocation(databaseName, graphName, type, userId);

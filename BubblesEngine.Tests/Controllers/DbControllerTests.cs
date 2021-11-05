@@ -87,7 +87,7 @@ namespace BubblesEngine.Tests.Controllers
                        someUserId + Path.DirectorySeparatorChar + dbName + Path.DirectorySeparatorChar +
                        Constants.GraphFolderName + Path.DirectorySeparatorChar +
                        graphName;
-            _fileWrapper.Setup(fs => fs.IsExists(It.Is<string>(x => x == path))).Returns(true);
+            _fileWrapper.Setup(fs => fs.IsDirectoryExists(It.Is<string>(x => x == path))).Returns(true);
             _fileWrapper.Setup(fs => fs.CreateFile(It.IsAny<string>(), It.IsAny<string>()))
                 .ReturnsAsync(true);
             _fileWrapper.Setup(fs => fs.IsExists(It.Is<string>(x => x != path))).Returns(false);
@@ -109,10 +109,12 @@ namespace BubblesEngine.Tests.Controllers
             const string typesData = "{\"NodeIds\":[\"guid-1\",\"guid-2\"],\"TypeName\":\"Person\"}";
 
             var path = Environment.GetEnvironmentVariable(Constants.DbRootFolderKey) + Path.DirectorySeparatorChar +
-                       dbName + Path.DirectorySeparatorChar + someUserId + Path.DirectorySeparatorChar +
+                       someUserId + Path.DirectorySeparatorChar + dbName + Path.DirectorySeparatorChar +
                        Constants.GraphFolderName + Path.DirectorySeparatorChar +
                        graphName;
-            _fileWrapper.Setup(fs => fs.IsExists(path)).Returns(true);
+            var typePath = path + Path.DirectorySeparatorChar + "types";
+            _fileWrapper.Setup(fs => fs.IsDirectoryExists(It.Is<string>(x => x == path))).Returns(true);
+            _fileWrapper.Setup(fs => fs.IsDirectoryExists(It.Is<string>(x => x == typePath))).Returns(true);
             _fileWrapper.Setup(fs => fs.CreateFile(It.IsAny<string>(), It.IsAny<string>()))
                 .ReturnsAsync(true);
             _fileWrapper.Setup(fs => fs.IsExists(It.IsAny<string>())).Returns(true);
@@ -275,9 +277,9 @@ namespace BubblesEngine.Tests.Controllers
             const string rightNodeId = "guid-2";
             var leftNodeIdPath = "/some-path/some-db/" + someUserId + "/graphs/some-graph/" + leftNodeId + ".json";
             var rightNodeIdPath = "/some-path/some-db/" + someUserId + "/graphs/some-graph-2/" + rightNodeId + ".json";
-            var relationshipTypesFolderLocation = "/some-folder/"+ someUserId +"/some-db/relationships/types";
+            var relationshipTypesFolderLocation = "/some-folder/" + someUserId + "/some-db/relationships/types";
             var relationshipTypeFileLocation =
-                "/some-folder/"+ someUserId +"/some-db/relationships/types/Is_Brother_of.json";
+                "/some-folder/" + someUserId + "/some-db/relationships/types/Is_Brother_of.json";
 
             var expectedRelationship = new Relationship
             {
