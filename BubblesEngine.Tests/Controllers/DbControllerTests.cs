@@ -107,12 +107,13 @@ namespace BubblesEngine.Tests.Controllers
             const string graphName = "some-valid-graph";
             const string nodeData = "{data:Hello world}";
             const string typesData = "{\"NodeIds\":[\"guid-1\",\"guid-2\"],\"TypeName\":\"Person\"}";
+            const string someType = "Person";
 
             var path = Environment.GetEnvironmentVariable(Constants.DbRootFolderKey) + Path.DirectorySeparatorChar +
                        someUserId + Path.DirectorySeparatorChar + dbName + Path.DirectorySeparatorChar +
                        Constants.GraphFolderName + Path.DirectorySeparatorChar +
                        graphName;
-            var typePath = path + Path.DirectorySeparatorChar + "types";
+            var typePath = path + Path.DirectorySeparatorChar + "types" + Path.DirectorySeparatorChar + someType;
             _fileWrapper.Setup(fs => fs.IsDirectoryExists(It.Is<string>(x => x == path))).Returns(true);
             _fileWrapper.Setup(fs => fs.IsDirectoryExists(It.Is<string>(x => x == typePath))).Returns(true);
             _fileWrapper.Setup(fs => fs.CreateFile(It.IsAny<string>(), It.IsAny<string>()))
@@ -121,7 +122,7 @@ namespace BubblesEngine.Tests.Controllers
             _fileWrapper.Setup(fs => fs.CreateFolder(It.IsAny<string>())).Returns(true);
             _fileWrapper.Setup(fs => fs.GetFileContents(It.IsAny<string>())).ReturnsAsync(typesData);
 
-            var result = await _controller.CreateNode(dbName, graphName, "Person", nodeData, someUserId);
+            var result = await _controller.CreateNode(dbName, graphName, someType, nodeData, someUserId);
 
             Assert.NotNull(result);
             _fileWrapper.Verify(fs => fs.CreateFile(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
