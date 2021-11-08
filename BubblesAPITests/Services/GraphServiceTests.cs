@@ -10,12 +10,12 @@ namespace BubblesAPITests.Services
 {
     public class GraphService
     {
-        private readonly Mock<IDbController> _dbController;
+        private readonly Mock<IGraphController> _dbController;
         private readonly IGraphService _graphService;
 
         public GraphService()
         {
-            _dbController = new Mock<IDbController>();
+            _dbController = new Mock<IGraphController>();
             _graphService = new BubblesAPI.Services.Implementation.GraphService(_dbController.Object);
         }
 

@@ -6,21 +6,21 @@ namespace BubblesAPI.Services.Implementation
 {
     public class GraphService : IGraphService
     {
-        private readonly IDbController _dbController;
+        private readonly IGraphController _graphController;
 
-        public GraphService(IDbController dbController)
+        public GraphService(IGraphController graphController)
         {
-            _dbController = dbController;
+            _graphController = graphController;
         }
 
         public bool CreateGraph(CreateGraphRequest request, string userId)
         {
-            return _dbController.CreateGraph(request.GraphName, request.DbName, userId);
+            return _graphController.CreateGraph(request.GraphName, request.DbName, userId);
         }
 
         public Graph GetGraph(string dbName, string graphName, string userId)
         {
-            return _dbController.GetGraph(dbName, graphName, userId);
+            return _graphController.GetGraph(dbName, graphName, userId);
         }
     }
 }

@@ -1,5 +1,4 @@
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using BubblesEngine.Engines;
 using BubblesEngine.Exceptions;
@@ -20,35 +19,6 @@ namespace BubblesEngine.Controllers.Implementation
             _fileWrapper = fileWrapper;
         }
         
-        
-
-        public bool CreateGraph(string graphName, string databaseName, string userId)
-        {
-            var graphPath = Utils.GetGraphLocation(databaseName, graphName, userId);
-            return _fileWrapper.CreateFolder(graphPath);
-        }
-        
-        
-
-        public Graph GetGraph(string databaseName, string graphName, string userId)
-        {
-            if (string.IsNullOrEmpty(databaseName) || string.IsNullOrEmpty(graphName))
-                throw new BubblesException(new GraphNotFoundException());
-            var location = Utils.GetGraphLocation(databaseName, graphName, userId);
-            if (!_fileWrapper.IsDirectoryExists(location))
-                throw new BubblesException(new GraphNotFoundException());
-            var nodesIds = _fileWrapper.GetAllFilesNames(location);
-            var nodes = nodesIds.Select(oneNodeFile => new Node { Id = oneNodeFile.Split(".")[0] }).ToList();
-            return new Graph
-            {
-                GraphName = graphName,
-                Nodes = nodes
-            };
-        }
-        
-
-       
-
         
 
         public async Task<Node> SearchNodeById(string databaseName, string nodeId, string userId)
