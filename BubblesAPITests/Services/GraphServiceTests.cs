@@ -38,7 +38,7 @@ namespace BubblesAPITests.Services
         [Fact]
         public void ShouldGetAGraphWhenValidParamsPassed()
         {
-            var expectedGraph = new Graph()
+            var expectedGraph = new Graph
             {
                 GraphName = "some-graph"
             };

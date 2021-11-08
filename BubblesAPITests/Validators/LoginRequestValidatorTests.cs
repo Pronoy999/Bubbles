@@ -16,7 +16,7 @@ namespace BubblesAPITests.Validators
         [Fact]
         public void ShouldValidateWithCorrectModel()
         {
-            var loginRequest = new LoginRequest()
+            var loginRequest = new LoginRequest
             {
                 Email = "some-email@example.com",
                 Password = "some-password"
@@ -28,7 +28,7 @@ namespace BubblesAPITests.Validators
         [Fact]
         public void ShouldNotValidateWithIncorrectData()
         {
-            var request = new LoginRequest()
+            var request = new LoginRequest
             {
                 Email = "some-email@example.com"
             };
@@ -39,7 +39,7 @@ namespace BubblesAPITests.Validators
         [Fact]
         public void ShouldNotValidateWithIncorrectEmail()
         {
-            var request = new LoginRequest()
+            var request = new LoginRequest
             {
                 Email = "some-email",
                 Password = "some-password"

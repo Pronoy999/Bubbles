@@ -16,7 +16,7 @@ namespace BubblesAPITests.Validators
         [Fact]
         public void ShouldValidateWithCorrectModel()
         {
-            var request = new RegisterUserRequest()
+            var request = new RegisterUserRequest
             {
                 FirstName = "some-name",
                 LastName = "some-name",
@@ -30,7 +30,7 @@ namespace BubblesAPITests.Validators
         [Fact]
         public void ShouldNotValidateWhenFirstNameIsMissing()
         {
-            var request = new RegisterUserRequest()
+            var request = new RegisterUserRequest
             {
                 LastName = "some-name",
                 Email = "some-email@example.com",
@@ -43,7 +43,7 @@ namespace BubblesAPITests.Validators
         [Fact]
         public void ShouldNotValidateWhenPasswordIsMissing()
         {
-            var request = new RegisterUserRequest()
+            var request = new RegisterUserRequest
             {
                 FirstName = "some-name",
                 LastName = "some-name",
@@ -56,7 +56,7 @@ namespace BubblesAPITests.Validators
         [Fact]
         public void ShouldNotValidateWhenLastNameIsMissing()
         {
-            var request = new RegisterUserRequest()
+            var request = new RegisterUserRequest
             {
                 FirstName = "some-name",
                 Email = "some-email@example.com",
@@ -69,7 +69,7 @@ namespace BubblesAPITests.Validators
         [Fact]
         public void ShouldNotValidateWhenIncorrectEmail()
         {
-            var request = new RegisterUserRequest()
+            var request = new RegisterUserRequest
             {
                 FirstName = "some-name",
                 LastName = "some-name",

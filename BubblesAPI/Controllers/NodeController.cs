@@ -40,5 +40,27 @@ namespace BubblesAPI.Controllers
                 return exception != null ? NotFound(exception) : Problem();
             }
         }
+
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        public async Task<IActionResult> GetNode([FromQuery] GetNodeRequest request)
+        {
+            var userId = Utils.GetUserId(HttpContext?.User);
+            if (string.IsNullOrEmpty(userId)) return Unauthorized();
+            try{
+                var result = await _nodeService.GetNode(request, userId);
+                return Ok(result);
+            }
+            catch (BubblesException e){
+                Exception exception = e.InnerException switch
+                {
+                    DatabaseNotFoundException => new DatabaseNotFoundException(),
+                    GraphNotFoundException => new GraphNotFoundException(),
+                    NodeNotFoundException => new NodeNotFoundException(),
+                    _ => null
+                };
+                return exception != null ? NotFound(exception) : Problem();
+            }
+        }
     }
 }

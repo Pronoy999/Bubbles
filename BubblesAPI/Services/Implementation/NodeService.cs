@@ -19,9 +19,9 @@ namespace BubblesAPI.Services.Implementation
             return await _dbController.CreateNode(request.Database, request.Graph, request.Type, request.Data, userId);
         }
 
-        public Task<Node> GetNode(string database, string graph, string userId)
+        public async Task<Node> GetNode(GetNodeRequest request, string userId)
         {
-            throw new System.NotImplementedException();
+            return await _dbController.GetNode(request.DbName, request.GraphName, request.NodeId, userId);
         }
     }
 }

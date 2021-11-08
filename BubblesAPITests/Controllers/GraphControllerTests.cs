@@ -39,7 +39,7 @@ namespace BubblesAPITests.Controllers
             _graphService.Setup(g => g.CreateGraph(It.IsAny<CreateGraphRequest>(), It.IsAny<string>()))
                 .Returns(true);
             _graphController.ControllerContext.HttpContext = GetUserContext();
-            var request = new CreateGraphRequest()
+            var request = new CreateGraphRequest
             {
                 DbName = "some-DbName",
                 GraphName = "some-graph-name"
@@ -53,7 +53,7 @@ namespace BubblesAPITests.Controllers
         [Fact]
         public void ShouldReturn401WhenNoCredentialsIsPassed()
         {
-            var request = new CreateGraphRequest()
+            var request = new CreateGraphRequest
             {
                 DbName = "some-DbName",
                 GraphName = "some-graph-name"
@@ -67,7 +67,7 @@ namespace BubblesAPITests.Controllers
         [Fact]
         public void ShouldReturn200WhenGraphIsPresent()
         {
-            var expectedGraph = new Graph()
+            var expectedGraph = new Graph
             {
                 GraphName = "friends",
             };

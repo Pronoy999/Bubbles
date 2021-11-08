@@ -23,7 +23,7 @@ namespace BubblesAPITests.Controllers
         [Fact]
         public void ShouldReturn200WhenValidCredentialsPassed()
         {
-            var expectedResponse = new LoginResponse()
+            var expectedResponse = new LoginResponse
             {
                 UserId = "some-id",
                 Token = "some-token"

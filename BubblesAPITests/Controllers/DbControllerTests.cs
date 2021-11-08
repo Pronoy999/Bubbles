@@ -61,7 +61,7 @@ namespace BubblesAPITests.Controllers
         public void ShouldReturn200WhenSearchedForDbWithValidCredentials()
         {
             const string someDbName = "some-db-name";
-            var expectedResponse = new DatabaseResponse()
+            var expectedResponse = new DatabaseResponse
             {
                 DatabaseName = someDbName
             };

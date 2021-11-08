@@ -138,7 +138,7 @@ namespace BubblesEngine.Controllers.Implementation
                 throw new BubblesException(new NodeNotFoundException());
             }
 
-            var location = Utils.GetNodeLocation(database, graphName, nodeId, userId);
+            var location = Utils.GetNodeLocation(database, graphName, nodeId, userId) + "." + Constants.FileExtension;
             if (!_fileWrapper.IsExists(location)) throw new BubblesException(new NodeNotFoundException());
             var nodeData = await _fileWrapper.GetFileContents(location);
             if (nodeData == null){

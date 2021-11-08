@@ -7,6 +7,6 @@ namespace BubblesAPI.Services
     public interface INodeService
     {
         public Task<string> CreateNode(CreateNodeRequest request, string userId);
-        public Task<Node> GetNode(string database, string graph, string userId);
+        public Task<Node> GetNode(GetNodeRequest request, string userId);
     }
 }

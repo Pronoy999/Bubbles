@@ -4,6 +4,7 @@ using BubblesAPI.Services;
 using BubblesAPI.Services.Implementation;
 using BubblesEngine.Controllers;
 using BubblesEngine.Exceptions;
+using BubblesEngine.Models;
 using Moq;
 using Xunit;
 
@@ -54,6 +55,48 @@ namespace BubblesAPITests.Services
                 Type = "some-type"
             };
             await Assert.ThrowsAsync<BubblesException>(() => _nodeService.CreateNode(request, "some-user-id"));
+        }
+
+        [Fact]
+        public async Task ShouldReturnNodeDataWhenNodeExists()
+        {
+            var expectedNode = new Node
+            {
+                Id = "some-id",
+                Data = "{'hello':'world'}",
+                Type = "some-type"
+            };
+            _dbController.Setup(db => db.GetNode(It.IsAny<string>(), It.IsAny<string>(),
+                It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(expectedNode);
+            var request = new GetNodeRequest()
+            {
+                DbName = "some-db",
+                GraphName = "some-graphName",
+                NodeId = "some-id"
+            };
+
+            var result = await _nodeService.GetNode(request, "some-user-id");
+
+            Assert.NotNull(result);
+            Assert.Equal(expectedNode.Id, result.Id);
+            Assert.Equal(expectedNode.Data, result.Data);
+            Assert.Equal(expectedNode.Type, result.Type);
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenInvalidNodeIdIsPassed()
+        {
+            var exception = new BubblesException(new NodeNotFoundException());
+            _dbController.Setup(db => db.GetNode(It.IsAny<string>(), It.IsAny<string>(),
+                It.IsAny<string>(), It.IsAny<string>())).ThrowsAsync(exception);
+            var request = new GetNodeRequest()
+            {
+                DbName = "some-db",
+                GraphName = "some-graphName",
+                NodeId = "some-invalid-id"
+            };
+            
+            Assert.ThrowsAsync<BubblesException>(() => _nodeService.GetNode(request, "some-user-id"));
         }
     }
 }

@@ -34,13 +34,12 @@ namespace BubblesAPITests.Services
         [Fact]
         public void ShouldReturnDbWhenDbExists()
         {
-            var response = new Database()
+            var response = new Database
             {
                 DatabaseName = "some-db-name"
             };
             _dbController.Setup(db => db.GetDatabase(It.IsAny<string>(), It.IsAny<string>())).Returns(response);
-            _mapper.Setup(m => m.Map<DatabaseResponse>(It.IsAny<object>())).Returns(new DatabaseResponse()
-                { DatabaseName = response.DatabaseName });
+            _mapper.Setup(m => m.Map<DatabaseResponse>(It.IsAny<object>())).Returns(new DatabaseResponse { DatabaseName = response.DatabaseName });
 
             var result = _dbService.GetDb("some-db-name", "some-user-id");
 
