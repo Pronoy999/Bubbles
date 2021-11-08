@@ -59,6 +59,7 @@ namespace BubblesAPI
 
             services.AddTransient<IDbController, DbController>();
             services.AddTransient<IDatabaseController, DatabaseController>();
+            services.AddTransient<INodeController, NodeController>();
             services.AddTransient<IDomainFs, DomainFs>();
             services.AddTransient<IFileWrapper, FileWrapper>();
 

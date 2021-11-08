@@ -13,11 +13,11 @@ namespace BubblesAPITests.Services
     public class NodeServiceTests
     {
         private readonly INodeService _nodeService;
-        private readonly Mock<IDbController> _dbController;
+        private readonly Mock<INodeController> _dbController;
 
         public NodeServiceTests()
         {
-            _dbController = new Mock<IDbController>();
+            _dbController = new Mock<INodeController>();
             _nodeService = new NodeService(_dbController.Object);
         }
 
@@ -95,7 +95,7 @@ namespace BubblesAPITests.Services
                 GraphName = "some-graphName",
                 NodeId = "some-invalid-id"
             };
-            
+
             Assert.ThrowsAsync<BubblesException>(() => _nodeService.GetNode(request, "some-user-id"));
         }
     }

@@ -7,9 +7,9 @@ namespace BubblesAPI.Services.Implementation
 {
     public class NodeService : INodeService
     {
-        private readonly IDbController _dbController;
+        private readonly INodeController _dbController;
 
-        public NodeService(IDbController dbController)
+        public NodeService(INodeController dbController)
         {
             _dbController = dbController;
         }
