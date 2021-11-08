@@ -16,14 +16,14 @@ namespace BubblesEngine.Tests.Controllers
     {
         private readonly Mock<IFileWrapper> _fileWrapper;
         private readonly Mock<IDomainFs> _domainFs;
-        private readonly DbController _controller;
+        private readonly SearchController _controller;
         private readonly string someUserId = "some-user-id";
 
         public DbControllerTests()
         {
             _domainFs = new Mock<IDomainFs>();
             _fileWrapper = new Mock<IFileWrapper>();
-            _controller = new DbController(_fileWrapper.Object);
+            _controller = new SearchController(_fileWrapper.Object);
             Environment.SetEnvironmentVariable(Constants.DbRootFolderKey, "/some-folder");
             Environment.SetEnvironmentVariable(Constants.TypesFolderName, "types");
         }

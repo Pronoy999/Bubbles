@@ -9,17 +9,15 @@ using Newtonsoft.Json;
 
 namespace BubblesEngine.Controllers.Implementation
 {
-    public class DbController : IDbController
+    public class SearchController : ISearchController
     {
         private readonly IFileWrapper _fileWrapper;
 
-        public DbController(IFileWrapper fileWrapper)
+        public SearchController(IFileWrapper fileWrapper)
         {
             DotEnv.Load();
             _fileWrapper = fileWrapper;
         }
-        
-        
 
         public async Task<Node> SearchNodeById(string databaseName, string nodeId, string userId)
         {
