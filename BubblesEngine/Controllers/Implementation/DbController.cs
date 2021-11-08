@@ -63,13 +63,7 @@ namespace BubblesEngine.Controllers.Implementation
             type.NodeIds.Add(nodeId);
             await _fileWrapper.CreateFile(location, type.ToString());
         }
-
-
-        public bool CreateDatabase(string databaseName, string userId)
-        {
-            var databasePath = Utils.GetDatabaseLocation(databaseName, userId);
-            return _fileWrapper.CreateFolder(databasePath);
-        }
+        
 
         public bool CreateGraph(string graphName, string databaseName, string userId)
         {
@@ -99,22 +93,7 @@ namespace BubblesEngine.Controllers.Implementation
             await _fileWrapper.CreateFile(nodesFilePath, node.ToString());
             return nodeId;
         }
-
-        public Database GetDatabase(string databaseName, string userId)
-        {
-            if (string.IsNullOrEmpty(databaseName))
-                throw new BubblesException(new DatabaseNotFoundException());
-            var dbPath = Utils.GetDatabaseLocation(databaseName, userId);
-            if (!_fileWrapper.IsDirectoryExists(dbPath)) throw new BubblesException(new DatabaseNotFoundException());
-            var graphNames = _fileWrapper.GetDirectories(dbPath);
-
-            var graphs = graphNames.Select(oneGraph => new Graph { GraphName = oneGraph }).ToList();
-            return new Database
-            {
-                DatabaseName = databaseName,
-                Graphs = graphs
-            };
-        }
+        
 
         public Graph GetGraph(string databaseName, string graphName, string userId)
         {

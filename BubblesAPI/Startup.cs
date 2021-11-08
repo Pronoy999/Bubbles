@@ -58,6 +58,7 @@ namespace BubblesAPI
             services.AddAutoMapper(typeof(Startup));
 
             services.AddTransient<IDbController, DbController>();
+            services.AddTransient<IDatabaseController, DatabaseController>();
             services.AddTransient<IDomainFs, DomainFs>();
             services.AddTransient<IFileWrapper, FileWrapper>();
 

@@ -6,10 +6,10 @@ namespace BubblesAPI.Services.Implementation
 {
     public class DbService : IDbService
     {
-        private readonly IDbController _dbController;
+        private readonly IDatabaseController _dbController;
         private readonly IMapper _mapper;
 
-        public DbService(IDbController dbController, IMapper mapper)
+        public DbService(IDatabaseController dbController, IMapper mapper)
         {
             _dbController = dbController;
             _mapper = mapper;
