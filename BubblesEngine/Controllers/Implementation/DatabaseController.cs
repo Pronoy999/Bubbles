@@ -1,3 +1,4 @@
+using System.IO;
 using System.Linq;
 using BubblesEngine.Engines;
 using BubblesEngine.Exceptions;
@@ -27,7 +28,8 @@ namespace BubblesEngine.Controllers.Implementation
                 throw new BubblesException(new DatabaseNotFoundException());
             var dbPath = Utils.GetDatabaseLocation(databaseName, userId);
             if (!_fileWrapper.IsDirectoryExists(dbPath)) throw new BubblesException(new DatabaseNotFoundException());
-            var graphNames = _fileWrapper.GetDirectories(dbPath);
+            var graphPath = dbPath + Path.DirectorySeparatorChar + Constants.GraphFolderName;
+            var graphNames = _fileWrapper.GetDirectories(graphPath);
 
             var graphs = graphNames.Select(oneGraph => new Graph { GraphName = oneGraph }).ToList();
             return new Database
