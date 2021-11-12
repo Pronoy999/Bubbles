@@ -29,11 +29,10 @@ jobs:
     needs: build
 
     steps:
-      - name: Docker Publish
-        uses: manusa/actions-publish-docker@v1.1.2
+      - uses: actions/checkout@master
+      - name: Publish to Registry
+        uses: minddocdev/docker-publish-action@master
         with:
-          name: pronoytw/bubbles
-          tag: v1
+          name: pronoytw/bubbles:v1
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          dockerfile path: BubblesAPI/DockerFile
