@@ -6975,11 +6975,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine.Tests/BubblesEngine.Tests.csproj",
-      "projectName": "BubblesEngine.Tests",
-      "projectPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine.Tests/BubblesEngine.Tests.csproj",
+      "projectUniqueName": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngineTests/BubblesEngineTests.csproj",
+      "projectName": "BubblesEngineTests",
+      "projectPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngineTests/BubblesEngineTests.csproj",
       "packagesPath": "/Users/pronoymukherjee/.nuget/packages/",
-      "outputPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine.Tests/obj/",
+      "outputPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngineTests/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"

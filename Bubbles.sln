@@ -6,7 +6,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BubblesEngine", "BubblesEng
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{26D6EE89-1ED0-49CF-B67C-90BDA0E9CE55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BubblesEngine.Tests", "BubblesEngine.Tests\BubblesEngine.Tests.csproj", "{E30141E5-4DA2-4C15-8621-7E16821120A8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BubblesEngineTests", "BubblesEngineTests\BubblesEngineTests.csproj", "{E30141E5-4DA2-4C15-8621-7E16821120A8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BubblesAPI", "BubblesAPI\BubblesAPI.csproj", "{F1F74002-4270-4AA9-88D7-D709A8571077}"
 EndProject
