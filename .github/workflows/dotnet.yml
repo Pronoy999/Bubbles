@@ -39,4 +39,4 @@ jobs:
       - name: Build Docker Image
         run: docker build -t bubbles:v1 .
       - name: Push to Docker hub
-        run: docker push pronoytw/bubbles:v1
+        run: docker push pronoytw/bubbles
