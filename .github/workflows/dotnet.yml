@@ -29,6 +29,7 @@ jobs:
     needs: build
 
     steps:
+      - uses: actions/checkout@v2
       - name: Login to DockerHub
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
