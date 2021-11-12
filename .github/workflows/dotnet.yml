@@ -32,7 +32,7 @@ jobs:
       - name: Docker Publish
         uses: manusa/actions-publish-docker@v1.1.2
         with:
-          name: pronoytw/bubbles:v1
+          name: pronoytw/bubbles
           tag: v1
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
