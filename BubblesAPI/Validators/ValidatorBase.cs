@@ -1,5 +1,4 @@
 using System.Linq;
-using BubblesAPI.Exceptions;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using FluentValidation.Results;
@@ -20,7 +19,7 @@ namespace BubblesAPI.Validators
             var projection = result.Errors.Select(
                 failure => new ValidationFailure(
                     failure.PropertyName,
-                    ErrorCodes.BadRequest));
+                    failure.ErrorMessage));
             return new ValidationResult(projection);
         }
     }
