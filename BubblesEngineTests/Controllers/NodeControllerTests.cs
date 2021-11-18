@@ -231,6 +231,10 @@ namespace BubblesEngine.Tests.Controllers
             _fileWrapper.Verify(fs => fs.GetFileContents(It.IsAny<string>()), Times.Once);
         }
 
+        #endregion
+
+        #region Relationship
+
         [Fact]
         public async void ShouldReturnRelationshipDataWhenValidIdIsPassed()
         {
@@ -243,16 +247,18 @@ namespace BubblesEngine.Tests.Controllers
                 RightNodeId = "guid-right-1",
                 Type = "Is_Brother_of"
             };
+            _fileWrapper.Setup(fs => fs.IsDirectoryExists(It.IsAny<string>())).Returns(true);
             _fileWrapper.Setup(fs => fs.IsExists(It.IsAny<string>())).Returns(true);
             _fileWrapper.Setup(fs => fs.GetFileContents(It.IsAny<string>()))
                 .ReturnsAsync(JsonConvert.SerializeObject(relationship));
+
             var result = await _controller.GetRelationship("some-db", relationshipId, someUserId);
             var expected = JsonConvert.SerializeObject(relationship);
 
             var actual = JsonConvert.SerializeObject(result);
-
             Assert.Equal(expected, actual);
-            _fileWrapper.Verify(fs => fs.IsExists(It.IsAny<string>()), Times.Exactly(2));
+            _fileWrapper.Verify(fs => fs.IsExists(It.IsAny<string>()), Times.Exactly(1));
+            _fileWrapper.Verify(fs => fs.IsDirectoryExists(It.IsAny<string>()), Times.Exactly(1));
             _fileWrapper.Verify(fs => fs.GetFileContents(It.IsAny<string>()), Times.Once);
         }
 
@@ -264,6 +270,31 @@ namespace BubblesEngine.Tests.Controllers
             _fileWrapper.Setup(fs => fs.IsExists(It.IsAny<string>())).Returns(false);
             await Assert.ThrowsAsync<BubblesException>(() => _controller.GetRelationship("some-db",
                 "guid-1", someUserId));
+        }
+
+        [Fact]
+        public void ShouldGetAllRelationships()
+        {
+            _fileWrapper.Setup(fs => fs.IsDirectoryExists(It.IsAny<string>())).Returns(true);
+            var listOfRelationship = new List<string>
+            {
+                "guid-1",
+                "guid-2"
+            };
+            _fileWrapper.Setup(fs => fs.GetDirectories(It.IsAny<string>())).Returns(listOfRelationship);
+
+            var result = _controller.GetAllRelationships("some-db", "some-user-id");
+
+            Assert.NotEmpty(result);
+            Assert.Equal(listOfRelationship.Count, result.Count);
+            Assert.Equal(listOfRelationship[0], result[0]);
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenDatabaseNotExists()
+        {
+            _fileWrapper.Setup(fs => fs.IsDirectoryExists(It.IsAny<string>())).Returns(false);
+            Assert.Throws<BubblesException>(() => _controller.GetAllRelationships("some-db", "some-user-id"));
         }
 
         #endregion
