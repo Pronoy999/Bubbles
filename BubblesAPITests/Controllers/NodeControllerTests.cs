@@ -183,5 +183,48 @@ namespace BubblesAPITests.Controllers
         }
 
         #endregion
+
+        #region GetRelationship
+
+        [Fact]
+        public async Task ShouldReturn200WhenValidRequestIsMade()
+        {
+            var request = new GetRelationshipRequest
+            {
+                DbName = "some-db",
+                RelationshipId = "some-rs-id"
+            };
+            var relationship = new Relationship
+            {
+                Id = "some-rs-id",
+                Data = "{}",
+                LeftNodeId = "some-id-1",
+                RightNodeId = "some-id-2",
+            };
+            _nodeService.Setup(node => node.GetRelationship(It.IsAny<GetRelationshipRequest>(), It.IsAny<string>()))
+                .ReturnsAsync(relationship);
+            _nodeController.ControllerContext.HttpContext = GetUserContext();
+
+            var result = await _nodeController.GetRelationship(request);
+
+            var actualResult = result as OkObjectResult;
+            Assert.Equal((int)HttpStatusCode.OK, actualResult.StatusCode);
+        }
+
+        [Fact]
+        public async Task ShouldReturn401WhenUnauthorizedAccessIsMade()
+        {
+            var request = new GetRelationshipRequest
+            {
+                DbName = "some-db",
+                RelationshipId = "some-rs-id"
+            };
+            var result = await _nodeController.GetRelationship(request);
+
+            var actualResult = result as UnauthorizedResult;
+            Assert.Equal((int)HttpStatusCode.Unauthorized, actualResult.StatusCode);
+        }
+
+        #endregion
     }
 }

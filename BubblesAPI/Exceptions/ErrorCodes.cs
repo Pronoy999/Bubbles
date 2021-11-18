@@ -12,5 +12,6 @@ namespace BubblesAPI.Exceptions
         public const string NodeIdMissing = "missing_node_id";
         public const string RelationshipTypeMissing = "missing_relationship_type";
         public const string GraphNameMissing = "missing_graph_name";
+        public const string RelationshipIdMissing = "missing_relationship_id";
     }
 }

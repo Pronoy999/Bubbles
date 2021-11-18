@@ -160,7 +160,7 @@ namespace BubblesEngine.Controllers.Implementation
         public async Task<Relationship> GetRelationship(string database, string relationshipId, string userId)
         {
             var dbLocation = Utils.GetDatabaseLocation(database, userId);
-            if (!_fileWrapper.IsExists(dbLocation))
+            if (!_fileWrapper.IsDirectoryExists(dbLocation))
                 throw new BubblesException(new DatabaseNotFoundException());
             var relationshipFileLocation = Utils.GetRelationshipLocation(database, userId) +
                                            Path.DirectorySeparatorChar +

@@ -73,6 +73,7 @@ namespace BubblesAPI
             services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
             services.AddTransient<IValidator<CreateDbRequest>, CreateDbRequestValidator>();
             services.AddTransient<IValidator<ConnectNodeRequest>, ConnectNodeRequestValidator>();
+            services.AddTransient<IValidator<GetRelationshipRequest>, GetRelationshipRequestValidator>();
 
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IAuthService, AuthService>();

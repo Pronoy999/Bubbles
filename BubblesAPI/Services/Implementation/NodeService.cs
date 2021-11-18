@@ -16,7 +16,8 @@ namespace BubblesAPI.Services.Implementation
 
         public async Task<string> CreateNode(CreateNodeRequest request, string userId)
         {
-            return await _nodeController.CreateNode(request.Database, request.Graph, request.Type, request.Data, userId);
+            return await _nodeController.CreateNode(request.Database, request.Graph, request.Type, request.Data,
+                userId);
         }
 
         public async Task<Node> GetNode(GetNodeRequest request, string userId)
@@ -29,6 +30,11 @@ namespace BubblesAPI.Services.Implementation
             return await _nodeController.ConnectNode(request.DbName, request.LeftNodeId, request.RightNodeId,
                 request.RelationshipType,
                 request.Data, userId);
+        }
+
+        public async Task<Relationship> GetRelationship(GetRelationshipRequest request, string userId)
+        {
+            return await _nodeController.GetRelationship(request.DbName, request.RelationshipId, userId);
         }
     }
 }
