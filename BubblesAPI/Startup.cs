@@ -12,6 +12,7 @@ using BubblesEngine.Controllers.Implementation;
 using BubblesEngine.Engines;
 using BubblesEngine.Engines.Implementations;
 using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -42,6 +43,7 @@ namespace BubblesAPI
                 .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
             services.AddDbContext<BubblesContext>(options =>
                 options.UseMySQL(Configuration.GetConnectionString("db")));
+            services.AddFluentValidation(x => { x.RegisterValidatorsFromAssemblyContaining<Startup>(); });
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
@@ -69,6 +71,8 @@ namespace BubblesAPI
 
             services.AddTransient<IValidator<RegisterUserRequest>, RegisterUserRequestValidator>();
             services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
+            services.AddTransient<IValidator<CreateDbRequest>, CreateDbRequestValidator>();
+            services.AddTransient<IValidator<ConnectNodeRequest>, ConnectNodeRequestValidator>();
 
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IAuthService, AuthService>();

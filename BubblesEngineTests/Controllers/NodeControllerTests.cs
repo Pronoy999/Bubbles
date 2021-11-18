@@ -16,13 +16,11 @@ namespace BubblesEngine.Tests.Controllers
     public class NodeControllerTests
     {
         private readonly Mock<IFileWrapper> _fileWrapper;
-        private readonly Mock<IDomainFs> _domainFs;
         private readonly NodeController _controller;
         private readonly string someUserId = "some-user-id";
 
         public NodeControllerTests()
         {
-            _domainFs = new Mock<IDomainFs>();
             _fileWrapper = new Mock<IFileWrapper>();
             _controller = new NodeController(_fileWrapper.Object);
             Environment.SetEnvironmentVariable(Constants.DbRootFolderKey, "/some-folder");
@@ -157,7 +155,7 @@ namespace BubblesEngine.Tests.Controllers
                 Type = "Is_Brother_of"
             };
 
-            _fileWrapper.Setup(fs => fs.IsExists(It.Is<string>(x => x == dbPath))).Returns(true);
+            _fileWrapper.Setup(fs => fs.IsDirectoryExists(It.Is<string>(x => x == dbPath))).Returns(true);
             _fileWrapper.Setup(fs => fs.SearchFiles(It.IsAny<string>(),
                     It.Is<string>(x => x == leftNodeId + ".json")))
                 .Returns(leftNodeIdPath);
@@ -165,7 +163,8 @@ namespace BubblesEngine.Tests.Controllers
                     It.Is<string>(x => x == rightNodeId + ".json")))
                 .Returns(rightNodeIdPath);
             _fileWrapper.Setup(fs => fs.CreateFile(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(true);
-            _fileWrapper.Setup(fs => fs.IsExists(It.Is<string>(x => x == relationshipFolderLocation))).Returns(false);
+            _fileWrapper.Setup(fs => fs.IsDirectoryExists(It.Is<string>(x => x == relationshipFolderLocation)))
+                .Returns(false);
             _fileWrapper.Setup(fs => fs.CreateFolder(It.IsAny<string>())).Returns(true);
             _fileWrapper.Setup(fs => fs.IsExists(It.Is<string>(x => x == relationshipTypeFileLocation))).Returns(false);
 
@@ -177,7 +176,7 @@ namespace BubblesEngine.Tests.Controllers
             Assert.Equal(expectedRelationship.Type, result.Type);
 
             _fileWrapper.Verify(fs => fs.CreateFile(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
-            _fileWrapper.Verify(fs => fs.CreateFolder(It.IsAny<string>()), Times.Once);
+            _fileWrapper.Verify(fs => fs.CreateFolder(It.IsAny<string>()), Times.Exactly(2));
         }
 
         [Fact]
@@ -189,6 +188,7 @@ namespace BubblesEngine.Tests.Controllers
             var leftNodeIdPath = "/some-path/some-db/" + someUserId + "/graphs/some-graph/" + leftNodeId + ".json";
             var rightNodeIdPath = "/some-path/some-db/" + someUserId + "/graphs/some-graph-2/" + rightNodeId + ".json";
             var relationshipTypesFolderLocation = "/some-folder/" + someUserId + "/some-db/relationships/types";
+            var relationshipFolderLocation = "/some-folder/" + someUserId + "/some-db/relationships";
             var relationshipTypeFileLocation =
                 "/some-folder/" + someUserId + "/some-db/relationships/types/Is_Brother_of.json";
 
@@ -203,7 +203,7 @@ namespace BubblesEngine.Tests.Controllers
                 RelationshipIds = new List<string> { "guid-3" }
             };
 
-            _fileWrapper.Setup(fs => fs.IsExists(It.Is<string>(x => x == dbPath))).Returns(true);
+            _fileWrapper.Setup(fs => fs.IsDirectoryExists(It.Is<string>(x => x == dbPath))).Returns(true);
             _fileWrapper.Setup(fs => fs.SearchFiles(It.IsAny<string>(),
                     It.Is<string>(x => x == leftNodeId + ".json")))
                 .Returns(leftNodeIdPath);
@@ -211,7 +211,9 @@ namespace BubblesEngine.Tests.Controllers
                     It.Is<string>(x => x == rightNodeId + ".json")))
                 .Returns(rightNodeIdPath);
             _fileWrapper.Setup(fs => fs.CreateFile(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(true);
-            _fileWrapper.Setup(fs => fs.IsExists(It.Is<string>(x => x == relationshipTypesFolderLocation)))
+            _fileWrapper.Setup(fs => fs.IsDirectoryExists(It.Is<string>(x => x == relationshipFolderLocation)))
+                .Returns(true);
+            _fileWrapper.Setup(fs => fs.IsDirectoryExists(It.Is<string>(x => x == relationshipTypesFolderLocation)))
                 .Returns(true);
             _fileWrapper.Setup(fs => fs.IsExists(It.Is<string>(x => x == relationshipTypeFileLocation))).Returns(true);
             _fileWrapper.Setup(fs => fs.GetFileContents(It.IsAny<string>()))

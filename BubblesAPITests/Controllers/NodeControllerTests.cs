@@ -33,6 +33,8 @@ namespace BubblesAPITests.Controllers
             return new DefaultHttpContext { User = user };
         }
 
+        #region CreateNode
+
         [Fact]
         public async Task ShouldReturn200WhenNodeIsCreatedWithValidData()
         {
@@ -69,6 +71,10 @@ namespace BubblesAPITests.Controllers
             var actualResponse = result as UnauthorizedResult;
             Assert.Equal((int)HttpStatusCode.Unauthorized, actualResponse.StatusCode);
         }
+
+        #endregion
+
+        #region GetNode
 
         [Fact]
         public async Task ShouldReturn200WhenValidNodeIdIsPassed()
@@ -112,5 +118,70 @@ namespace BubblesAPITests.Controllers
             Assert.NotNull(actualResult);
             Assert.Equal((int)HttpStatusCode.Unauthorized, actualResult.StatusCode);
         }
+
+        #endregion
+
+        #region ConnectNode
+
+        [Fact]
+        public async Task ShouldReturn200WhenValidRequestIsMadeForConnectNodes()
+        {
+            var request = new ConnectNodeRequest
+            {
+                Data = "{}",
+                DbName = "some-db",
+                LeftNodeId = "some-id-1",
+                RightNodeId = "some-id-2",
+                RelationshipType = "isFriendOf"
+            };
+            var relationship = new Relationship
+            {
+                Id = "some-rs-id",
+                Data = "{}",
+                LeftNodeId = "some-id-1",
+                RightNodeId = "some-id-2",
+            };
+            _nodeController.ControllerContext.HttpContext = GetUserContext();
+            _nodeService.Setup(node => node.ConnectNode(It.IsAny<ConnectNodeRequest>(),
+                    It.IsAny<string>()))
+                .ReturnsAsync(relationship);
+
+            var result = await _nodeController.ConnectNode(request);
+
+            var actualResult = result as OkObjectResult;
+            Assert.NotNull(result);
+            Assert.Equal((int)HttpStatusCode.OK, actualResult.StatusCode);
+        }
+
+        [Fact]
+        public async Task ShouldReturn401WhenInvalidUserIsPassedForConnectNodes()
+        {
+            var request = new ConnectNodeRequest
+            {
+                Data = "{}",
+                DbName = "some-db",
+                LeftNodeId = "some-id-1",
+                RightNodeId = "some-id-2",
+                RelationshipType = "isFriendOf"
+            };
+            var relationship = new Relationship
+            {
+                Id = "some-rs-id",
+                Data = "{}",
+                LeftNodeId = "some-id-1",
+                RightNodeId = "some-id-2",
+            };
+            _nodeService.Setup(node => node.ConnectNode(It.IsAny<ConnectNodeRequest>(),
+                    It.IsAny<string>()))
+                .ReturnsAsync(relationship);
+
+            var result = await _nodeController.ConnectNode(request);
+
+            var actualResult = result as UnauthorizedResult;
+            Assert.NotNull(result);
+            Assert.Equal((int)HttpStatusCode.Unauthorized, actualResult.StatusCode);
+        }
+
+        #endregion
     }
 }

@@ -57,6 +57,13 @@ namespace BubblesEngine.Controllers.Implementation
             await _fileWrapper.CreateFile(location, type.ToString());
         }
 
+        private void CreateFolderIfNotExists(string location)
+        {
+            if (!_fileWrapper.IsDirectoryExists(location))
+                _fileWrapper.CreateFolder(location);
+        }
+
+
         public async Task<string> CreateNode(string databaseName, string graphName, string type, dynamic data,
             string userId)
         {
@@ -101,15 +108,18 @@ namespace BubblesEngine.Controllers.Implementation
             dynamic data, string userId)
         {
             var dbLocation = Utils.GetDatabaseLocation(database, userId);
-            if (!_fileWrapper.IsExists(dbLocation))
+            if (!_fileWrapper.IsDirectoryExists(dbLocation))
                 throw new BubblesException(new DatabaseNotFoundException());
             var leftNodeLocation = _fileWrapper.SearchFiles(dbLocation, leftNodeId + "." + Constants.FileExtension);
             var rightNodeLocation = _fileWrapper.SearchFiles(dbLocation, rightNodeId + "." + Constants.FileExtension);
             if (string.IsNullOrEmpty(leftNodeLocation) || string.IsNullOrEmpty(rightNodeLocation))
                 throw new BubblesException(new NodeNotFoundException());
             var relationshipId = Utils.GenerateRelationshipId();
-            var relationshipLocation = Utils.GetRelationshipLocation(database, userId);
-            Relationship relationship = new Relationship
+            var relationshipFolderLocation = Utils.GetRelationshipLocation(database, userId);
+
+            CreateFolderIfNotExists(relationshipFolderLocation);
+
+            var relationship = new Relationship
             {
                 Data = data,
                 Id = relationshipId,
@@ -118,13 +128,15 @@ namespace BubblesEngine.Controllers.Implementation
                 Type = relationshipType
             };
             await _fileWrapper.CreateFile(
-                relationshipLocation + Path.DirectorySeparatorChar + relationshipId + "." + Constants.FileExtension,
+                relationshipFolderLocation + Path.DirectorySeparatorChar + relationshipId + "." +
+                Constants.FileExtension,
                 relationship.ToString());
             var relationshipTypeFolderLocation =
                 Utils.GetRelationshipLocation(database, userId) + Path.DirectorySeparatorChar +
                 Constants.TypesFolderName;
-            if (!_fileWrapper.IsExists(relationshipTypeFolderLocation))
-                _fileWrapper.CreateFolder(relationshipTypeFolderLocation);
+
+            CreateFolderIfNotExists(relationshipTypeFolderLocation);
+
             var relationshipTypeFileLocation = relationshipTypeFolderLocation + Path.DirectorySeparatorChar +
                                                relationshipType + "." + Constants.FileExtension;
             RelationshipType relationshipTypeData;

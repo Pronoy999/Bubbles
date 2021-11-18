@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace BubblesAPI.Controllers
 {
     [ApiController]
-    [Route("/node")]
     public class NodeController : ControllerBase
     {
         private readonly INodeService _nodeService;
@@ -21,6 +20,7 @@ namespace BubblesAPI.Controllers
         }
 
         [HttpPost]
+        [Route("/node")]
         [Authorize(AuthenticationSchemes = "Bearer")]
         public async Task<IActionResult> CreateNode([FromBody] CreateNodeRequest request)
         {
@@ -42,6 +42,7 @@ namespace BubblesAPI.Controllers
         }
 
         [HttpGet]
+        [Route("/node")]
         [Authorize(AuthenticationSchemes = "Bearer")]
         public async Task<IActionResult> GetNode([FromQuery] GetNodeRequest request)
         {
@@ -49,6 +50,29 @@ namespace BubblesAPI.Controllers
             if (string.IsNullOrEmpty(userId)) return Unauthorized();
             try{
                 var result = await _nodeService.GetNode(request, userId);
+                return Ok(result);
+            }
+            catch (BubblesException e){
+                Exception exception = e.InnerException switch
+                {
+                    DatabaseNotFoundException => new DatabaseNotFoundException(),
+                    GraphNotFoundException => new GraphNotFoundException(),
+                    NodeNotFoundException => new NodeNotFoundException(),
+                    _ => null
+                };
+                return exception != null ? NotFound(exception) : Problem();
+            }
+        }
+
+        [HttpPost]
+        [Route("/node/connect")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        public async Task<IActionResult> ConnectNode([FromBody] ConnectNodeRequest request)
+        {
+            var userId = Utils.GetUserId(HttpContext?.User);
+            if (string.IsNullOrEmpty(userId)) return Unauthorized();
+            try{
+                var result = await _nodeService.ConnectNode(request, userId);
                 return Ok(result);
             }
             catch (BubblesException e){

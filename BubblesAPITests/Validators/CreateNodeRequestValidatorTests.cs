@@ -6,7 +6,7 @@ namespace BubblesAPITests.Validators
 {
     public class CreateNodeRequestValidatorTests
     {
-        private CreateNodeRequestValidator _validator;
+        private readonly CreateNodeRequestValidator _validator;
 
         public CreateNodeRequestValidatorTests()
         {

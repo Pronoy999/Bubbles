@@ -1,4 +1,5 @@
 using BubblesAPI.DTOs;
+using BubblesAPI.Exceptions;
 using FluentValidation;
 
 namespace BubblesAPI.Validators
@@ -10,7 +11,8 @@ namespace BubblesAPI.Validators
             CascadeMode = CascadeMode.Stop;
             RuleFor(x => x.DbName)
                 .NotEmpty()
-                .NotNull();
+                .NotNull()
+                .WithState(_ => ErrorCodes.DbNameMissing);
         }
     }
 }
