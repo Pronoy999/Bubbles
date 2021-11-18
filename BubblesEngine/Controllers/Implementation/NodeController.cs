@@ -156,35 +156,5 @@ namespace BubblesEngine.Controllers.Implementation
             await _fileWrapper.CreateFile(relationshipTypeFileLocation, relationshipTypeData.ToString());
             return relationship;
         }
-
-        public async Task<Relationship> GetRelationship(string database, string relationshipId, string userId)
-        {
-            var dbLocation = Utils.GetDatabaseLocation(database, userId);
-            if (!_fileWrapper.IsDirectoryExists(dbLocation))
-                throw new BubblesException(new DatabaseNotFoundException());
-            
-            var relationshipFileLocation = Utils.GetRelationshipLocation(database, userId) +
-                                           Path.DirectorySeparatorChar +
-                                           relationshipId + "." + Constants.FileExtension;
-            if (!_fileWrapper.IsExists(relationshipFileLocation))
-                throw new BubblesException(new RelationshipNotFoundException());
-            
-            return JsonConvert.DeserializeObject<Relationship>(
-                await _fileWrapper.GetFileContents(relationshipFileLocation))!;
-        }
-
-        public List<string> GetAllRelationships(string database, string userId)
-        {
-            var dbLocation = Utils.GetDatabaseLocation(database, userId);
-            if (!_fileWrapper.IsDirectoryExists(dbLocation))
-                throw new BubblesException(new DatabaseNotFoundException());
-            
-            var relationshipFolderLocation =
-                dbLocation + Path.DirectorySeparatorChar + Constants.RelationshipFolderName;
-            if (!_fileWrapper.IsDirectoryExists(relationshipFolderLocation))
-                throw new BubblesException(new RelationshipNotFoundException());
-            
-            return _fileWrapper.GetDirectories(relationshipFolderLocation);
-        }
     }
 }

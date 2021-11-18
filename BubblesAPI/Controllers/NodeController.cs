@@ -86,27 +86,5 @@ namespace BubblesAPI.Controllers
                 return exception != null ? NotFound(exception) : Problem();
             }
         }
-
-        [HttpGet]
-        [Route("/node/connect")]
-        [Authorize(AuthenticationSchemes = "Bearer")]
-        public async Task<IActionResult> GetRelationship([FromQuery] GetRelationshipRequest request)
-        {
-            var userId = Utils.GetUserId(HttpContext?.User);
-            if (string.IsNullOrEmpty(userId)) return Unauthorized();
-            try{
-                var result = await _nodeService.GetRelationship(request, userId);
-                return Ok(result);
-            }
-            catch (BubblesException e){
-                Exception exception = e.InnerException switch
-                {
-                    DatabaseNotFoundException => new DatabaseNotFoundException(),
-                    RelationshipNotFoundException => new RelationshipNotFoundException(),
-                    _ => null
-                };
-                return exception != null ? NotFound(exception) : Problem();
-            }
-        }
     }
 }

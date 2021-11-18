@@ -31,10 +31,5 @@ namespace BubblesAPI.Services.Implementation
                 request.RelationshipType,
                 request.Data, userId);
         }
-
-        public async Task<Relationship> GetRelationship(GetRelationshipRequest request, string userId)
-        {
-            return await _nodeController.GetRelationship(request.DbName, request.RelationshipId, userId);
-        }
     }
 }
