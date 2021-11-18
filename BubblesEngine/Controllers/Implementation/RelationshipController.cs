@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace BubblesEngine.Controllers.Implementation
 {
-    public class RelationshipController
+    public class RelationshipController:IRelationshipController
     {
         private readonly IFileWrapper _fileWrapper;
 
