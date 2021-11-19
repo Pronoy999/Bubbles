@@ -11,6 +11,7 @@ using BubblesEngine.Controllers;
 using BubblesEngine.Controllers.Implementation;
 using BubblesEngine.Engines;
 using BubblesEngine.Engines.Implementations;
+using dotenv.net.Utilities;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -42,7 +43,7 @@ namespace BubblesAPI
             services.AddControllers(options => options.EnableEndpointRouting = false)
                 .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
             services.AddDbContext<BubblesContext>(options =>
-                options.UseMySQL(Configuration.GetConnectionString("db")));
+                options.UseMySQL(EnvReader.GetStringValue("db")));
             services.AddFluentValidation(x => { x.RegisterValidatorsFromAssemblyContaining<Startup>(); });
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
@@ -52,9 +53,9 @@ namespace BubblesAPI
                     ValidateAudience = true,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-                    ValidIssuer = Configuration["Jwt:Issuer"],
-                    ValidAudience = Configuration["Jwt:Issuer"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                    ValidIssuer = EnvReader.GetStringValue("Issuer"),
+                    ValidAudience = EnvReader.GetStringValue("Issuer"),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(EnvReader.GetStringValue("Key")))
                 };
             });
             services.AddAutoMapper(typeof(Startup));
