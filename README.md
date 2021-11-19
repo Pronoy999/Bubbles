@@ -4,7 +4,8 @@
 A light weight graph database.
 The core of a simple graph based database engine. The data is stored in memory in a graph based data structure with Node and Relationship between nodes being the main storage entites for the data. A node represents a unit of data storage while a relationship represents the semantic link between two nodes. The detailed core desgin of the database is elaborated below.
 
-![## API Documentation](https://documenter.getpostman.com/view/5329722/UVCCg4Ru)
+## API Documentation
+[Docs](https://documenter.getpostman.com/view/5329722/UVCCg4Ru)
 
 ## Core design
 <br>
