@@ -40,5 +40,26 @@ namespace BubblesAPI.Controllers
                 return exception != null ? NotFound(exception) : Problem();
             }
         }
+
+        [HttpGet("{dbName}")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        public IActionResult GetAllRelationships([FromRoute] string dbName)
+        {
+            var userId = Utils.GetUserId(HttpContext?.User);
+            if (string.IsNullOrEmpty(userId)) return Unauthorized();
+            try{
+                var result = _relationshipService.GetAllRelationships(dbName, userId);
+                return Ok(result);
+            }
+            catch (BubblesException e){
+                Exception exception = e.InnerException switch
+                {
+                    DatabaseNotFoundException => new DatabaseNotFoundException(),
+                    RelationshipNotFoundException => new RelationshipNotFoundException(),
+                    _ => null
+                };
+                return exception != null ? NotFound(exception) : Problem();
+            }
+        }
     }
 }

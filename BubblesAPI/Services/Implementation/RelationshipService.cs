@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using BubblesAPI.DTOs;
 using BubblesEngine.Controllers;
@@ -17,6 +18,11 @@ namespace BubblesAPI.Services.Implementation
         public async Task<Relationship> GetRelationship(GetRelationshipRequest request, string userId)
         {
             return await _relationshipController.GetRelationship(request.DbName, request.RelationshipId, userId);
+        }
+
+        public List<string> GetAllRelationships(string databaseName, string userId)
+        {
+            return _relationshipController.GetAllRelationships(databaseName, userId);
         }
     }
 }

@@ -69,25 +69,31 @@ namespace BubblesEngine.Tests.Controllers
         public void ShouldGetAllRelationships()
         {
             _fileWrapper.Setup(fs => fs.IsDirectoryExists(It.IsAny<string>())).Returns(true);
-            var listOfRelationship = new List<string>
+            var listOfFiles = new List<string>
+            {
+                "some-location/guid-1",
+                "some-location/guid-2"
+            };
+            var listOfRelationships = new List<string>()
             {
                 "guid-1",
                 "guid-2"
             };
-            _fileWrapper.Setup(fs => fs.GetDirectories(It.IsAny<string>())).Returns(listOfRelationship);
+            _fileWrapper.Setup(fs => fs.GetAllFiles(It.IsAny<string>())).Returns(listOfFiles);
 
             var result = _relationshipController.GetAllRelationships("some-db", "some-user-id");
 
             Assert.NotEmpty(result);
-            Assert.Equal(listOfRelationship.Count, result.Count);
-            Assert.Equal(listOfRelationship[0], result[0]);
+            Assert.Equal(listOfRelationships.Count, result.Count);
+            Assert.Equal(listOfRelationships[0], result[0]);
         }
 
         [Fact]
         public void ShouldThrowExceptionWhenDatabaseNotExists()
         {
             _fileWrapper.Setup(fs => fs.IsDirectoryExists(It.IsAny<string>())).Returns(false);
-            Assert.Throws<BubblesException>(() => _relationshipController.GetAllRelationships("some-db", "some-user-id"));
+            Assert.Throws<BubblesException>(
+                () => _relationshipController.GetAllRelationships("some-db", "some-user-id"));
         }
 
         #endregion

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using BubblesEngine.Engines;
 using BubblesEngine.Exceptions;
@@ -9,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace BubblesEngine.Controllers.Implementation
 {
-    public class RelationshipController:IRelationshipController
+    public class RelationshipController : IRelationshipController
     {
         private readonly IFileWrapper _fileWrapper;
 
@@ -45,7 +46,9 @@ namespace BubblesEngine.Controllers.Implementation
             if (!_fileWrapper.IsDirectoryExists(relationshipFolderLocation))
                 throw new BubblesException(new RelationshipNotFoundException());
 
-            return _fileWrapper.GetDirectories(relationshipFolderLocation);
+            var files = _fileWrapper.GetAllFiles(relationshipFolderLocation);
+
+            return files.Select(file => file.Substring(file.LastIndexOf(Path.DirectorySeparatorChar) + 1)).ToList();
         }
     }
 }
