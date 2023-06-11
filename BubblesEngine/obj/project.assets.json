@@ -1,51 +1,41 @@
 {
   "version": 3,
   "targets": {
-    "net5.0": {
-      "dotenv.net/3.1.0": {
+    "net6.0": {
+      "dotenv.net/3.1.2": {
         "type": "package",
-        "dependencies": {
-          "System.Memory": "4.5.4"
-        },
         "compile": {
-          "lib/net5.0/dotenv.net.dll": {}
+          "lib/netstandard2.1/dotenv.net.dll": {}
         },
         "runtime": {
-          "lib/net5.0/dotenv.net.dll": {}
+          "lib/netstandard2.1/dotenv.net.dll": {}
         }
       },
       "Newtonsoft.Json/13.0.1": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
-        }
-      },
-      "System.Memory/4.5.4": {
-        "type": "package",
-        "compile": {
-          "ref/netcoreapp2.1/_._": {}
-        },
-        "runtime": {
-          "lib/netcoreapp2.1/_._": {}
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         }
       }
     }
   },
   "libraries": {
-    "dotenv.net/3.1.0": {
-      "sha512": "GP3VMrIhd/2h47TJNDjjyGlMV78ENGp+9rmWQSfD+wKdPfS0lRuuO3/80nFQ13bXB3z5TXK/w6Ihng6TKBaOWA==",
+    "dotenv.net/3.1.2": {
+      "sha512": "lFm4hGX9JkNtAF36Uz4C3WT7MC6Ys802k0cPvlln8ydmH67GQjnToH+w645tQm1czAjW/V6tPE088lD77sYFGA==",
       "type": "package",
-      "path": "dotenv.net/3.1.0",
+      "path": "dotenv.net/3.1.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "dotenv.net.3.1.0.nupkg.sha512",
+        "dotenv.net.3.1.2.nupkg.sha512",
         "dotenv.net.nuspec",
-        "lib/net5.0-windows7.0/dotenv.net.dll",
-        "lib/net5.0/dotenv.net.dll",
         "lib/netstandard1.6/dotenv.net.dll",
         "lib/netstandard2.0/dotenv.net.dll",
         "lib/netstandard2.1/dotenv.net.dll"
@@ -77,66 +67,38 @@
         "newtonsoft.json.nuspec",
         "packageIcon.png"
       ]
-    },
-    "System.Memory/4.5.4": {
-      "sha512": "1MbJTHS1lZ4bS4FmsJjnuGJOu88ZzTT2rLvrhW7Ygic+pC0NWA+3hgAen0HRdsocuQXCkUTdFn9yHJJhsijDXw==",
-      "type": "package",
-      "path": "system.memory/4.5.4",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE.TXT",
-        "THIRD-PARTY-NOTICES.TXT",
-        "lib/net461/System.Memory.dll",
-        "lib/net461/System.Memory.xml",
-        "lib/netcoreapp2.1/_._",
-        "lib/netstandard1.1/System.Memory.dll",
-        "lib/netstandard1.1/System.Memory.xml",
-        "lib/netstandard2.0/System.Memory.dll",
-        "lib/netstandard2.0/System.Memory.xml",
-        "ref/netcoreapp2.1/_._",
-        "system.memory.4.5.4.nupkg.sha512",
-        "system.memory.nuspec",
-        "useSharedDesignerContext.txt",
-        "version.txt"
-      ]
     }
   },
   "projectFileDependencyGroups": {
-    "net5.0": [
+    "net6.0": [
       "Newtonsoft.Json >= 13.0.1",
-      "dotenv.net >= 3.1.0"
+      "dotenv.net >= 3.1.2"
     ]
   },
   "packageFolders": {
-    "/Users/pronoymukherjee/.nuget/packages/": {},
-    "/usr/local/share/dotnet/sdk/NuGetFallbackFolder": {}
+    "/Users/promukhe/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine/BubblesEngine.csproj",
+      "projectUniqueName": "/Users/promukhe/Documents/Repositories/PersonalProjects/Bubbles/BubblesEngine/BubblesEngine.csproj",
       "projectName": "BubblesEngine",
-      "projectPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine/BubblesEngine.csproj",
-      "packagesPath": "/Users/pronoymukherjee/.nuget/packages/",
-      "outputPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine/obj/",
+      "projectPath": "/Users/promukhe/Documents/Repositories/PersonalProjects/Bubbles/BubblesEngine/BubblesEngine.csproj",
+      "packagesPath": "/Users/promukhe/.nuget/packages/",
+      "outputPath": "/Users/promukhe/Documents/Repositories/PersonalProjects/Bubbles/BubblesEngine/obj/",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "/Users/pronoymukherjee/.nuget/NuGet/NuGet.Config"
+        "/Users/promukhe/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
-        "net5.0"
+        "net6.0"
       ],
       "sources": {
-        "https://api.nuget.org/v3/index.json": {},
-        "https://proget.rxweb-tools.com/nuget/Default": {}
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net5.0": {
-          "targetAlias": "net5.0",
+        "net6.0": {
+          "targetAlias": "net6.0",
           "projectReferences": {}
         }
       },
@@ -147,8 +109,8 @@
       }
     },
     "frameworks": {
-      "net5.0": {
-        "targetAlias": "net5.0",
+      "net6.0": {
+        "targetAlias": "net6.0",
         "dependencies": {
           "Newtonsoft.Json": {
             "target": "Package",
@@ -156,7 +118,7 @@
           },
           "dotenv.net": {
             "target": "Package",
-            "version": "[3.1.0, )"
+            "version": "[3.1.2, )"
           }
         },
         "imports": [
@@ -165,7 +127,8 @@
           "net47",
           "net471",
           "net472",
-          "net48"
+          "net48",
+          "net481"
         ],
         "assetTargetFallback": true,
         "warn": true,
@@ -174,7 +137,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.401/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/6.0.407/RuntimeIdentifierGraph.json"
       }
     }
   }

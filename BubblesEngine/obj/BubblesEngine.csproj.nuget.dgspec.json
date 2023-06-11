@@ -1,34 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine/BubblesEngine.csproj": {}
+    "/Users/promukhe/Documents/Repositories/PersonalProjects/Bubbles/BubblesEngine/BubblesEngine.csproj": {}
   },
   "projects": {
-    "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine/BubblesEngine.csproj": {
+    "/Users/promukhe/Documents/Repositories/PersonalProjects/Bubbles/BubblesEngine/BubblesEngine.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine/BubblesEngine.csproj",
+        "projectUniqueName": "/Users/promukhe/Documents/Repositories/PersonalProjects/Bubbles/BubblesEngine/BubblesEngine.csproj",
         "projectName": "BubblesEngine",
-        "projectPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine/BubblesEngine.csproj",
-        "packagesPath": "/Users/pronoymukherjee/.nuget/packages/",
-        "outputPath": "/Users/pronoymukherjee/Documents/Repositories/Bubbles/BubblesEngine/obj/",
+        "projectPath": "/Users/promukhe/Documents/Repositories/PersonalProjects/Bubbles/BubblesEngine/BubblesEngine.csproj",
+        "packagesPath": "/Users/promukhe/.nuget/packages/",
+        "outputPath": "/Users/promukhe/Documents/Repositories/PersonalProjects/Bubbles/BubblesEngine/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "/Users/pronoymukherjee/.nuget/NuGet/NuGet.Config"
+          "/Users/promukhe/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "net5.0"
+          "net6.0"
         ],
         "sources": {
-          "https://api.nuget.org/v3/index.json": {},
-          "https://proget.rxweb-tools.com/nuget/Default": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net5.0": {
-            "targetAlias": "net5.0",
+          "net6.0": {
+            "targetAlias": "net6.0",
             "projectReferences": {}
           }
         },
@@ -39,8 +35,8 @@
         }
       },
       "frameworks": {
-        "net5.0": {
-          "targetAlias": "net5.0",
+        "net6.0": {
+          "targetAlias": "net6.0",
           "dependencies": {
             "Newtonsoft.Json": {
               "target": "Package",
@@ -48,7 +44,7 @@
             },
             "dotenv.net": {
               "target": "Package",
-              "version": "[3.1.0, )"
+              "version": "[3.1.2, )"
             }
           },
           "imports": [
@@ -57,7 +53,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -66,7 +63,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.401/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/6.0.407/RuntimeIdentifierGraph.json"
         }
       }
     }
